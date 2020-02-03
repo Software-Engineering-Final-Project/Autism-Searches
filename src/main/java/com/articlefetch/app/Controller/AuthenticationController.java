@@ -1,4 +1,4 @@
-package Controller;
+package com.articlefetch.app.Controller;
 
 public class AuthenticationController {
 
