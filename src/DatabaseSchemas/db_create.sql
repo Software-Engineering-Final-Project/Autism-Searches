@@ -37,7 +37,6 @@ CREATE TABLE IF NOT EXISTS `article_db`.`starred_articles` (
   `id_stared_articles` INT NOT NULL AUTO_INCREMENT,
   `article_name` VARCHAR(60) NOT NULL,
   `article_authors` VARCHAR(256) NOT NULL,
-  `stared_articlescol` VARCHAR(45) NOT NULL,
   `article_site` VARCHAR(45) NOT NULL,
   `fk_account_id` INT NOT NULL,
   PRIMARY KEY (`id_stared_articles`),
