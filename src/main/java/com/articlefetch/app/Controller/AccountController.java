@@ -8,11 +8,13 @@ public class AccountController {
 
     // This is a test endpoint
     @GetMapping("/test")
-    public String dummy() {
-        return "Hello World";
+    public Test dummy() {
+        return new Test();
     }
 
 
-
+    private static class Test {
+        public final String msg = "Hello from spring! :-)";
+    }
 
 }
