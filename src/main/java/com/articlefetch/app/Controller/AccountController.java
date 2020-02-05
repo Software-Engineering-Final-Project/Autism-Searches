@@ -12,6 +12,9 @@ public class AccountController {
         return new Test();
     }
 
+    @GetMapping("/createAccount")
+    public 
+
 
     private static class Test {
         public final String msg = "Hello from spring! :-)";

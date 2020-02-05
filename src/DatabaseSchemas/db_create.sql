@@ -5,24 +5,25 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema articledb
+-- Schema article_db
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema articledb
+-- Schema article_db
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `articledb` DEFAULT CHARACTER SET utf8 ;
-USE `articledb` ;
+CREATE SCHEMA IF NOT EXISTS `article_db` DEFAULT CHARACTER SET utf8 ;
+USE `article_db` ;
 
 -- -----------------------------------------------------
--- Table `articledb`.`accounts`
+-- Table `article_db`.`accounts`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `articledb`.`accounts` (
+CREATE TABLE IF NOT EXISTS `article_db`.`accounts` (
   `id_account` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(166) NOT NULL,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
+  `status` TINYINT(1) NOT NULL,
   PRIMARY KEY (`id_account`),
   UNIQUE INDEX `idaccounts_UNIQUE` (`id_account` ASC) VISIBLE,
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE)
@@ -30,9 +31,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `articledb`.`stared_articles`
+-- Table `article_db`.`starred_articles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `articledb`.`stared_articles` (
+CREATE TABLE IF NOT EXISTS `article_db`.`starred_articles` (
   `id_stared_articles` INT NOT NULL AUTO_INCREMENT,
   `article_name` VARCHAR(60) NOT NULL,
   `article_authors` VARCHAR(256) NOT NULL,
@@ -43,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `articledb`.`stared_articles` (
   INDEX `fk_account_id_idx` (`fk_account_id` ASC) VISIBLE,
   CONSTRAINT `fk_account_id`
     FOREIGN KEY (`fk_account_id`)
-    REFERENCES `articledb`.`accounts` (`id_account`)
+    REFERENCES `article_db`.`accounts` (`id_account`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
