@@ -1,19 +1,17 @@
 package com.articlefetch.app.DataAccess.ModelDomain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * This class creates a entry model for Hibernate so it can mapped to the account table in mysql
  */
 @Entity
+@Table(name = "Accounts")
 public class AccountEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer account_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_account;
 
     private String username;
 
@@ -30,7 +28,7 @@ public class AccountEntity {
     @Override
     public String toString() {
         return "AccountEntity{" +
-                "account_id=" + account_id +
+                "account_id=" + id_account +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", first_name='" + first_name + '\'' +
@@ -41,7 +39,7 @@ public class AccountEntity {
     }
 
     public Integer getAccount_id(){
-        return this.account_id;
+        return this.id_account;
     }
 
     public String getUsername(){
