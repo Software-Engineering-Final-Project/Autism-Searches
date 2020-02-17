@@ -1,13 +1,101 @@
-use recdb;
+-- MySQL Workbench Forward Engineering
 
-# password 
-INSERT INTO accounts(username, password) VALUES('joshua', '1000:7eb6ed9fb2bc521a7b135d7123c107d5:ce8cdff2d05d94667b7b9a202c7a4b2320b71dff06031ec15e7f920ad5165857733bf0da99718545e6c5d0619c2c49c46d630a0a92532e5a38bf0733070482e6');
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-# password1
-INSERT INTO accounts(username, password) VALUES('sach', '1000:81d09373597a89f4694a24956efeb62e:241df6c9cc0323c917aaa055f0f42edc977d2075bb254fd2b07e4020749837f4d8c8371e547ca16fdabcbf30a1f798dc77f13bd45c1c7559df4309c7a359e0e1');
+-- -----------------------------------------------------
+-- Schema article_db
+-- -----------------------------------------------------
 
-# password2
-INSERT INTO accounts(username, password) VALUES('jermey', '1000:5656f559f928e6977407913509d7efdd:45f0dd2ae8250cde8c28a67e527f6635ef7c676939803511afb98292f119802552eec61b0d5077d3e4b72e333699af6191dfad74fdfae2f5ce27731c6cfe35df');
+-- -----------------------------------------------------
+-- Schema article_db
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `article_db` DEFAULT CHARACTER SET utf8 ;
+USE `article_db` ;
 
-#password3
-INSERT INTO accounts(username, password) VALUES('melk', '1000:383610e4b475d453a23d3ffca97d4f8d:1e7f534218a8793d8565b080d1cef10800892f529976ad64601b6912c1cb527b9f816415fe6f16b4aebcd02e256294512e8623cdde4336d825eac298eaf26176');
+-- -----------------------------------------------------
+-- Table `article_db`.`accounts`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `article_db`.`accounts` (
+  `id_account` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(166) NOT NULL,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `status` TINYINT(1) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_account`),
+  UNIQUE INDEX `idaccounts_UNIQUE` (`id_account` ASC) VISIBLE,
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `article_db`.`categories`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `article_db`.`categories` (
+  `id_categories` INT NOT NULL AUTO_INCREMENT,
+  `category_name` VARCHAR(45) NOT NULL,
+  `category_description` VARCHAR(256) NOT NULL,
+  PRIMARY KEY (`id_categories`),
+  UNIQUE INDEX `id_categories_UNIQUE` (`id_categories` ASC) VISIBLE,
+  UNIQUE INDEX `category_name_UNIQUE` (`category_name` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `article_db`.`starred_articles`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `article_db`.`starred_articles` (
+  `id_stared_articles` INT NOT NULL AUTO_INCREMENT,
+  `article_name` VARCHAR(60) NOT NULL,
+  `article_authors` VARCHAR(256) NOT NULL,
+  `article_site` VARCHAR(45) NOT NULL,
+  `fk_account_id` INT NOT NULL,
+  `fk_categories_id` INT NOT NULL,
+  PRIMARY KEY (`id_stared_articles`),
+  INDEX `fk_account_id_idx` (`fk_account_id` ASC) VISIBLE,
+  INDEX `fk_categories_id_idx` (`fk_categories_id` ASC) VISIBLE,
+  CONSTRAINT `fk_account_id`
+    FOREIGN KEY (`fk_account_id`)
+    REFERENCES `article_db`.`accounts` (`id_account`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_categories_id`
+    FOREIGN KEY (`fk_categories_id`)
+    REFERENCES `article_db`.`categories` (`id_categories`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `article_db`.`starred_categories`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `article_db`.`starred_categories` (
+  `id_starred_categories` INT NOT NULL AUTO_INCREMENT,
+  `category_name` VARCHAR(45) NOT NULL,
+  `fk_account_id` INT NOT NULL,
+  `fk_categories_id` INT NOT NULL,
+  PRIMARY KEY (`id_starred_categories`, `fk_categories_id`),
+  UNIQUE INDEX `id_starred_categories_UNIQUE` (`id_starred_categories` ASC) VISIBLE,
+  UNIQUE INDEX `category_name_UNIQUE` (`category_name` ASC) VISIBLE,
+  INDEX `fk_starred_categories_categories1_idx` (`fk_categories_id` ASC) VISIBLE,
+  CONSTRAINT `fk_accountid`
+    FOREIGN KEY (`fk_account_id`)
+    REFERENCES `article_db`.`accounts` (`id_account`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_starred_categories_categories1`
+    FOREIGN KEY (`fk_categories_id`)
+    REFERENCES `article_db`.`categories` (`id_categories`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
