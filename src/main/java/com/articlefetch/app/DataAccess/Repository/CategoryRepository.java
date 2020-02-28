@@ -1,6 +1,6 @@
 package com.articlefetch.app.DataAccess.Repository;
 
-import com.articlefetch.app.DataAccess.ModelDomain.ArticleEntity;
+import com.articlefetch.app.DataAccess.ModelDomain.CategoryEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +10,5 @@ import org.springframework.stereotype.Repository;
  *   allows Spring Data to create a Spring Bean.
  */
 @Repository
-public interface ArticleRepository extends CrudRepository<ArticleEntity, Integer> {
-
+public interface CategoryRepository extends CrudRepository<CategoryEntity, Integer> {
 }

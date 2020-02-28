@@ -83,6 +83,18 @@ public class AccountServiceImpl implements AccountService {
     }
 
 
+
+    @Override
+    public AccountStatus updateAccount(String username) {
+        return null;
+    }
+
+    @Override
+    public AccountStatus updateAccount(Integer id) {
+        return null;
+    }
+
+
     // Throws a HibernateException if there already exists an account with the given username or password
     private void findExistingAccountConflicts(String username, String password) {
         List<AccountEntity> list = accountRepository.findExistingConflicts(username, password);

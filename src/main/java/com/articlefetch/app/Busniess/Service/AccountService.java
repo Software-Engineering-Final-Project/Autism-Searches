@@ -13,5 +13,7 @@ public interface AccountService {
     public List<Account> getAllAccounts();
     public AccountStatus deactivateAccount(String username);
     public AccountStatus reactivateAccount(String username);
+    public AccountStatus updateAccount(String username);
+    public AccountStatus updateAccount(Integer id);
 
 }

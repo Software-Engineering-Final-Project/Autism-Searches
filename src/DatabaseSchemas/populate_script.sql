@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `article_db`.`accounts` (
   `last_name` VARCHAR(45) NOT NULL,
   `status` TINYINT(1) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
+  `path` VARCHAR(256) NULL,
   PRIMARY KEY (`id_account`),
   UNIQUE INDEX `idaccounts_UNIQUE` (`id_account` ASC) VISIBLE,
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,

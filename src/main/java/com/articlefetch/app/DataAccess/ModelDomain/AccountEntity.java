@@ -25,6 +25,8 @@ public class AccountEntity {
 
     private Integer status;
 
+    private String path;
+
     @Override
     public String toString() {
         return "AccountEntity{" +
@@ -88,5 +90,13 @@ public class AccountEntity {
 
     public void setStatus(boolean status){
         this.status = status ? 1 : 0;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }

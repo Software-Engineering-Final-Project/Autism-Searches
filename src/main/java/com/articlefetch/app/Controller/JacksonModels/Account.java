@@ -2,11 +2,13 @@ package com.articlefetch.app.Controller.JacksonModels;
 
 public class Account {
 
+    public Integer id;
     public String username;
     public String password;
     public String first_name;
     public String last_name;
     public String email;
+    public String path;
     public boolean status;
 
     public Account(String username, String password, String first_name, String last_name, String email) {
@@ -71,5 +73,21 @@ public class Account {
 
     public void setStatus(boolean bool){
         this.status = bool;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }
