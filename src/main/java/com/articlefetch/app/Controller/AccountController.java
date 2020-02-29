@@ -4,6 +4,8 @@ import com.articlefetch.app.Busniess.Service.AccountService;
 import com.articlefetch.app.Controller.JacksonModels.Account;
 import com.articlefetch.app.Controller.JacksonModels.AccountStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,24 +26,26 @@ public class AccountController {
     }
 
     @GetMapping("/getAccount")
-    public Account getAccount(Integer key){
-        return accountService.getAccount(key);
+    public Account getAccount( @RequestParam(value = "id", required = true) Integer id){
+        return accountService.getAccount(id);
     }
 
     @PutMapping("/create")
-    public AccountStatus createAccount(@RequestBody Account account) {
-        return accountService.createAccount(account);
+    public ResponseEntity<String> createAccount(@RequestBody Account account) {
+        accountService.createAccount(account);
+        return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
 
     @PutMapping("/reactivate")
-    public AccountStatus reactivateAccount(String username){
-        return accountService.reactivateAccount(username);
+    public ResponseEntity<String> reactivateAccount(@RequestParam(value = "id", required = true) Integer id) {
+        accountService.reactivateAccount(id);
+        return new ResponseEntity<>("Success", HttpStatus.ACCEPTED);
     }
 
     @PutMapping("/deactivate")
-    public AccountStatus deactivateAccount(String username) {
-        return accountService.deactivateAccount(username);
-
+    public  ResponseEntity<String> deactivateAccount(@RequestParam(value = "id", required = true) Integer id) {
+        accountService.deactivateAccount(id);
+        return new ResponseEntity<>("Success", HttpStatus.ACCEPTED);
     }
 
 }

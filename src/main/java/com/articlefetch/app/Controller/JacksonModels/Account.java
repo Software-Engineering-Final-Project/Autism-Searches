@@ -11,20 +11,16 @@ public class Account {
     public String path;
     public boolean status;
 
-    public Account(String username, String password, String first_name, String last_name, String email) {
+    public Account(String username, String password, String first_name, String last_name, String email, Integer id,
+                   String path, boolean status) {
         this.email = email;
         this.first_name = first_name;
         this.last_name = last_name;
         this.password = password;
         this.username = username;
-    }
-
-    public Account() {
-        this.email = null;
-        this.first_name = null;
-        this.last_name = null;
-        this.password = null;
-        this.username = null;
+        this.id = id;
+        this.path = path;
+        this.status = status;
     }
 
     public String getUsername() {

@@ -1,6 +1,7 @@
 package com.articlefetch.app.Busniess.Service;
 
-import com.articlefetch.app.Common.T;
+import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
+import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
 import com.articlefetch.app.Controller.JacksonModels.AccountStatus;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
@@ -9,6 +10,7 @@ import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.GenericDeclaration;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -17,106 +19,72 @@ import java.util.stream.Stream;
  * This class is responsible for interfacing Hibernate data retrieval API for AccountEntity
  */
 @Service
-public class AccountServiceImpl implements AccountService {
+public class AccountServiceImpl implements AccountService, Conversion<AccountEntity, Account> {
 
     @Autowired AccountRepository accountRepository;
 
     @Override
-    public AccountStatus createAccount(Account account) {
-        try {
-            findExistingAccountConflicts(account.username, account.password);
-            accountRepository.save(createNewAccountEntry(account));
-            return new AccountStatus().accountQuerySuccess();
-        } catch (HibernateException e){
-            return new AccountStatus().accountFailed(e);
+    public void createAccount(Account account) {
+        // Check if an account exists
+        if(!accountRepository.findExistingConflicts(account.username, account.password).isEmpty()) {
+            throw new DuplicateEntryException();
         }
+        accountRepository.save(convertToDAO(account));
     }
 
     @Override
     public Account getAccount(Integer account_id) {
-        try {
-            AccountEntity account =  accountRepository.findById(account_id).orElseThrow(
-                    () -> new AccountNotFoundException("No account exists with the given id")
-            );
-            return toJacksonAccountObject(account);
-        } catch (Exception e){
-            //TODO: HANDEL ERROR
-            return new Account();
-        }
+         return convertToJackson( accountRepository.findById(account_id)
+                 .orElseThrow(() -> new AccountNotFoundException(account_id)));
     }
 
+    //TODO: UPDATE
     @Override
     public List<Account> getAllAccounts() {
        List<AccountEntity> list = (List<AccountEntity>) accountRepository.findAll();
-       Stream<Account> stream = list.stream().map( (account) -> toJacksonAccountObject(account));
+       Stream<Account> stream = list.stream().map( (account) -> convertToJackson(account));
        return stream.collect(Collectors.toList());
     }
 
     @Override
-    public AccountStatus deactivateAccount(String username) {
-        try{
-            AccountEntity currentAccount = accountRepository.findByUsername(username).orElseThrow(
-                    () -> new AccountNotFoundException("No account exists with the given id")
-            );
-            currentAccount.setStatus(false);
-            accountRepository.save(currentAccount);
-            return new AccountStatus().accountQuerySuccess();
-        } catch (AccountNotFoundException e){
-            return new AccountStatus().accountFailed(e);
-        }
-
-
+    public void deactivateAccount(Integer id) {
+        AccountEntity currentAccount = accountRepository.findById(id).orElseThrow(
+                () -> new AccountNotFoundException(id));
+        currentAccount.setStatus(false);
+        accountRepository.save(currentAccount);
     }
 
     @Override
-    public AccountStatus reactivateAccount(String username) {
-        try {
-            AccountEntity currentAccount = accountRepository.findByUsername(username).orElseThrow(
-                    () -> new AccountNotFoundException("No account exists with the given id")
-            );
-            currentAccount.setStatus(true);
-            accountRepository.save(currentAccount);
-            return new AccountStatus().accountQuerySuccess();
-        } catch (AccountNotFoundException e){
-            return new AccountStatus().accountFailed(e);
-        }
+    public void reactivateAccount(Integer id) {
+        AccountEntity currentAccount = accountRepository.findById(id).orElseThrow(
+                () -> new AccountNotFoundException(id));
+        currentAccount.setStatus(true);
+        accountRepository.save(currentAccount);
     }
 
 
 
     @Override
-    public AccountStatus updateAccount(String username) {
+    public Account updateAccount(Integer id, Account account) {
         return null;
     }
 
     @Override
-    public AccountStatus updateAccount(Integer id) {
-        return null;
-    }
-
-
-    // Throws a HibernateException if there already exists an account with the given username or password
-    private void findExistingAccountConflicts(String username, String password) {
-        List<AccountEntity> list = accountRepository.findExistingConflicts(username, password);
-        if(list != null)
-            throw new HibernateException("Either the username or password is already taken");
-    }
-
-
-    // Converts a AccountEntity to a Jackson Account Object
-    private Account toJacksonAccountObject(AccountEntity a){
-        return new Account(a.getUsername(), a.getPassword(), a.getFirst_name(), a.getLast_name(), a.getEmail());
-    }
-
-    // Converts a Jackson Account object to a Hibernate Account Object
-    private AccountEntity createNewAccountEntry(Account account) {
+    public AccountEntity convertToDAO(Account obj) {
         AccountEntity entity = new AccountEntity();
-        entity.setFirst_name(account.first_name);
-        entity.setLast_name(account.last_name);
-        entity.setUsername(account.username);
-        entity.setPassword(account.password);
-        entity.setEmail(account.email);
-        entity.setStatus(true);
+        entity.setUsername(obj.username);
+        entity.setPassword(obj.password);
+        entity.setFirst_name(obj.first_name);
+        entity.setLast_name(obj.last_name);
+        entity.setStatus(obj.status);
+        entity.setEmail(obj.email);
+        entity.setPath(obj.path);
         return entity;
+    }
+
+    @Override
+    public Account convertToJackson(AccountEntity obj) {
+        return new Account(obj.getUsername(), obj.getPassword(), obj.getFirst_name(), obj.getLast_name(),
+                obj.getEmail(),obj.getAccount_id(), obj.getPath(), obj.getStatus());
     }
 }

@@ -1,12 +1,14 @@
 package com.articlefetch.app.DataAccess.ModelDomain;
 
+import com.articlefetch.app.Controller.JacksonModels.Account;
+
 import javax.persistence.*;
 
 /**
  * This class creates a entry model for Hibernate so it can mapped to the account table in mysql
  */
 @Entity
-@Table(name = "Accounts")
+@Table(name = "accounts")
 public class AccountEntity {
 
     @Id
@@ -30,13 +32,14 @@ public class AccountEntity {
     @Override
     public String toString() {
         return "AccountEntity{" +
-                "account_id=" + id_account +
+                "id_account=" + id_account +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
                 ", status=" + status +
+                ", path='" + path + '\'' +
                 '}';
     }
 
@@ -99,4 +102,5 @@ public class AccountEntity {
     public void setPath(String path) {
         this.path = path;
     }
+
 }

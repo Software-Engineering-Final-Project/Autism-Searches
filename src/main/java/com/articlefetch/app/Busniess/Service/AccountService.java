@@ -8,12 +8,11 @@ import java.util.List;
 
 public interface AccountService {
 
-    public AccountStatus createAccount(Account account);
+    public void createAccount(Account account);
     public Account getAccount(Integer account_id);
     public List<Account> getAllAccounts();
-    public AccountStatus deactivateAccount(String username);
-    public AccountStatus reactivateAccount(String username);
-    public AccountStatus updateAccount(String username);
-    public AccountStatus updateAccount(Integer id);
+    public void deactivateAccount(Integer id);
+    public void reactivateAccount(Integer id);
+    public Account updateAccount(Integer id, Account account);
 
 }
