@@ -33,9 +33,12 @@ public class AccountServiceImpl implements AccountService, Conversion<AccountEnt
     }
 
     @Override
-    public Account getAccount(Integer account_id) {
+    public Account getAccount(Integer account_id) throws AccountNotFoundException {
          return convertToJackson( accountRepository.findById(account_id)
-                 .orElseThrow(() -> new AccountNotFoundException(account_id)));
+                 .orElseThrow(() -> {
+                     System.out.println("Here");
+                     return new AccountNotFoundException(account_id);
+                 }));
     }
 
     //TODO: UPDATE
@@ -48,10 +51,14 @@ public class AccountServiceImpl implements AccountService, Conversion<AccountEnt
 
     @Override
     public void deactivateAccount(Integer id) {
+        accountRepository.setAccountStatus(0, id).orElseThrow(
+                () -> new AccountNotFoundException(id));
+        /*
         AccountEntity currentAccount = accountRepository.findById(id).orElseThrow(
                 () -> new AccountNotFoundException(id));
         currentAccount.setStatus(false);
         accountRepository.save(currentAccount);
+        */
     }
 
     @Override
