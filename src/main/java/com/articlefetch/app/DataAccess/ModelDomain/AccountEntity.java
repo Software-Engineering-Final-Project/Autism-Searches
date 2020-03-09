@@ -1,6 +1,7 @@
 package com.articlefetch.app.DataAccess.ModelDomain;
 
-import com.articlefetch.app.Controller.JacksonModels.Account;
+import com.articlefetch.app.Busniess.DTO.AccountDTO;
+import com.articlefetch.app.Busniess.DTO.DTO;
 
 import javax.persistence.*;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "accounts")
-public class AccountEntity {
+public class AccountEntity implements EntityConvert {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -117,5 +118,11 @@ public class AccountEntity {
 
     public void setId_account(Integer id_account) {
         this.id_account = id_account;
+    }
+
+    @Override
+    public DTO entityConvert() {
+        return new AccountDTO(username, password, first_name, last_name, email, id_account, path, this.getStatus());
+
     }
 }

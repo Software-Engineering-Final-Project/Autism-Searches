@@ -1,5 +1,6 @@
 package com.articlefetch.app.Busniess.Service;
 
+import com.articlefetch.app.Busniess.DTO.AccountDTO;
 import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
 import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
@@ -19,17 +20,17 @@ import java.util.stream.Stream;
  * This class is responsible for interfacing Hibernate data retrieval API for AccountEntity
  */
 @Service
-public class AccountServiceImpl implements AccountService, Conversion<AccountEntity, Account> {
+public class AccountServiceImpl implements AccountService {
 
     @Autowired AccountRepository accountRepository;
 
     @Override
-    public void createAccount(Account account) {
+    public void createAccount(AccountDTO account) {
         // Check if an account exists
         if(!accountRepository.findExistingConflicts(account.username, account.password).isEmpty()) {
             throw new DuplicateEntryException();
         }
-        accountRepository.save(convertToDAO(account));
+        accountRepository.save(account.convertToDTO());
     }
 
     @Override
@@ -76,22 +77,3 @@ public class AccountServiceImpl implements AccountService, Conversion<AccountEnt
         return null;
     }
 
-    @Override
-    public AccountEntity convertToDAO(Account obj) {
-        AccountEntity entity = new AccountEntity();
-        entity.setUsername(obj.username);
-        entity.setPassword(obj.password);
-        entity.setFirst_name(obj.first_name);
-        entity.setLast_name(obj.last_name);
-        entity.setStatus(obj.status);
-        entity.setEmail(obj.email);
-        entity.setPath(obj.path);
-        return entity;
-    }
-
-    @Override
-    public Account convertToJackson(AccountEntity obj) {
-        return new Account(obj.getUsername(), obj.getPassword(), obj.getFirst_name(), obj.getLast_name(),
-                obj.getEmail(),obj.getAccount_id(), obj.getPath(), obj.getStatus());
-    }
-}

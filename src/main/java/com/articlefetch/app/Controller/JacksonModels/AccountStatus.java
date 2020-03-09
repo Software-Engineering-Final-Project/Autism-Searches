@@ -1,9 +1,10 @@
 package com.articlefetch.app.Controller.JacksonModels;
 
+import com.articlefetch.app.Busniess.DTO.DTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-public class AccountStatus{
+public class AccountStatus implements JacksonConversion{
 
     public String message;
 
@@ -22,5 +23,10 @@ public class AccountStatus{
 
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    public DTO convert(JacksonConversion j) {
+        return null;
     }
 }

@@ -1,11 +1,14 @@
 package com.articlefetch.app.DataAccess.ModelDomain;
 
 
+import com.articlefetch.app.Busniess.DTO.AccountDTO;
+import com.articlefetch.app.Busniess.DTO.DTO;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Categories")
-public class CategoryEntity {
+public class CategoryEntity implements EntityConvert{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,4 +36,9 @@ public class CategoryEntity {
     public String getDescription(){ return category_description;}
 
     public void setDescription(String desc){ category_description = desc;}
+
+    @Override
+    public DTO entityConvert() {
+        return null;
+    }
 }
