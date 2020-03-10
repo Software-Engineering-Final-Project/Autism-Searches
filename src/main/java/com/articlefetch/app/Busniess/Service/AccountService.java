@@ -3,6 +3,8 @@ package com.articlefetch.app.Busniess.Service;
 import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
 import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
+import com.articlefetch.app.Controller.JacksonModels.AccountStatus;
+import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
 
 import java.util.List;
 
