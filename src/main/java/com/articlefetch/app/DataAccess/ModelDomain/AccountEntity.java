@@ -103,4 +103,10 @@ public class AccountEntity {
         this.path = path;
     }
 
+<<<<<<< HEAD
+=======
+    public void setId_account(Integer id_account) {
+        this.id_account = id_account;
+    }
+>>>>>>> parent of 506685c... not fully working
 }
