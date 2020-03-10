@@ -1,7 +1,6 @@
 package com.articlefetch.app.DataAccess.Repository;
 
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -18,10 +17,6 @@ public interface AccountRepository extends CrudRepository<AccountEntity, Integer
 
     @Query("SELECT s FROM AccountEntity s WHERE username = ?1 OR email = ?2")
     List<AccountEntity> findExistingConflicts(String username, String password);
-
-    @Modifying
-    @Query(value = "UPDATE Account SET status = ? WHERE account_id = ?", nativeQuery = true)
-    Optional<Integer> setAccountStatus(Integer status, Integer id);
 
     Optional<AccountEntity> findByUsername(String username);
 }

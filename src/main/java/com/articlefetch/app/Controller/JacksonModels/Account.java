@@ -1,9 +1,6 @@
 package com.articlefetch.app.Controller.JacksonModels;
 
-import com.articlefetch.app.Busniess.DTO.AccountDTO;
-import com.articlefetch.app.Busniess.DTO.DTO;
-
-public class Account implements JacksonObject {
+public class Account {
 
     public Integer id;
     public String username;
@@ -88,10 +85,5 @@ public class Account implements JacksonObject {
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    @Override
-    public DTO convert(JacksonObject j) {
-        return new AccountDTO(username, password, first_name, last_name, email, id, path, status);
     }
 }

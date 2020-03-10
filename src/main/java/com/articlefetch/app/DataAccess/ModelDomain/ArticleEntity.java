@@ -1,14 +1,13 @@
 package com.articlefetch.app.DataAccess.ModelDomain;
 
-import com.articlefetch.app.Busniess.DTO.DTO;
-
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 
-@javax.persistence.Entity
-public class ArticleEntity implements Entity {
+@Entity
+public class ArticleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -80,8 +79,4 @@ public class ArticleEntity implements Entity {
     public void setFK_account_id() { this.fk_account_id = fk_account_id; }
 
 
-    @Override
-    public DTO entityConvert() {
-        return null;
-    }
 }
