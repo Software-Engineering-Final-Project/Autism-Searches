@@ -2,7 +2,6 @@ package com.articlefetch.app.Controller;
 
 import com.articlefetch.app.Busniess.Service.AccountService;
 import com.articlefetch.app.Controller.JacksonModels.Account;
-import com.articlefetch.app.Controller.JacksonModels.AccountStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

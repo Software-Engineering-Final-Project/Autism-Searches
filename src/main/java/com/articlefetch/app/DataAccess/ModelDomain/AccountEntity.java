@@ -1,15 +1,16 @@
 package com.articlefetch.app.DataAccess.ModelDomain;
 
-import com.articlefetch.app.Controller.JacksonModels.Account;
+import com.articlefetch.app.Busniess.DTO.AccountDTO;
+import com.articlefetch.app.Busniess.DTO.DTO;
 
 import javax.persistence.*;
 
 /**
  * This class creates a entry model for Hibernate so it can mapped to the account table in mysql
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "accounts")
-public class AccountEntity {
+public class AccountEntity extends Entity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +42,18 @@ public class AccountEntity {
                 ", status=" + status +
                 ", path='" + path + '\'' +
                 '}';
+    }
+
+    public AccountEntity create(Integer id, String first_name, String last_name, String username, String password, String email,
+                       boolean status) {
+        this.id_account = id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.status = status ? 1 : 0;
+        return this;
     }
 
     public Integer getAccount_id(){
@@ -103,4 +116,13 @@ public class AccountEntity {
         this.path = path;
     }
 
+    public void setId_account(Integer id_account) {
+        this.id_account = id_account;
+    }
+
+    @Override
+    public DTO entityConvert() {
+        return new AccountDTO(username, password, first_name, last_name, email, id_account, path, this.getStatus());
+
+    }
 }
