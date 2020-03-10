@@ -26,9 +26,11 @@ public class CategoryEntity {
 
     public Integer getId(){ return id_categories;}
 
-    public String getCategories(){ return category_name;}
+    public void setId(Integer id){this.id_categories = id;}
 
-    public void setCategory(String cat){ category_name = cat;}
+    public String getCategoryName(){ return category_name;}
+
+    public void setCategoryName(String cat){ category_name = cat;}
 
     public String getDescription(){ return category_description;}
 
