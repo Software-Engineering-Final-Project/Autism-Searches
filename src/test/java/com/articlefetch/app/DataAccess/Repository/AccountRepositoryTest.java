@@ -1,29 +1,29 @@
 package com.articlefetch.app.DataAccess.Repository;
 
 import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
-import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
 class AccountRepositoryTest {
 
     @Mock
     AccountRepository accountDAO;
 
+    @BeforeClass
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     void findByID() {

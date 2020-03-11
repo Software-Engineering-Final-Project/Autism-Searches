@@ -4,12 +4,11 @@ import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
 import com.articlefetch.app.DataAccess.Repository.AccountRepository;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
 class AccountServiceTest {
 
     @InjectMocks
@@ -28,10 +26,14 @@ class AccountServiceTest {
     @Mock
     AccountRepository repository;
 
+    @BeforeClass
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+    }
 
      @Test
      void createAccount() {
-         Account newAccount = new Account("jschappe", "password", "Joshua",
+         Account newAccount = new Account("jschappel", "password", "Joshua",
                  "Schappel", "j@shu.edu", null, null, true);
 
          accountService.createAccount(newAccount);
