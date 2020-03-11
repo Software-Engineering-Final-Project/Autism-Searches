@@ -23,6 +23,7 @@ public class Account {
         this.status = status;
     }
 
+
     public String getUsername() {
         return username;
     }

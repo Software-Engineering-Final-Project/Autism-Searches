@@ -43,6 +43,18 @@ public class AccountEntity {
                 '}';
     }
 
+    public AccountEntity create(Integer id, String first_name, String last_name, String username, String password, String email,
+                                boolean status) {
+        this.id_account = id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.status = status ? 1 : 0;
+        return this;
+    }
+
     public Integer getAccount_id(){
         return this.id_account;
     }

@@ -24,7 +24,7 @@ public class AccountServiceImpl implements AccountService, Conversion<AccountEnt
     @Autowired AccountRepository accountRepository;
 
     @Override
-    public void createAccount(Account account) {
+    public void createAccount(Account account) throws DuplicateEntryException {
         // Check if an account exists
         if(!accountRepository.findExistingConflicts(account.username, account.password).isEmpty()) {
             throw new DuplicateEntryException();
@@ -33,12 +33,12 @@ public class AccountServiceImpl implements AccountService, Conversion<AccountEnt
     }
 
     @Override
-    public Account getAccount(Integer account_id) {
+    public Account getAccount(Integer account_id) throws AccountNotFoundException {
          return convertToJackson( accountRepository.findById(account_id)
                  .orElseThrow(() -> new AccountNotFoundException(account_id)));
     }
 
-    //TODO: UPDATE
+
     @Override
     public List<Account> getAllAccounts() {
        List<AccountEntity> list = (List<AccountEntity>) accountRepository.findAll();
@@ -47,25 +47,21 @@ public class AccountServiceImpl implements AccountService, Conversion<AccountEnt
     }
 
     @Override
-    public void deactivateAccount(Integer id) {
-        AccountEntity currentAccount = accountRepository.findById(id).orElseThrow(
+    public void deactivateAccount(Integer id) throws AccountNotFoundException {
+        accountRepository.setAccountStatus(0, id).orElseThrow(
                 () -> new AccountNotFoundException(id));
-        currentAccount.setStatus(false);
-        accountRepository.save(currentAccount);
     }
 
     @Override
-    public void reactivateAccount(Integer id) {
-        AccountEntity currentAccount = accountRepository.findById(id).orElseThrow(
+    public void reactivateAccount(Integer id) throws AccountNotFoundException {
+        accountRepository.setAccountStatus(1, id).orElseThrow(
                 () -> new AccountNotFoundException(id));
-        currentAccount.setStatus(true);
-        accountRepository.save(currentAccount);
     }
 
 
 
     @Override
-    public Account updateAccount(Integer id, Account account) {
+    public Account updateAccount(Integer id, Account account) throws AccountNotFoundException {
         return null;
     }
 
@@ -79,6 +75,7 @@ public class AccountServiceImpl implements AccountService, Conversion<AccountEnt
         entity.setStatus(obj.status);
         entity.setEmail(obj.email);
         entity.setPath(obj.path);
+        entity.setId_account(obj.id);
         return entity;
     }
 
