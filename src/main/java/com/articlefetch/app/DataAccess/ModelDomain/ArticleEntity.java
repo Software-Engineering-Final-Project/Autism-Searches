@@ -1,12 +1,10 @@
 package com.articlefetch.app.DataAccess.ModelDomain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity
+@Table(name = "articles")
 public class ArticleEntity {
 
     @Id
@@ -17,9 +15,9 @@ public class ArticleEntity {
 
     private String article_authors;
 
-    private String stared_articles;
-
     private String article_site;
+
+    private Integer fk_categories_id;
 
     private Integer fk_account_id;
 
@@ -29,14 +27,18 @@ public class ArticleEntity {
                 "stared_articles_id=" + stared_articles_id +
                 ", article_name='" + article_name + '\'' +
                 ", article_authors='" + article_authors + '\'' +
-                ", stared_articles='" + stared_articles + '\'' +
                 ", article_site='" + article_site + '\'' +
                 ", fk_account_id='" + fk_account_id + '\'' +
+                ", fk_categories_id='" + fk_categories_id + '\'' +
                 '}';
     }
 
     public Integer getStaredarticles_id(){
         return this.stared_articles_id;
+    }
+
+    public void setStaredarticles_id(Integer stared_articles_id{
+         this.stared_articles_id = stared_articles_id;
     }
 
     public String getArticlename(){
@@ -55,14 +57,6 @@ public class ArticleEntity {
         this.article_authors = article_authors;
     }
 
-    public String getStarearticles() {
-        return this.stared_articles;
-    }
-
-    public void setStaredarticles(String stared_articles) {
-        this.stared_articles = stared_articles;
-    }
-
     public String getArticlesite(){
         return this.article_site;
     }
@@ -73,10 +67,6 @@ public class ArticleEntity {
 
     public Integer getFK_account_id() { return this.fk_account_id; }
 
-    /**
-     * not sure we need this
-     */
-    public void setFK_account_id() { this.fk_account_id = fk_account_id; }
-
+    public Integer getFK_categories_id() { return this.fk_categories_id; }
 
 }
