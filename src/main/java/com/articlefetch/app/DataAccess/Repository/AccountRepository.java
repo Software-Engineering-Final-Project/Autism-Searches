@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,8 +21,8 @@ public interface AccountRepository extends CrudRepository<AccountEntity, Integer
     List<AccountEntity> findExistingConflicts(String username, String password);
 
     @Modifying
+    @Transactional(timeout = 9)
     @Query(value = "UPDATE Account SET status = ? WHERE account_id = ?", nativeQuery = true)
     Optional<Integer> setAccountStatus(Integer status, Integer id);
 
-    Optional<AccountEntity> findByUsername(String username);
 }

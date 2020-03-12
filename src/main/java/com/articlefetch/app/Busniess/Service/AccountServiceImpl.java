@@ -9,6 +9,7 @@ import com.articlefetch.app.DataAccess.Repository.AccountRepository;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.GenericDeclaration;
 import java.util.List;
@@ -46,12 +47,14 @@ public class AccountServiceImpl implements AccountService, Conversion<AccountEnt
        return stream.collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public void deactivateAccount(Integer id) throws AccountNotFoundException {
         accountRepository.setAccountStatus(0, id).orElseThrow(
                 () -> new AccountNotFoundException(id));
     }
 
+    @Transactional
     @Override
     public void reactivateAccount(Integer id) throws AccountNotFoundException {
         accountRepository.setAccountStatus(1, id).orElseThrow(

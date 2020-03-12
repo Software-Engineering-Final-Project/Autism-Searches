@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -88,6 +89,28 @@ class AccountRepositoryTest {
 
         when(accountDAO.findExistingConflicts("Joshua", "password")).thenReturn(accountList);
 
-        assertEquals(accountList, accountDAO.findExistingConflicts("Joshua", "password"));
+        assertTrue(!accountDAO.findExistingConflicts("Joshua", "password").isEmpty());
+    }
+
+    @Test
+    void set_account_status_to_true() {
+        AccountEntity accountE1 = new AccountEntity()
+                .create(2, "Josh", "Schappel", "jschappel", "password",
+                        "test@shu.edu",true);
+
+        when(accountDAO.setAccountStatus(1, 2)).thenReturn(Optional.of(1));
+
+        assertEquals(1, accountDAO.setAccountStatus(1, 2).get());
+    }
+
+    @Test
+    void set_account_status_to_false() {
+        AccountEntity accountE1 = new AccountEntity()
+                .create(2, "Josh", "Schappel", "jschappel", "password",
+                        "test@shu.edu",true);
+
+        when(accountDAO.setAccountStatus(0, 2)).thenReturn(Optional.of(1));
+
+        assertEquals(1, accountDAO.setAccountStatus(0, 2).get());
     }
 }
