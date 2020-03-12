@@ -1,5 +1,6 @@
 package com.articlefetch.app.Busniess.Service;
 
+import com.articlefetch.app.Busniess.Exceptions.ArticleNotFoundException;
 import com.articlefetch.app.Controller.JacksonModels.Article;
 
 import java.util.List;

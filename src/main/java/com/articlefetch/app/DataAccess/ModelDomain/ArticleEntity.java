@@ -37,7 +37,7 @@ public class ArticleEntity {
         return this.stared_articles_id;
     }
 
-    public void setStaredarticles_id(Integer stared_articles_id{
+    public void setStaredarticles_id(Integer stared_articles_id){
          this.stared_articles_id = stared_articles_id;
     }
 

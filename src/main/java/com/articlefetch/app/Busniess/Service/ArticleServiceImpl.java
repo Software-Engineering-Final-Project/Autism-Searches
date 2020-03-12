@@ -1,5 +1,6 @@
 package com.articlefetch.app.Busniess.Service;
 
+import com.articlefetch.app.Busniess.Exceptions.ArticleNotFoundException;
 import com.articlefetch.app.Controller.JacksonModels.Article;
 import com.articlefetch.app.DataAccess.ModelDomain.ArticleEntity;
 import com.articlefetch.app.DataAccess.Repository.ArticleRepository;
@@ -39,19 +40,13 @@ public class ArticleServiceImpl implements ArticleService, Conversion<ArticleEnt
         return entity;
     }
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public Article convertToJackson(ArticleEntity obj) {
+        return new Article(obj.getStaredarticles_id(),
+                obj.getArticlename(),
+                obj.getArticleauthors(),
+                obj.getArticlesite(),
+                obj.getFK_account_id(),
+                obj.getFK_categories_id());
+    }
 }
