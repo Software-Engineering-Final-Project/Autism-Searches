@@ -33,35 +33,35 @@ public class ArticleEntity {
                 '}';
     }
 
-    public Integer getStaredarticles_id(){
+    public Integer getStaredArticles_id(){
         return this.stared_articles_id;
     }
 
-    public void setStaredarticles_id(Integer stared_articles_id){
+    public void setStaredArticles_id(Integer stared_articles_id){
          this.stared_articles_id = stared_articles_id;
     }
 
-    public String getArticlename(){
+    public String getArticleName(){
         return this.article_name;
     }
 
-    public void setArticlename(String article_name) {
+    public void setArticleName(String article_name) {
         this.article_name = article_name;
     }
 
-    public String getArticleauthors() {
+    public String getArticleAuthors() {
         return this.article_authors;
     }
 
-    public void setArticleauthors(String article_authors){
+    public void setArticleAuthors(String article_authors){
         this.article_authors = article_authors;
     }
 
-    public String getArticlesite(){
+    public String getArticleSite(){
         return this.article_site;
     }
 
-    public void setArticlesite(String article_site) {
+    public void setArticleSite(String article_site) {
         this.article_site = article_site;
     }
 

@@ -33,19 +33,19 @@ public class ArticleServiceImpl implements ArticleService, Conversion<ArticleEnt
     public ArticleEntity convertToDAO(Article obj) {
         ArticleEntity entity = new ArticleEntity();
 
-        entity.setArticleauthors(obj.authors);
-        entity.setArticlename(obj.article_name);
-        entity.setArticlesite(obj.article_site);
-        entity.setStaredarticles_id(obj.id);
+        entity.setArticleAuthors(obj.authors);
+        entity.setArticleName(obj.article_name);
+        entity.setArticleSite(obj.article_site);
+        entity.setStaredArticles_id(obj.id);
         return entity;
     }
 
     @Override
     public Article convertToJackson(ArticleEntity obj) {
-        return new Article(obj.getStaredarticles_id(),
-                obj.getArticlename(),
-                obj.getArticleauthors(),
-                obj.getArticlesite(),
+        return new Article(obj.getStaredArticles_id(),
+                obj.getArticleName(),
+                obj.getArticleAuthors(),
+                obj.getArticleSite(),
                 obj.getFK_account_id(),
                 obj.getFK_categories_id());
     }
