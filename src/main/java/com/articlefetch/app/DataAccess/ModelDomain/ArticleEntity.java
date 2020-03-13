@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "articles")
+@Table(name = "starred_articles")
 public class ArticleEntity {
 
     @Id
@@ -17,8 +17,12 @@ public class ArticleEntity {
 
     private String article_site;
 
+    @ManyToOne
+    @JoinColumn(name="id_categories")
     private Integer fk_categories_id;
 
+    @ManyToOne
+    @JoinColumn(name="id_account")
     private Integer fk_account_id;
 
     @Override

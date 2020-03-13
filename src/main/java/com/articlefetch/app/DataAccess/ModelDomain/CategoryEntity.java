@@ -4,7 +4,7 @@ package com.articlefetch.app.DataAccess.ModelDomain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Categories")
+@Table(name = "categories")
 public class CategoryEntity {
 
     @Id

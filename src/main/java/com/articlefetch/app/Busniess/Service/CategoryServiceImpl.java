@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService, Conversion<CategoryEntity, Category>{
 
-    @Autowired CategoryRepository accountRepository;
+    @Autowired CategoryRepository categoryRepository;
 
     @Override
     public List<Category> allCategories() {

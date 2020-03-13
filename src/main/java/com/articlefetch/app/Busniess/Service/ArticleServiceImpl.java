@@ -16,8 +16,7 @@ import java.util.List;
 @Service
 public class ArticleServiceImpl implements ArticleService, Conversion<ArticleEntity, Article> {
 
-    @Autowired
-    ArticleRepository accountRepository;
+    @Autowired ArticleRepository articleRepository;
 
     @Override
     public List<Article> allArticles() {
