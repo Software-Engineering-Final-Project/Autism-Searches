@@ -1,6 +1,7 @@
 package com.articlefetch.app.Busniess.Service;
 
 import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
+import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
 import com.articlefetch.app.DataAccess.Repository.AccountRepository;
@@ -36,8 +37,29 @@ class AccountServiceTest {
          Account newAccount = new Account("jschappel", "password", "Joshua",
                  "Schappel", "j@shu.edu", null, null, true);
 
+         AccountEntity newAccountEntry = new AccountEntity()
+                 .create(null, "Joshua", "Schappel", "jschappel", "password",
+                         "j@shu.edu", true);
+
          accountService.createAccount(newAccount);
-         verify(repository, times(1)).findAll();
+
+         verify(
+                 repository,
+                 times(1)
+         ).findExistingConflicts(newAccount.username, newAccount.password);
+
+         verify(
+                 repository,
+                 times(1)
+         ).save(newAccountEntry);
+
+     }
+
+     @Test
+     void createAccount_when_new_account_is_a_duplicate() {
+         Account newAccount = new Account("jschappel", "password", "Joshua",
+                 "Schappel", "j@shu.edu", null, null, true);
+
      }
 
 
