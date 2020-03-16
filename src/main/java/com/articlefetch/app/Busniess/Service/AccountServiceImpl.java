@@ -61,8 +61,6 @@ public class AccountServiceImpl implements AccountService, Conversion<AccountEnt
                 () -> new AccountNotFoundException(id));
     }
 
-
-
     @Override
     public Account updateAccount(Integer id, Account account) throws AccountNotFoundException {
         return null;

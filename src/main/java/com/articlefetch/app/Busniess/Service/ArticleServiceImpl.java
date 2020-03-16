@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -19,12 +21,20 @@ public class ArticleServiceImpl implements ArticleService, Conversion<ArticleEnt
     @Autowired ArticleRepository articleRepository;
 
     @Override
-    public List<Article> allArticles() {
-        return null;
+    public Article getArticle(Integer article_id) throws ArticleNotFoundException {
+        return convertToJackson( articleRepository.findById(article_id)
+                .orElseThrow(() -> new ArticleNotFoundException(article_id)));
     }
 
     @Override
-    public Article getArticle(Integer id) throws ArticleNotFoundException {
+    public List<Article> getAllArticles() {
+        List<ArticleEntity> list = (List<ArticleEntity>) articleRepository.findAll();
+        Stream<Article> stream = list.stream().map( (account) -> convertToJackson(account));
+        return stream.collect(Collectors.toList());
+    }
+
+    @Override
+    public Article updateArticle(Integer id, Article account) throws ArticleNotFoundException {
         return null;
     }
 

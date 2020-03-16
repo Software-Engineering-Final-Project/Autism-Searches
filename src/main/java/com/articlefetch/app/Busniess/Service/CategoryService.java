@@ -6,6 +6,6 @@ import com.articlefetch.app.Controller.JacksonModels.Category;
 import java.util.List;
 
 public interface CategoryService {
-    public List<Category> allCategories();
+    public List<Category> getAllCategories();
     public Category getCategory(Integer id) throws CategoryNotFoundException;
 }
