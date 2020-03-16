@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This class is responsible for interfacing Hibernate data retrieval API for CategoryEntity
@@ -18,13 +20,16 @@ public class StarredCategoriesImpl implements StarredCategoriesService, Conversi
     @Autowired StarredCategoriesRepository starredCategoriesRepository;
 
     @Override
-    public List<StarredCategories> allStarredCategories() {
-        return null;
+    public List<StarredCategories> getAllStarredCategories() {
+        List<StarredCategoriesEntity> list = (List<StarredCategoriesEntity>) starredCategoriesRepository.findAll();
+        Stream<StarredCategories> stream = list.stream().map( (starredCategories) -> convertToJackson(starredCategories));
+        return stream.collect(Collectors.toList());
     }
 
     @Override
     public StarredCategories getStarredCategories(Integer id) throws StarredCategoriesNotFoundExeption {
-        return null;
+        return convertToJackson( starredCategoriesRepository.findById(id)
+                .orElseThrow(() -> new StarredCategoriesNotFoundExeption(id)));
     }
 
     @Override
