@@ -20,9 +20,9 @@ public class ControllerAdviser extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleAccountNotFoundException(AccountNotFoundException ex, WebRequest req) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("message", "Account does not exist");
+        body.put("message", ex.getMessage());
 
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -37,4 +37,14 @@ public class ControllerAdviser extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(DuplicateEntryException.class)
+    public ResponseEntity<Object> handleDuplicateNotFoundException(DuplicateEntryException ex, WebRequest req) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
 }
