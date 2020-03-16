@@ -20,6 +20,9 @@ public interface AccountRepository extends CrudRepository<AccountEntity, Integer
     @Query("SELECT s FROM AccountEntity s WHERE username = ?1 OR email = ?2")
     List<AccountEntity> findExistingConflicts(String username, String password);
 
+    @Query(value = "SELECT * FROM account WHERE username = ?", nativeQuery = true)
+    Optional<AccountEntity> findAccountByUserName(String username);
+
     @Modifying
     @Transactional(timeout = 9)
     @Query(value = "UPDATE Account SET status = ? WHERE account_id = ?", nativeQuery = true)

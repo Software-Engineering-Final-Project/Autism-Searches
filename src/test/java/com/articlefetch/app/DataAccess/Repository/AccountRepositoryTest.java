@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.security.AccessControlException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -112,5 +113,32 @@ class AccountRepositoryTest {
         when(accountDAO.setAccountStatus(0, 2)).thenReturn(Optional.of(1));
 
         assertEquals(1, accountDAO.setAccountStatus(0, 2).get());
+    }
+
+    @Test
+    void find_account_by_username() {
+        AccountEntity accountE1 = new AccountEntity()
+                .create(2, "Josh", "Schappel", "jschappel", "password",
+                        "test@shu.edu",true);
+
+        when(accountDAO.findAccountByUserName("jschappel")).thenReturn(Optional.of(accountE1));
+
+        AccountEntity e = accountDAO.findAccountByUserName("jschappel").get();
+        assertEquals(e.getUsername(), accountE1.getUsername());
+        assertEquals(e.getPassword(), accountE1.getPassword());
+        assertEquals(e.getEmail(), accountE1.getEmail());
+        assertEquals(e.getFirst_name(), accountE1.getFirst_name());
+        assertEquals(e.getLast_name(), accountE1.getLast_name());
+        assertEquals(e.getAccount_id(), accountE1.getAccount_id());
+        assertEquals(e.getStatus(), accountE1.getStatus());
+    }
+
+    @Test
+    void find_account_bu_username_that_does_not_exist() {
+        when(accountDAO.findAccountByUserName("jschappel")).thenThrow(AccountNotFoundException.class);
+
+        assertThrows(AccountNotFoundException.class, () -> {
+            accountDAO.findAccountByUserName("jschappel");
+        });
     }
 }

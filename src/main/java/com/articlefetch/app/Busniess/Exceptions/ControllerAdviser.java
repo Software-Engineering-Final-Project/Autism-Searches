@@ -39,12 +39,21 @@ public class ControllerAdviser extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(DuplicateEntryException.class)
-    public ResponseEntity<Object> handleDuplicateNotFoundException(DuplicateEntryException ex, WebRequest req) {
+    public ResponseEntity<Object> handleDuplicateEntryException(DuplicateEntryException ex, WebRequest req) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", ex.getMessage());
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ResponseEntity<Object> handInvalidPasswordException(InvalidPasswordException ex, WebRequest req) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
     }
 
 }
