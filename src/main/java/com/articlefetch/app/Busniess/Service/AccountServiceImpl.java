@@ -59,8 +59,6 @@ public class AccountServiceImpl implements AccountService, Conversion<AccountEnt
                 () -> new AccountNotFoundException(id));
     }
 
-
-    @Transactional
     @Override
     public Account updateAccount(Integer id, Account account) throws AccountNotFoundException {
         AccountEntity entity = accountRepository.findById(id).orElseThrow( () -> new AccountNotFoundException(id));
