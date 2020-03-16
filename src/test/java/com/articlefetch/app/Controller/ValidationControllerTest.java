@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -34,7 +35,8 @@ class ValidationControllerTest {
         Account returnedAccount = new Account("jschappel", "password", "Joshua",
                 "Schappel", "j@shu.edu", 12, null, true);
 
-        given(service.validateAccount(validation)).willReturn(returnedAccount);
+        when(service.validateAccount(validation.getUsername(), validation.getPassword())).thenReturn(returnedAccount);
+
         mvc.perform(post("/validate/login")
                 .contentType(APPLICATION_JSON)
                 .content(asJsonString(validation)))

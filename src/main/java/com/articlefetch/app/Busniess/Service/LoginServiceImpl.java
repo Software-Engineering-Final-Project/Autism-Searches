@@ -16,12 +16,13 @@ public class LoginServiceImpl implements LoginService, Conversion<AccountEntity,
     AccountRepository accountRepository;
 
     @Override
-    public Account validateAccount(LoginValidation val) throws AccountNotFoundException, InvalidPasswordException {
-        AccountEntity db_account = accountRepository.findAccountByUserName(val.getUsername())
-                .orElseThrow( () -> new AccountNotFoundException(val.getUsername()));
+    public Account validateAccount(String username, String password)
+            throws AccountNotFoundException, InvalidPasswordException {
+        AccountEntity db_account = accountRepository.findAccountByUserName(username)
+                .orElseThrow( () -> new AccountNotFoundException(username));
 
-        if(!db_account.getPassword().equals(val.getPassword())){
-             throw new InvalidPasswordException(val.getUsername());
+        if(!db_account.getPassword().equals(password)){
+             throw new InvalidPasswordException(password);
         }
         return convertToJackson(db_account);
     }

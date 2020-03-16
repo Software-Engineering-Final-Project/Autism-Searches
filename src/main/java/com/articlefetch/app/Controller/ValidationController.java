@@ -26,10 +26,8 @@ public class ValidationController {
 
     @PostMapping("/login")
     public ResponseEntity<Account> login(@RequestBody LoginValidation validation) {
-        System.out.println(validation.getUsername());
-        System.out.println(validation.getPassword());
-        Account account = loginService.validateAccount(validation);
-        System.out.println(account);
+        Account account = loginService.validateAccount(validation.getUsername(), validation.getPassword());
+
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
 }

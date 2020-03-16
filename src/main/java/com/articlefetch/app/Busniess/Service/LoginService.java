@@ -6,5 +6,5 @@ import com.articlefetch.app.Controller.JacksonModels.Account;
 import com.articlefetch.app.Controller.JacksonModels.LoginValidation;
 
 public interface LoginService {
-    public Account validateAccount(LoginValidation account) throws AccountNotFoundException, InvalidPasswordException;
+    public Account validateAccount(String username, String password) throws AccountNotFoundException, InvalidPasswordException;
 }

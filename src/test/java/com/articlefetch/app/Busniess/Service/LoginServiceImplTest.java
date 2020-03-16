@@ -45,7 +45,7 @@ class LoginServiceImplTest {
 
         when(repository.findAccountByUserName("jschappel")).thenReturn(Optional.of(accountEntry));
 
-        Account account = loginService.validateAccount(validation);
+        Account account = loginService.validateAccount(validation.getUsername(), validation.getPassword());
 
         assertEquals(accountEntry.getFirst_name(), account.first_name);
         assertEquals(accountEntry.getLast_name(), account.last_name);
@@ -63,7 +63,7 @@ class LoginServiceImplTest {
         when(repository.findAccountByUserName("jschappel")).thenThrow(InvalidPasswordException.class);
 
         assertThrows(InvalidPasswordException.class, () -> {
-            loginService.validateAccount(validation);
+            loginService.validateAccount(validation.getUsername(), validation.getPassword());
         });
     }
 
@@ -74,7 +74,7 @@ class LoginServiceImplTest {
         when(repository.findAccountByUserName("jschappel")).thenThrow(AccountNotFoundException.class);
 
         assertThrows(AccountNotFoundException.class, () -> {
-            loginService.validateAccount(validation);
+            loginService.validateAccount(validation.getUsername(), validation.getPassword());
         });
     }
 }
