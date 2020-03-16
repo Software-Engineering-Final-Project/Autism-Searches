@@ -65,7 +65,17 @@ public class AccountServiceImpl implements AccountService, Conversion<AccountEnt
 
     @Override
     public Account updateAccount(Integer id, Account account) throws AccountNotFoundException {
-        return null;
+        AccountEntity entity = accountRepository.findById(id).orElseThrow( () -> new AccountNotFoundException(id));
+        entity.setUsername(account.username);
+        entity.setPassword(account.password);
+        entity.setEmail(account.email);
+        entity.setStatus(entity.getStatus()); // We don' allow status updates here
+        entity.setPath(account.path);
+        entity.setLast_name(account.last_name);
+        entity.setFirst_name(account.first_name);
+        accountRepository.save(entity);
+
+        return convertToJackson(entity);
     }
 
     @Override

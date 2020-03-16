@@ -194,7 +194,7 @@ class AccountControllerTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
-    
+
 
     // Helper function that converts a Jackson Object to a json string
     private static String asJsonString(Object obj) {

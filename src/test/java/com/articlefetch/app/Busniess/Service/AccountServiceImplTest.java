@@ -14,8 +14,10 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -64,8 +66,6 @@ class AccountServiceTest {
          assertThrows(DuplicateEntryException.class, () -> accountService.createAccount(newAccount));
 
      }
-
-
 
     @Test
     void getAccount() {
@@ -117,44 +117,75 @@ class AccountServiceTest {
         assertEquals(dataBaseList.size(), accountList.size());
         verify(repository, times(1)).findAll();
     }
-/*
+
+    @Test
+    void reactivateAccount() {
+        // Return 1 because only one row should be affected
+        when(repository.setAccountStatus(1,12)).thenReturn(Optional.of(1));
+
+        accountService.reactivateAccount(12);
+        verify(repository, times(1)).setAccountStatus(1,12);
+    }
+
+    @Test
+    void reactivateAccount_when_invalid_id() {
+        when(repository.setAccountStatus(1,12)).thenThrow(AccountNotFoundException.class);
+        assertThrows(AccountNotFoundException.class, () -> {
+            accountService.deactivateAccount(12);
+        });
+    }
+
     @Test
     void deactivateAccount() {
+        // Return 1 because only one row should be affected
+       when(repository.setAccountStatus(0, 1)).thenReturn(Optional.of(1));
+
+       accountService.deactivateAccount(1);
+       verify(repository, times(1)).setAccountStatus(0,1);
+
+    }
+
+    @Test
+    void deactivateAccount_when_invalid_id() {
+        when(repository.setAccountStatus(0,1)).thenThrow(AccountNotFoundException.class);
+        assertThrows(AccountNotFoundException.class, () -> {
+            accountService.deactivateAccount(1);
+        });
+    }
+
+    @Test
+    void update_account() {
         Account newAccount = new Account("jschappel", "password", "Joshua",
-                "Schappel", "j@shu.edu", null, null, true);
+                "Schappel", "j@shu.edu", 12, null, true);
 
         AccountEntity newAccountEntry = new AccountEntity()
-                .create(null, "Joshua", "Schappel", "jschappel", "password",
+                .create(12, "Joshua", "Schappel", "jschappel", "password",
                         "j@shu.edu", true);
 
-       doNothing().when(repository).setAccountStatus(1,0);
-       accountService.deactivateAccount(0);
-       verify(accountService, times(1)).deactivateAccount(0);
+        when(repository.findById(12)).thenReturn(Optional.of(newAccountEntry));
+        Account updatedAccount = accountService.updateAccount(12, newAccount);
 
-    }
-
-
-    @Test
-    void deactivateAccount_that_does_not_exist() {
-        assertThrows(AccountNotFoundException.class, () ->accountService.deactivateAccount(1));
-    }
-
-        @Test
-        void reactivateAccount() {
-        }
-        @Test
-        void updateAccount() {
-        }
-    */
-    @Test
-    void convertToDAO() {
-        assertTrue(true);
+        Account account = accountService.getAccount(12);
+        assertEquals(updatedAccount.getId(), account.id);
+        assertEquals(updatedAccount.getFirst_name(), account.first_name);
+        assertEquals(updatedAccount.getLast_name(), account.last_name);
+        assertEquals(updatedAccount.getUsername(), account.username);
+        assertEquals(updatedAccount.getPassword(), account.password);
+        assertEquals(updatedAccount.getEmail(), account.email);
+        assertEquals(updatedAccount.getPath(), account.path);
+        assertTrue(account.status);
 
     }
 
     @Test
-    void convertToJackson() {
-        assertTrue(true);
-    }
+    void updateAccount_that_does_not_exist() {
+        Account newAccount = new Account("jschappel", "password", "Joshua",
+                "Schappel", "j@shu.edu", 143, null, true);
 
+        when(repository.findById(143)).thenThrow(AccountNotFoundException.class);
+
+        assertThrows(AccountNotFoundException.class, () -> {
+            accountService.updateAccount(143, newAccount);
+        });
+    }
 }
