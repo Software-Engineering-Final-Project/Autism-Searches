@@ -3,15 +3,12 @@ package com.articlefetch.app.Busniess.Service;
 import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
 import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
-import com.articlefetch.app.Controller.JacksonModels.AccountStatus;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
 import com.articlefetch.app.DataAccess.Repository.AccountRepository;
-import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.GenericDeclaration;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,6 +21,7 @@ public class AccountServiceImpl implements AccountService, Conversion<AccountEnt
 
     @Autowired AccountRepository accountRepository;
 
+    @Transactional
     @Override
     public void createAccount(Account account) throws DuplicateEntryException {
         // Check if an account exists
@@ -62,7 +60,7 @@ public class AccountServiceImpl implements AccountService, Conversion<AccountEnt
     }
 
 
-
+    @Transactional
     @Override
     public Account updateAccount(Integer id, Account account) throws AccountNotFoundException {
         AccountEntity entity = accountRepository.findById(id).orElseThrow( () -> new AccountNotFoundException(id));
