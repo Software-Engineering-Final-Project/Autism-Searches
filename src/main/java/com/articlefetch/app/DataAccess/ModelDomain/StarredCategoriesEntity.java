@@ -12,11 +12,11 @@ public class StarredCategoriesEntity {
 
     private String categories_name;
 
-    @OneToOne
+    @OneToOne(targetEntity = CategoryEntity.class)
     @JoinColumn(name = "id_categories")
     private Integer fk_categories_id;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = AccountEntity.class)
     @JoinColumn(name = "id_account")
     private Integer fk_account_id;
 

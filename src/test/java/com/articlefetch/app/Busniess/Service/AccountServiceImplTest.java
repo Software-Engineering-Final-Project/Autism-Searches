@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -48,17 +50,18 @@ class AccountServiceTest {
                  times(1)
          ).findExistingConflicts(newAccount.username, newAccount.password);
 
-         verify(
-                 repository,
-                 times(1)
-         ).save(newAccountEntry);
-
      }
 
      @Test
      void createAccount_when_new_account_is_a_duplicate() {
          Account newAccount = new Account("jschappel", "password", "Joshua",
                  "Schappel", "j@shu.edu", null, null, true);
+
+         doThrow(new DuplicateEntryException())
+                 .when(repository)
+                 .findExistingConflicts(newAccount.username, newAccount.password);
+
+         assertThrows(DuplicateEntryException.class, () -> accountService.createAccount(newAccount));
 
      }
 
@@ -117,14 +120,25 @@ class AccountServiceTest {
 /*
     @Test
     void deactivateAccount() {
-        //test
-        accountService.deactivateAccount(1);
-        verify(repository, times(1)).setAccountStatus(0, 1);
+        Account newAccount = new Account("jschappel", "password", "Joshua",
+                "Schappel", "j@shu.edu", null, null, true);
+
+        AccountEntity newAccountEntry = new AccountEntity()
+                .create(null, "Joshua", "Schappel", "jschappel", "password",
+                        "j@shu.edu", true);
+
+       doNothing().when(repository).setAccountStatus(1,0);
+       accountService.deactivateAccount(0);
+       verify(accountService, times(1)).deactivateAccount(0);
 
     }
 
- */
-    /*
+
+    @Test
+    void deactivateAccount_that_does_not_exist() {
+        assertThrows(AccountNotFoundException.class, () ->accountService.deactivateAccount(1));
+    }
+
         @Test
         void reactivateAccount() {
         }
