@@ -33,6 +33,16 @@ public class CategoryServiceImpl implements CategoryService, Conversion<Category
     }
 
     @Override
+    public Category updateCategory(Integer id, Category category) throws CategoryNotFoundException {
+        CategoryEntity entity = categoryRepository.findById(id).orElseThrow( () -> new CategoryNotFoundException(id));
+        entity.setDescription(category.description);
+        entity.setCategoryName(category.name);
+
+        categoryRepository.save(entity);
+        return convertToJackson(entity);
+    }
+
+    @Override
     public CategoryEntity convertToDAO(Category obj) {
 
         CategoryEntity entity = new CategoryEntity();

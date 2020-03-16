@@ -34,8 +34,14 @@ public class ArticleServiceImpl implements ArticleService, Conversion<ArticleEnt
     }
 
     @Override
-    public Article updateArticle(Integer id, Article account) throws ArticleNotFoundException {
-        return null;
+    public Article updateArticle(Integer id, Article article) throws ArticleNotFoundException {
+        ArticleEntity entity = articleRepository.findById(id).orElseThrow( () -> new ArticleNotFoundException(id));
+        entity.setArticleAuthors(article.authors);
+        entity.setArticleName(article.article_name);
+        entity.setArticleSite(article.article_site);
+
+        articleRepository.save(entity);
+        return convertToJackson(entity);
     }
 
     @Override

@@ -8,4 +8,6 @@ import java.util.List;
 public interface CategoryService {
     public List<Category> getAllCategories();
     public Category getCategory(Integer id) throws CategoryNotFoundException;
+    public Category updateCategory(Integer id, Category account) throws CategoryNotFoundException;
+
 }
