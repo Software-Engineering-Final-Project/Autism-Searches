@@ -3,7 +3,6 @@ package com.articlefetch.app.Busniess.Service;
 import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
 import com.articlefetch.app.Busniess.Exceptions.InvalidPasswordException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
-import com.articlefetch.app.Controller.JacksonModels.LoginValidation;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
 import com.articlefetch.app.DataAccess.Repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;

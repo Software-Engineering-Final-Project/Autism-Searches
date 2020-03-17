@@ -1,13 +1,13 @@
 package com.articlefetch.app.Controller.JacksonModels;
 
-public class LoginValidation {
+public class Authentication {
 
     private String username;
 
     private String password;
 
 
-    public LoginValidation(String username, String password) {
+    public Authentication(String username, String password) {
         this.password = password;
         this.username = username;
     }

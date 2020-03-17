@@ -14,7 +14,7 @@ public class SuccessResponseEntity {
         return new ResponseEntity<>(body, HttpStatus.CREATED);
     }
 
-    public static ResponseEntity<Map<String, String>> updatedResposeEntity() {
+    public static ResponseEntity<Map<String, String>> updatedResponseEntity() {
         Map<String, String> body = new HashMap<>();
         body.put("message", "Success");
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);

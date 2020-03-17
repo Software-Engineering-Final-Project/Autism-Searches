@@ -3,7 +3,7 @@ package com.articlefetch.app.Busniess.Service;
 import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
 import com.articlefetch.app.Busniess.Exceptions.InvalidPasswordException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
-import com.articlefetch.app.Controller.JacksonModels.LoginValidation;
+import com.articlefetch.app.Controller.JacksonModels.Authentication;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
 import com.articlefetch.app.DataAccess.Repository.AccountRepository;
 import org.junit.BeforeClass;
@@ -41,7 +41,7 @@ class LoginServiceImplTest {
                 .create(null, "Joshua", "Schappel", "jschappel", "password",
                         "j@shu.edu", true);
 
-        LoginValidation validation = new LoginValidation("jschappel", "password");
+        Authentication validation = new Authentication("jschappel", "password");
 
         when(repository.findAccountByUserName("jschappel")).thenReturn(Optional.of(accountEntry));
 
@@ -58,7 +58,7 @@ class LoginServiceImplTest {
 
     @Test
     void validateAccount_with_invalid_password() {
-        LoginValidation validation = new LoginValidation("jschappel", "password");
+        Authentication validation = new Authentication("jschappel", "password");
 
         when(repository.findAccountByUserName("jschappel")).thenThrow(InvalidPasswordException.class);
 
@@ -69,7 +69,7 @@ class LoginServiceImplTest {
 
     @Test
     void validateAccount_with_invalid_username() {
-        LoginValidation validation = new LoginValidation("jschappel", "password");
+        Authentication validation = new Authentication("jschappel", "password");
 
         when(repository.findAccountByUserName("jschappel")).thenThrow(AccountNotFoundException.class);
 
