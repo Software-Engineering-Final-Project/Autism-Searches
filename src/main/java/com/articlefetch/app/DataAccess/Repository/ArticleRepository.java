@@ -1,8 +1,11 @@
 package com.articlefetch.app.DataAccess.Repository;
 
 import com.articlefetch.app.DataAccess.ModelDomain.ArticleEntity;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -12,4 +15,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ArticleRepository extends CrudRepository<ArticleEntity, Integer> {
 
+    @Query("SELECT s FROM ArticleEntity s WHERE article_name = ?1 OR article_site = ?2")
+    List<ArticleEntity> findExistingConflicts(String article_name, String article_site);
 }
