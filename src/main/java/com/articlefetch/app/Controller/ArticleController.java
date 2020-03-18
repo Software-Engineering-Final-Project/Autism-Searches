@@ -29,9 +29,11 @@ public class ArticleController {
         return new ResponseEntity<>(articleService.getAllArticles(), HttpStatus.OK);
     }
 
-    @GetMapping("/getAccount")
+    @GetMapping("/getArticle")
     public ResponseEntity<Article> getAccount( @RequestParam(value = "id", required = true) Integer id){
         return new ResponseEntity<>(articleService.getArticle(id), HttpStatus.OK);
     }
+
+    //TODO: add article endpoint
 
 }
