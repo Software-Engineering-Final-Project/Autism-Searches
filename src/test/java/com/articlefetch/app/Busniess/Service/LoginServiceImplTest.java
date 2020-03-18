@@ -3,6 +3,7 @@ package com.articlefetch.app.Busniess.Service;
 import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
 import com.articlefetch.app.Busniess.Exceptions.InvalidPasswordException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
+import com.articlefetch.app.Controller.JacksonModels.AccountCreate;
 import com.articlefetch.app.Controller.JacksonModels.Authentication;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
 import com.articlefetch.app.DataAccess.Repository.AccountRepository;
@@ -13,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,13 +35,13 @@ class LoginServiceImplTest {
     }
 
     @Test
-    void validateAccount() {
+    void validateAccount() throws IOException {
         Account returnedAccount = new Account("jschappel", "password", "Joshua",
                 "Schappel", "j@shu.edu", null, null, true);
 
         AccountEntity accountEntry = new AccountEntity()
                 .create(null, "Joshua", "Schappel", "jschappel", "password",
-                        "j@shu.edu", true);
+                        "j@shu.edu","/default_user.png", true);
 
         Authentication validation = new Authentication("jschappel", "password");
 
@@ -47,12 +49,12 @@ class LoginServiceImplTest {
 
         Account account = loginService.validateAccount(validation.getUsername(), validation.getPassword());
 
-        assertEquals(accountEntry.getFirst_name(), account.first_name);
-        assertEquals(accountEntry.getLast_name(), account.last_name);
-        assertEquals(accountEntry.getUsername(), account.username);
-        assertEquals(accountEntry.getPassword(), account.password);
-        assertEquals(accountEntry.getEmail(), account.email);
-        assertEquals(accountEntry.getStatus(), account.status);
+        assertEquals(accountEntry.getFirst_name(), account.getFirst_name());
+        assertEquals(accountEntry.getLast_name(), account.getLast_name());
+        assertEquals(accountEntry.getUsername(), account.getUsername());
+        assertEquals(accountEntry.getPassword(), account.getPassword());
+        assertEquals(accountEntry.getEmail(), account.getEmail());
+        assertEquals(accountEntry.getStatus(), account.getStatus());
     }
 
 

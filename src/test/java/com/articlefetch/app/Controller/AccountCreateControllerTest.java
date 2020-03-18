@@ -4,6 +4,7 @@ import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
 import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Busniess.Service.AccountService;
 import com.articlefetch.app.Controller.JacksonModels.Account;
+import com.articlefetch.app.Controller.JacksonModels.AccountCreate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @WebMvcTest(AccountController.class)
-class AccountControllerTest {
+class AccountCreateControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -41,9 +42,9 @@ class AccountControllerTest {
         Account a1 = new Account("jschappel", "password", "Joshua",
                 "Schappel", "j@shu.edu", null, null, true);
 
-        List<Account> accountList = Arrays.asList(a1);
+        List<Account> accountCreateList = Arrays.asList(a1);
 
-        given(service.getAllAccounts()).willReturn(accountList);
+        given(service.getAllAccounts()).willReturn(accountCreateList);
 
         mvc.perform(get("/account/allAccounts")
                 .contentType(APPLICATION_JSON))
@@ -55,7 +56,6 @@ class AccountControllerTest {
                 .andExpect(jsonPath("$[0].last_name", is("Schappel")))
                 .andExpect(jsonPath("$[0].email", is("j@shu.edu")))
                 .andExpect(jsonPath("$[0].id", IsNull.nullValue()))
-                .andExpect(jsonPath("$[0].path", IsNull.nullValue()))
                 .andExpect(jsonPath("$[0].status", is(true)));
     }
 
@@ -75,7 +75,6 @@ class AccountControllerTest {
                 .andExpect(jsonPath("$['last_name']", is("Schappel")))
                 .andExpect(jsonPath("$['email']", is("j@shu.edu")))
                 .andExpect(jsonPath("$['id']", is(1)))
-                .andExpect(jsonPath("$['path']", IsNull.nullValue()))
                 .andExpect(jsonPath("$['status']", is(true)));
     }
 
@@ -98,7 +97,7 @@ class AccountControllerTest {
 
     @Test
     void createAccount() throws Exception {
-        Account a1 = new Account("jschappel", "password", "Joshua",
+        AccountCreate a1 = new AccountCreate("jschappel", "password", "Joshua",
                 "Schappel", "j@shu.edu", 1, null, true);
 
         doNothing().when(service).createAccount(a1);
@@ -119,7 +118,7 @@ class AccountControllerTest {
 
     @Test
     void create_duplicate_account() throws Exception {
-        Account a1 = new Account("jschappel", "password", "Joshua",
+        AccountCreate a1 = new AccountCreate("jschappel", "password", "Joshua",
                 "Schappel", "j@shu.edu", 1, null, true);
 
         doThrow(DuplicateEntryException.class).when(service).createAccount(a1);
@@ -131,7 +130,7 @@ class AccountControllerTest {
 
     @Test
     void reactivateAccount() throws Exception {
-        Account a1 = new Account("jschappel", "password", "Joshua",
+        AccountCreate a1 = new AccountCreate("jschappel", "password", "Joshua",
                 "Schappel", "j@shu.edu", 1, null, true);
 
         doNothing().when(service).reactivateAccount(1);
@@ -144,7 +143,7 @@ class AccountControllerTest {
 
     @Test
     void reactivateAccount_with_invalid_id() throws Exception {
-        Account a1 = new Account("jschappel", "password", "Joshua",
+        AccountCreate a1 = new AccountCreate("jschappel", "password", "Joshua",
                 "Schappel", "j@shu.edu", 100, null, true);
 
         doThrow(new AccountNotFoundException(100)).when(service).reactivateAccount(100);
@@ -164,7 +163,7 @@ class AccountControllerTest {
 
     @Test
     void deactivateAccount() throws Exception {
-        Account a1 = new Account("jschappel", "password", "Joshua",
+        AccountCreate a1 = new AccountCreate("jschappel", "password", "Joshua",
                 "Schappel", "j@shu.edu", 1, null, true);
 
         doNothing().when(service).deactivateAccount(1);
@@ -177,7 +176,7 @@ class AccountControllerTest {
 
     @Test
     void deactivateAccount_with_invalid_id() throws Exception {
-        Account a1 = new Account("jschappel", "password", "Joshua",
+        AccountCreate a1 = new AccountCreate("jschappel", "password", "Joshua",
                 "Schappel", "j@shu.edu", 100, null, true);
 
         doThrow(new AccountNotFoundException(100)).when(service).deactivateAccount(100);
