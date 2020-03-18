@@ -3,6 +3,7 @@ package com.articlefetch.app.Busniess.Service;
 import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
 import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
+import com.articlefetch.app.Controller.JacksonModels.AccountCreate;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
 import com.articlefetch.app.DataAccess.Repository.AccountRepository;
 import org.junit.BeforeClass;
@@ -10,11 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.swing.text.html.Option;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class AccountServiceTest {
+class AccountCreateServiceTest {
 
     @InjectMocks
     AccountServiceImpl accountService;
@@ -38,50 +37,50 @@ class AccountServiceTest {
 
      @Test
      void createAccount() {
-         Account newAccount = new Account("jschappel", "password", "Joshua",
-                 "Schappel", "j@shu.edu", null, null, true);
+         AccountCreate newAccountCreate = new AccountCreate("jschappel", "password", "Joshua",
+                 "Schappel", "j@shu.edu", null, "default_user.png", true);
 
          AccountEntity newAccountEntry = new AccountEntity()
                  .create(null, "Joshua", "Schappel", "jschappel", "password",
-                         "j@shu.edu", true);
+                         "j@shu.edu", null,true);
 
-         accountService.createAccount(newAccount);
+         accountService.createAccount(newAccountCreate);
 
          verify(
                  repository,
                  times(1)
-         ).findExistingConflicts(newAccount.username, newAccount.password);
+         ).findExistingConflicts(newAccountCreate.getUsername(), newAccountCreate.getPassword());
 
      }
 
      @Test
      void createAccount_when_new_account_is_a_duplicate() {
-         Account newAccount = new Account("jschappel", "password", "Joshua",
+         AccountCreate newAccountCreate = new AccountCreate("jschappel", "password", "Joshua",
                  "Schappel", "j@shu.edu", null, null, true);
 
          doThrow(new DuplicateEntryException())
                  .when(repository)
-                 .findExistingConflicts(newAccount.username, newAccount.password);
+                 .findExistingConflicts(newAccountCreate.getUsername(), newAccountCreate.getPassword());
 
-         assertThrows(DuplicateEntryException.class, () -> accountService.createAccount(newAccount));
+         assertThrows(DuplicateEntryException.class, () -> accountService.createAccount(newAccountCreate));
 
      }
 
     @Test
-    void getAccount() {
+    void getAccount() throws IOException {
         AccountEntity accountE = new AccountEntity()
                 .create(1, "Josh", "Schappel", "jschappel", "password",
-                        "test@shu.edu",true);
+                        "test@shu.edu","/pitt_penguin.png", true);
         when(repository.findById(1)).thenReturn(java.util.Optional.of(accountE));
 
         // test
         Account account = accountService.getAccount(1);
-        assertEquals(accountE.getFirst_name(), account.first_name);
-        assertEquals(accountE.getLast_name(), account.last_name);
-        assertEquals(accountE.getUsername(), account.username);
-        assertEquals(accountE.getPassword(), account.password);
-        assertEquals(accountE.getEmail(), account.email);
-        assertTrue(account.status);
+        assertEquals(accountE.getFirst_name(), account.getFirst_name());
+        assertEquals(accountE.getLast_name(), account.getLast_name());
+        assertEquals(accountE.getUsername(), account.getUsername());
+        assertEquals(accountE.getPassword(), account.getPassword());
+        assertEquals(accountE.getEmail(), account.getEmail());
+        assertTrue(account.getStatus());
     }
 
     @Test
@@ -101,10 +100,10 @@ class AccountServiceTest {
     @Test
     void getAllAccounts() {
         AccountEntity account1 = new AccountEntity().create(1, "Josh", "Schappel",
-                "jschappel", "password", "test@shu.edu",true);
+                "jschappel", "password", "test@shu.edu", "/default_user.png", true);
 
         AccountEntity account2 = new AccountEntity().create(2, "Sach", "M", "sachm",
-                "password2", "sachm@shu.edu", true);
+                "password2", "sachm@shu.edu", "/pitt_penguin.png", true);
 
         List<AccountEntity> dataBaseList = new ArrayList<>();
         dataBaseList.add(account1);
@@ -113,8 +112,8 @@ class AccountServiceTest {
         when(repository.findAll()).thenReturn(dataBaseList);
 
         //test
-        List<Account> accountList = accountService.getAllAccounts();
-        assertEquals(dataBaseList.size(), accountList.size());
+        List<Account> accountCreateList = accountService.getAllAccounts();
+        assertEquals(dataBaseList.size(), accountCreateList.size());
         verify(repository, times(1)).findAll();
     }
 
@@ -154,38 +153,37 @@ class AccountServiceTest {
     }
 
     @Test
-    void update_account() {
-        Account newAccount = new Account("jschappel", "password", "Joshua",
+    void update_account() throws IOException {
+        AccountCreate updateAccount = new AccountCreate("jschappel", "password", "Joshua",
                 "Schappel", "j@shu.edu", 12, null, true);
 
         AccountEntity newAccountEntry = new AccountEntity()
                 .create(12, "Joshua", "Schappel", "jschappel", "password",
-                        "j@shu.edu", true);
+                        "j@shu.edu", "/default_user.png",true);
 
         when(repository.findById(12)).thenReturn(Optional.of(newAccountEntry));
-        Account updatedAccount = accountService.updateAccount(12, newAccount);
+        Account updatedAccountCreate = accountService.updateAccount(12, updateAccount);
 
         Account account = accountService.getAccount(12);
-        assertEquals(updatedAccount.getId(), account.id);
-        assertEquals(updatedAccount.getFirst_name(), account.first_name);
-        assertEquals(updatedAccount.getLast_name(), account.last_name);
-        assertEquals(updatedAccount.getUsername(), account.username);
-        assertEquals(updatedAccount.getPassword(), account.password);
-        assertEquals(updatedAccount.getEmail(), account.email);
-        assertEquals(updatedAccount.getPath(), account.path);
-        assertTrue(account.status);
+        assertEquals(updatedAccountCreate.getId(), account.getId());
+        assertEquals(updatedAccountCreate.getFirst_name(), account.getFirst_name());
+        assertEquals(updatedAccountCreate.getLast_name(), account.getLast_name());
+        assertEquals(updatedAccountCreate.getUsername(), account.getUsername());
+        assertEquals(updatedAccountCreate.getPassword(), account.getPassword());
+        assertEquals(updatedAccountCreate.getEmail(), account.getEmail());
+        assertTrue(account.getStatus());
 
     }
 
     @Test
     void updateAccount_that_does_not_exist() {
-        Account newAccount = new Account("jschappel", "password", "Joshua",
+        AccountCreate newAccountCreate = new AccountCreate("jschappel", "password", "Joshua",
                 "Schappel", "j@shu.edu", 143, null, true);
 
         when(repository.findById(143)).thenThrow(AccountNotFoundException.class);
 
         assertThrows(AccountNotFoundException.class, () -> {
-            accountService.updateAccount(143, newAccount);
+            accountService.updateAccount(143, newAccountCreate);
         });
     }
 }

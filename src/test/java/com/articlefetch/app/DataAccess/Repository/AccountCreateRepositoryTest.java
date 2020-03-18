@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class AccountRepositoryTest {
+class AccountCreateRepositoryTest {
 
     @Mock
     AccountRepository accountDAO;
@@ -31,7 +31,7 @@ class AccountRepositoryTest {
     void findByID() {
         AccountEntity accountE = new AccountEntity()
                 .create(1, "Josh", "Schappel", "jschappel", "password",
-                        "test@shu.edu", true);
+                        "test@shu.edu","/default_user.png", true);
 
         when(accountDAO.findById(1)).thenReturn(java.util.Optional.ofNullable(accountE));
         assertEquals(accountE, accountDAO.findById(1).get());
@@ -49,10 +49,10 @@ class AccountRepositoryTest {
     void findAll() {
         AccountEntity accountE1 = new AccountEntity()
                 .create(1, "Josh", "Schappel", "jschappel", "password",
-                        "test@shu.edu", true);
+                        "test@shu.edu", "/default_user.png", true);
         AccountEntity accountE2 = new AccountEntity()
                 .create(1, "Josh", "Schappel", "jschappel", "password",
-                        "test@shu.edu", true);
+                        "test@shu.edu", "/default_user.png", true);
         List<AccountEntity> accountList = new ArrayList<>();
         accountList.add(accountE1);
         accountList.add(accountE2);
@@ -83,7 +83,7 @@ class AccountRepositoryTest {
     void find_existing_conflicts_with_conflict() {
         AccountEntity accountE1 = new AccountEntity()
                 .create(1, "Josh", "Schappel", "jschappel", "password",
-                        "test@shu.edu",true);
+                        "test@shu.edu","/default_user.png", true);
         List<AccountEntity> accountList = new ArrayList<>();
         accountList.add(accountE1);
 
@@ -97,7 +97,7 @@ class AccountRepositoryTest {
     void set_account_status_to_true() {
         AccountEntity accountE1 = new AccountEntity()
                 .create(2, "Josh", "Schappel", "jschappel", "password",
-                        "test@shu.edu",true);
+                        "test@shu.edu","/default_user.png", true);
 
         when(accountDAO.setAccountStatus(1, 2)).thenReturn(Optional.of(1));
 
@@ -108,7 +108,7 @@ class AccountRepositoryTest {
     void set_account_status_to_false() {
         AccountEntity accountE1 = new AccountEntity()
                 .create(2, "Josh", "Schappel", "jschappel", "password",
-                        "test@shu.edu",true);
+                        "test@shu.edu","/default_user.png",true);
 
         when(accountDAO.setAccountStatus(0, 2)).thenReturn(Optional.of(1));
 
@@ -119,7 +119,7 @@ class AccountRepositoryTest {
     void find_account_by_username() {
         AccountEntity accountE1 = new AccountEntity()
                 .create(2, "Josh", "Schappel", "jschappel", "password",
-                        "test@shu.edu",true);
+                        "test@shu.edu","/default_user.png", true);
 
         when(accountDAO.findAccountByUserName("jschappel")).thenReturn(Optional.of(accountE1));
 
