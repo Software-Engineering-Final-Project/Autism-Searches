@@ -106,14 +106,14 @@ public class ArticleControllerTest {
     }
 
     @Test
-    void createAccount_with_out_params() throws Exception {
+    void createArticle_with_out_params() throws Exception {
         mvc.perform(put("/article/create")
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    void create_duplicate_account() throws Exception {
+    void create_duplicate_article() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
                 "Schappel.com", null, null);
 
