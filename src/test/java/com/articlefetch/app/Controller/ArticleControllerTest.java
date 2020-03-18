@@ -119,7 +119,7 @@ public class ArticleControllerTest {
 
         doThrow(DuplicateEntryException.class).when(service).createArticle(a1);
 
-        mvc.perform(put("/account/create")
+        mvc.perform(put("/article/create")
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
