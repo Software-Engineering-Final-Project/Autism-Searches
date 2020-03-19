@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class ArticleController {
     }
 
     @GetMapping("/getArticle")
-    public ResponseEntity<Article> getAccount( @RequestParam(value = "id", required = true) Integer id){
+    public ResponseEntity<Article> getAccount( @RequestParam(value = "id", required = true) Integer id) throws IOException {
         return new ResponseEntity<>(articleService.getArticle(id), HttpStatus.OK);
     }
 

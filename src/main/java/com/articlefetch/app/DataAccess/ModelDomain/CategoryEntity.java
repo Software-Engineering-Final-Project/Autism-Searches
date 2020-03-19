@@ -24,6 +24,15 @@ public class CategoryEntity {
                 '}';
     }
 
+    public CategoryEntity create(Integer id, String category_name, String description) {
+
+        this.id_categories = id;
+        this.category_name = category_name;
+        this.category_description = description;
+
+        return this;
+    }
+
     public Integer getId(){ return id_categories;}
 
     public void setId(Integer id){this.id_categories = id;}

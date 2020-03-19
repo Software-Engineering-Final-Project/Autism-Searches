@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class CategoryController {
     }
 
     @GetMapping("/getCategory")
-    public ResponseEntity<Category> getCategory( @RequestParam(value = "id", required = true) Integer id){
+    public ResponseEntity<Category> getCategory( @RequestParam(value = "id", required = true) Integer id) throws IOException {
         return new ResponseEntity<>(categoryService.getCategory(id), HttpStatus.OK);
     }
 

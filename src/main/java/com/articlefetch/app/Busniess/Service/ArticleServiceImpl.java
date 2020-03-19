@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,7 +19,7 @@ import java.util.stream.Stream;
  * This class is responsible for interfacing Hibernate data retrieval API for ArticleEntity
  */
 @Service
-public class ArticleServiceImpl implements ArticleService, Conversion<ArticleEntity, Article> {
+public class ArticleServiceImpl implements ArticleService{
 
     @Autowired ArticleRepository articleRepository;
 
@@ -29,51 +30,39 @@ public class ArticleServiceImpl implements ArticleService, Conversion<ArticleEnt
         if(!articleRepository.findExistingConflicts(article.article_name, article.article_site).isEmpty()) {
             throw new DuplicateEntryException();
         }
-        articleRepository.save(convertToDAO(article));
+        articleRepository.save(Mapper.from(article));
     }
 
     @Override
-    public Article getArticle(Integer article_id) throws ArticleNotFoundException {
-        return convertToJackson( articleRepository.findById(article_id)
-                .orElseThrow(() -> new ArticleNotFoundException(article_id)));
+    public Article getArticle(Integer article_id) throws ArticleNotFoundException, IOException {
+        ArticleEntity entity = articleRepository.findById(article_id)
+                .orElseThrow(() -> new ArticleNotFoundException(article_id));
+
+        return Mapper.from(entity);
     }
 
     @Override
     public List<Article> getAllArticles() {
         List<ArticleEntity> list = (List<ArticleEntity>) articleRepository.findAll();
-        Stream<Article> stream = list.stream().map( (account) -> convertToJackson(account));
+        Stream<Article> stream = list.stream().map( (article) -> {
+            try {
+                return Mapper.from(article);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         return stream.collect(Collectors.toList());
     }
 
     @Override
-    public Article updateArticle(Integer id, Article article) throws ArticleNotFoundException {
+    public Article updateArticle(Integer id, Article article) throws ArticleNotFoundException, IOException {
         ArticleEntity entity = articleRepository.findById(id).orElseThrow( () -> new ArticleNotFoundException(id));
-        entity.setArticleAuthors(article.authors);
-        entity.setArticleName(article.article_name);
-        entity.setArticleSite(article.article_site);
+        entity.setArticleAuthors(article.getAuthors());
+        entity.setArticleName(article.getArticle_name());
+        entity.setArticleSite(article.getArticle_site());
 
         articleRepository.save(entity);
-        return convertToJackson(entity);
+        return Mapper.from(entity);
     }
 
-    @Override
-    public ArticleEntity convertToDAO(Article obj) {
-        ArticleEntity entity = new ArticleEntity();
-
-        entity.setArticleAuthors(obj.authors);
-        entity.setArticleName(obj.article_name);
-        entity.setArticleSite(obj.article_site);
-        entity.setStaredArticles_id(obj.id);
-        return entity;
-    }
-
-    @Override
-    public Article convertToJackson(ArticleEntity obj) {
-        return new Article(obj.getStaredArticles_id(),
-                obj.getArticleName(),
-                obj.getArticleAuthors(),
-                obj.getArticleSite(),
-                obj.getFK_account_id(),
-                obj.getFK_categories_id());
-    }
 }

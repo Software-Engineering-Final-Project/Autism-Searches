@@ -37,6 +37,19 @@ public class ArticleEntity {
                 '}';
     }
 
+    public ArticleEntity create(Integer id, String article_name, String authors, String article_site,
+                                Integer Fk_account_id, Integer Fk_categories_id) {
+
+        this.stared_articles_id = id;
+        this.article_name = article_name;
+        this.article_authors = authors;
+        this.article_site = article_site;
+        this.fk_account_id = Fk_account_id;
+        this.fk_categories_id = Fk_categories_id;
+
+        return this;
+    }
+
     public Integer getStaredArticles_id(){
         return this.stared_articles_id;
     }

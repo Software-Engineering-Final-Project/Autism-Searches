@@ -1,6 +1,7 @@
 package com.articlefetch.app.Controller.JacksonModels;
 
 public class Account {
+
     private Integer id;
     private String username;
     private String password;

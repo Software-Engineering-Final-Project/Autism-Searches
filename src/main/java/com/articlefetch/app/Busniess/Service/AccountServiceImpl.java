@@ -46,7 +46,6 @@ public class AccountServiceImpl implements AccountService {
         return Mapper.from(entity);
     }
 
-
     @Override
     public List<Account> getAllAccounts() {
        List<AccountEntity> list = (List<AccountEntity>) accountRepository.findAll();
