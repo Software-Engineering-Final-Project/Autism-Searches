@@ -27,7 +27,7 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     @Override
     public void createAccount(AccountCreate account) throws DuplicateEntryException {
-        // Check if an account exists
+        // Check if an article exists
         if(!accountRepository.findExistingConflicts(account.getUsername(), account.getPassword()).isEmpty()) {
             throw new DuplicateEntryException();
         }
