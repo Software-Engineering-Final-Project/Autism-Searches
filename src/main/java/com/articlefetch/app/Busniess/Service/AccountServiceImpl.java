@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
         }
         // If not picture is supplied then we will set it for the user
         if (account.getPath() == null) {
-            account.setPath("/default_user.png");
+            account.setPath("/Images/default_user.png");
         }
         accountRepository.save(Mapper.from(account));
     }

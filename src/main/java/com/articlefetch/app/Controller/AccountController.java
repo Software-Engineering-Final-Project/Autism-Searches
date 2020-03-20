@@ -59,7 +59,7 @@ public class AccountController {
     )
     public byte[] getImage() throws IOException {
         InputStream inputStream = getClass()
-                .getResourceAsStream("/pitt_penguin.png");
+                .getResourceAsStream("/Images/pitt_penguin.png");
 
         return inputStream.readAllBytes();
     }

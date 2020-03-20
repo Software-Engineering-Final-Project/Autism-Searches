@@ -38,7 +38,7 @@ class AccountCreateServiceTest {
      @Test
      void createAccount() {
          AccountCreate newAccountCreate = new AccountCreate("jschappel", "password", "Joshua",
-                 "Schappel", "j@shu.edu", null, "default_user.png", true);
+                 "Schappel", "j@shu.edu", null, "Images/default_user.png", true);
 
          AccountEntity newAccountEntry = new AccountEntity()
                  .create(null, "Joshua", "Schappel", "jschappel", "password",
@@ -70,7 +70,7 @@ class AccountCreateServiceTest {
     void getAccount() throws IOException {
         AccountEntity accountE = new AccountEntity()
                 .create(1, "Josh", "Schappel", "jschappel", "password",
-                        "test@shu.edu","/pitt_penguin.png", true);
+                        "test@shu.edu", "/Images/pitt_penguin.png", true);
         when(repository.findById(1)).thenReturn(java.util.Optional.of(accountE));
 
         // test
@@ -100,10 +100,10 @@ class AccountCreateServiceTest {
     @Test
     void getAllAccounts() {
         AccountEntity account1 = new AccountEntity().create(1, "Josh", "Schappel",
-                "jschappel", "password", "test@shu.edu", "/default_user.png", true);
+                "jschappel", "password", "test@shu.edu", "/Images/default_user.png", true);
 
         AccountEntity account2 = new AccountEntity().create(2, "Sach", "M", "sachm",
-                "password2", "sachm@shu.edu", "/pitt_penguin.png", true);
+                "password2", "sachm@shu.edu", "/Images/pitt_penguin.png", true);
 
         List<AccountEntity> dataBaseList = new ArrayList<>();
         dataBaseList.add(account1);
@@ -159,7 +159,7 @@ class AccountCreateServiceTest {
 
         AccountEntity newAccountEntry = new AccountEntity()
                 .create(12, "Joshua", "Schappel", "jschappel", "password",
-                        "j@shu.edu", "/default_user.png",true);
+                        "j@shu.edu", "/Images/default_user.png",true);
 
         when(repository.findById(12)).thenReturn(Optional.of(newAccountEntry));
         Account updatedAccountCreate = accountService.updateAccount(12, updateAccount);

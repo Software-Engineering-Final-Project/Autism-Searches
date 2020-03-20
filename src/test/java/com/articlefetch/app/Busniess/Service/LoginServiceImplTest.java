@@ -3,7 +3,6 @@ package com.articlefetch.app.Busniess.Service;
 import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
 import com.articlefetch.app.Busniess.Exceptions.InvalidPasswordException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
-import com.articlefetch.app.Controller.JacksonModels.AccountCreate;
 import com.articlefetch.app.Controller.JacksonModels.Authentication;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
 import com.articlefetch.app.DataAccess.Repository.AccountRepository;
@@ -41,7 +40,7 @@ class LoginServiceImplTest {
 
         AccountEntity accountEntry = new AccountEntity()
                 .create(null, "Joshua", "Schappel", "jschappel", "password",
-                        "j@shu.edu","/default_user.png", true);
+                        "j@shu.edu", "/Images/default_user.png", true);
 
         Authentication validation = new Authentication("jschappel", "password");
 
