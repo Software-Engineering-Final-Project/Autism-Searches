@@ -26,7 +26,7 @@ public class ImageServiceImpl implements ImageService {
        return fs.map((f) -> {
                     try {
                         String relativePath = "/Images/" + f.getName();
-                        return new Image(relativePath, getImageAsByteArray(relativePath));
+                        return new Image("/" + f.getName(), getImageAsByteArray(relativePath));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
