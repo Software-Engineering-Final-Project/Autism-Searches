@@ -92,6 +92,7 @@ public class ArticleControllerTest {
     }
 
     /*
+
     @Test
     void createArticle() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
@@ -126,7 +127,7 @@ public class ArticleControllerTest {
     }
 
 
-     */
+*/
 
     // Helper function that converts a Jackson Object to a json string
     private static String asJsonString(Object obj) {
