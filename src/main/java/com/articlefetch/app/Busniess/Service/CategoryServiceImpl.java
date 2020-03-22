@@ -1,11 +1,13 @@
 package com.articlefetch.app.Busniess.Service;
 
 import com.articlefetch.app.Busniess.Exceptions.CategoryNotFoundException;
+import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Controller.JacksonModels.Category;
 import com.articlefetch.app.DataAccess.ModelDomain.CategoryEntity;
 import com.articlefetch.app.DataAccess.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,6 +22,16 @@ import java.util.stream.Stream;
 public class CategoryServiceImpl implements CategoryService{
 
     @Autowired CategoryRepository categoryRepository;
+
+    @Transactional
+    @Override
+    public void createCategory(Category category) throws DuplicateEntryException {
+        // Check if an account exists
+        if(!categoryRepository.findExistingConflicts(category.name).isEmpty()) {
+            throw new DuplicateEntryException();
+        }
+        categoryRepository.save(Mapper.from(category));
+    }
 
     @Override
     public Category getCategory(Integer category_id) throws CategoryNotFoundException, IOException {

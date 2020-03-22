@@ -115,15 +115,15 @@ public class ArticleServiceImpTest {
 
     @Test
     void update_article() throws IOException {
-        Article updateArticle = new Article(10, "AutizABC", "Joshua",
+        Article updateArticle = new Article(12, "AutizABC", "Joshua",
                 "Schappel.com", null, null);
 
         ArticleEntity newArticleEntry = new ArticleEntity()
-                .create(10, "AutizABC", "Joshua", "Schappel.com",
+                .create(12, "AutizABC", "Joshua", "Schappel.com",
                         null, null);
 
 
-        when(repository.findById(10)).thenReturn(Optional.of(newArticleEntry));
+        when(repository.findById(12)).thenReturn(Optional.of(newArticleEntry));
         Article updatedArticleCreate = articleService.updateArticle(12, updateArticle);
 
         Article article = articleService.getArticle(12);
@@ -141,10 +141,10 @@ public class ArticleServiceImpTest {
         Article newArticleCreate = new Article(133, "AutizABC", "Joshua",
                 "Schappel.com", null, null);
 
-        when(repository.findById(143)).thenThrow(ArticleNotFoundException.class);
+        when(repository.findById(133)).thenThrow(ArticleNotFoundException.class);
 
         assertThrows(ArticleNotFoundException.class, () -> {
-            articleService.updateArticle(143, newArticleCreate);
+            articleService.updateArticle(133, newArticleCreate);
         });
     }
 
