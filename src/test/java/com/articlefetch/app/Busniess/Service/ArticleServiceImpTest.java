@@ -36,11 +36,11 @@ public class ArticleServiceImpTest {
 
     @Test
     void createArticlet() {
-        Article newArticleCreate = new Article(null, "AutizABC", "Joshua",
+        Article newArticleCreate = new Article(1, "AutizABC", "Joshua",
                 "Schappel.com", null, null);
 
         ArticleEntity newArticleEntry = new ArticleEntity()
-                .create(null, "AutizABC", "Joshua", "Schappel.com", null, null);
+                .create(1, "AutizABC", "Joshua", "Schappel.com", null, null);
 
         articleService.createArticle(newArticleCreate);
 
@@ -52,7 +52,7 @@ public class ArticleServiceImpTest {
 
     @Test
     void createArticle_when_new_article_is_a_duplicate() {
-        Article newArticleCreate = new Article(null, "AutizABC", "Joshua",
+        Article newArticleCreate = new Article(1, "AutizABC", "Joshua",
                 "Schappel.com", null, null);
 
         doThrow(new DuplicateEntryException())
