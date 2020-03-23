@@ -1,5 +1,6 @@
 package com.articlefetch.app.Busniess.Service;
 
+import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Controller.JacksonModels.StarredCategories;
 import com.articlefetch.app.DataAccess.ModelDomain.StarredCategoriesEntity;
 import com.articlefetch.app.DataAccess.Repository.StarredCategoriesRepository;
@@ -46,6 +47,31 @@ public class StarredCategoriesImpTest {
         ).findExistingConflicts(newSCategories.getStarred_categories_name());
     }
 
+    @Test
+    void createStarredCategories_when_new_starredCategories_is_a_duplicate() {
+        StarredCategories newStarredCategoreis = new StarredCategories(1, "Research", 32,
+                65);
+
+        doThrow(new DuplicateEntryException())
+                .when(repository)
+                .findExistingConflicts(newStarredCategoreis.getStarred_categories_name());
+
+        assertThrows(DuplicateEntryException.class, () -> starredCategoriesService.createStarredCategories(newStarredCategoreis));
+
+    }
+
+    @Test
+    void getArticle() throws IOException {
+        StarredCategoriesEntity SCategoriesE = new StarredCategoriesEntity()
+                .create(1, "Research", 34, 54);
+        when(repository.findById(1)).thenReturn(java.util.Optional.of(SCategoriesE));
+
+        // test
+        StarredCategories starredCategories = starredCategoriesService.getStarredCategories(1);
+        assertEquals(SCategoriesE.getCategories_name(), starredCategories.getStarred_categories_name());
+        assertEquals(null, SCategoriesE.getFK_account_id());
+        assertEquals(null, SCategoriesE.getStarred_categories_id());
+    }
 
 
 
