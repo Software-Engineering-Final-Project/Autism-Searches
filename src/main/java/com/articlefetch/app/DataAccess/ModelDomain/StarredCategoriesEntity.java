@@ -20,6 +20,15 @@ public class StarredCategoriesEntity {
     @JoinColumn(name = "id_account")
     private Integer fk_account_id;
 
+    public StarredCategoriesEntity create(Integer id, String name, Integer Fk_account_id, Integer Fk_categories_id) {
+        this.stared_categories_id = id;
+        this.categories_name =  name;
+        this.fk_categories_id = Fk_categories_id;
+        this.fk_account_id = Fk_account_id;
+
+        return this;
+    }
+
     @Override
     public String toString() {
         return "ArticleEntity{" +
@@ -53,5 +62,6 @@ public class StarredCategoriesEntity {
     public Integer getFK_categories_id() {
         return this.fk_categories_id;
     }
+
 
 }

@@ -36,6 +36,7 @@ public class AccountServiceImpl implements AccountService {
             account.setPath("/default_user.png");
         }
         // Hibernate updates the objects pk after a save
+        //hass password
         AccountEntity entity = accountRepository.save(Mapper.from(account));
 
         return entity.getAccount_id();

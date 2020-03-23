@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public void createCategory(Category category) throws DuplicateEntryException {
         // Check if an account exists
-        if(!categoryRepository.findExistingConflicts(category.name).isEmpty()) {
+        if(!categoryRepository.findExistingConflicts(category.getName()).isEmpty()) {
             throw new DuplicateEntryException();
         }
         categoryRepository.save(Mapper.from(category));

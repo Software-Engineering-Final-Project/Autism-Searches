@@ -25,12 +25,14 @@ public class ArticleServiceImpl implements ArticleService{
 
     @Transactional
     @Override
-    public void createArticle(Article article) throws DuplicateEntryException {
+    public Integer createArticle(Article article) throws DuplicateEntryException {
         // Check if an account exists
         if(!articleRepository.findExistingConflicts(article.article_name, article.article_site).isEmpty()) {
             throw new DuplicateEntryException();
         }
-        articleRepository.save(Mapper.from(article));
+        ArticleEntity entity = articleRepository.save(Mapper.from(article));
+
+        return entity.getStaredArticles_id();
     }
 
     @Override

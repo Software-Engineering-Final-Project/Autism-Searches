@@ -11,5 +11,5 @@ public interface ArticleService {
     public List<Article> getAllArticles();
     public Article getArticle(Integer id)  throws ArticleNotFoundException, IOException;
     public Article updateArticle(Integer id, Article account) throws ArticleNotFoundException, IOException;
-    public void createArticle(Article account) throws DuplicateEntryException;
+    public Integer createArticle(Article article) throws DuplicateEntryException;
 }

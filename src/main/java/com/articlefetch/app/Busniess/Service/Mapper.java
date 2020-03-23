@@ -1,12 +1,10 @@
 package com.articlefetch.app.Busniess.Service;
 
-import com.articlefetch.app.Controller.JacksonModels.Account;
-import com.articlefetch.app.Controller.JacksonModels.AccountCreate;
-import com.articlefetch.app.Controller.JacksonModels.Article;
-import com.articlefetch.app.Controller.JacksonModels.Category;
+import com.articlefetch.app.Controller.JacksonModels.*;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
 import com.articlefetch.app.DataAccess.ModelDomain.ArticleEntity;
 import com.articlefetch.app.DataAccess.ModelDomain.CategoryEntity;
+import com.articlefetch.app.DataAccess.ModelDomain.StarredCategoriesEntity;
 import org.apache.catalina.filters.ExpiresFilter;
 
 import java.io.IOException;
@@ -28,7 +26,7 @@ public final class Mapper {
 
     public static ArticleEntity from (Article article) {
         return new ArticleEntity().create(article.getId(), article.getArticle_name(), article.getAuthors(),
-                article.getArticle_site(), article.Fk_account_id, article.Fk_categories_id);
+                article.getArticle_site(), article.getFk_account_id(), article.getFk_categories_id());
     }
 
     public static Article from (ArticleEntity article) throws IOException {
@@ -44,6 +42,15 @@ public final class Mapper {
         return new Category(category.getId(), category.getCategoryName(), category.getDescription());
     }
 
+    public static StarredCategoriesEntity from (StarredCategories category) {
+        return new StarredCategoriesEntity().create(category.getId(), category.getStarred_categories_name(),
+                category.getFk_account_id(), category.getFk_categories_id());
+    }
+
+    public static StarredCategories from (StarredCategoriesEntity category) throws IOException {
+        return new StarredCategories(category.getStarred_categories_id(), category.getCategories_name(),
+                category.getFK_account_id(), category.getStarred_categories_id());
+    }
 
     private static byte[] getImageAsByteArray(String path) throws IOException {
         try {
