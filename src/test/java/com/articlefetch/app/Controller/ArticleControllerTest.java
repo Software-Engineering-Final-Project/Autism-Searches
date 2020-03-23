@@ -37,7 +37,7 @@ public class ArticleControllerTest {
 
     @Test
     void getAllArticles() throws Exception {
-        Article a1 = new Article(null, "AutismXYZ", "Joshua",
+        Article a1 = new Article(1, "AutismXYZ", "Joshua",
                 "Schappel.com", null, null);
 
         List<Article> articleList = Arrays.asList(a1);
@@ -48,7 +48,7 @@ public class ArticleControllerTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].id", IsNull.nullValue()))
+                .andExpect(jsonPath("$[0].id", is(1)))
                 .andExpect(jsonPath("$[0].article_name", is("AutismXYZ")))
                 .andExpect(jsonPath("$[0].authors", is("Joshua")))
                 .andExpect(jsonPath("$[0].article_site", is("Schappel.com")))
@@ -90,6 +90,7 @@ public class ArticleControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message", is("Article id: 100 is not a valid id")));
     }
+
 
     /*
 

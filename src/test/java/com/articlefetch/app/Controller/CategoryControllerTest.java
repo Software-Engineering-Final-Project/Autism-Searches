@@ -81,11 +81,4 @@ public class CategoryControllerTest {
                 .andExpect(jsonPath("$.message", is("Category id: 100 is not a valid id")));
     }
 
-
-
-
-
-
-
-
 }
