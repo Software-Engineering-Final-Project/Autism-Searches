@@ -26,16 +26,19 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    public void createAccount(AccountCreate account) throws DuplicateEntryException {
+    public Integer createAccount(AccountCreate account) throws DuplicateEntryException {
         // Check if an article exists
         if(!accountRepository.findExistingConflicts(account.getUsername(), account.getPassword()).isEmpty()) {
-            throw new DuplicateEntryException();
+            throw new DuplicateEntryException("Username or email address is already in use");
         }
         // If not picture is supplied then we will set it for the user
         if (account.getPath() == null) {
-            account.setPath("/Images/default_user.png");
+            account.setPath("/default_user.png");
         }
-        accountRepository.save(Mapper.from(account));
+        // Hibernate updates the objects pk after a save
+        AccountEntity entity = accountRepository.save(Mapper.from(account));
+
+        return entity.getAccount_id();
     }
 
     @Override

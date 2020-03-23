@@ -17,8 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -100,13 +99,13 @@ class AccountCreateControllerTest {
         AccountCreate a1 = new AccountCreate("jschappel", "password", "Joshua",
                 "Schappel", "j@shu.edu", null, true);
 
-        doNothing().when(service).createAccount(a1);
+        when(service.createAccount(any())).thenReturn(1);
 
         mvc.perform(put("/account/create")
                 .content(asJsonString(a1))
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$['message']", is("Success")));
+                .andExpect(jsonPath("$['id']", is("1")));
     }
 
     @Test

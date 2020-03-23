@@ -8,9 +8,9 @@ import java.util.Map;
 
 public class SuccessResponseEntity {
 
-    public static ResponseEntity<Map<String, String>> createdResponseEntity() {
+    public static ResponseEntity<Map<String, String>> createdResponseEntity(Integer id) {
         Map<String, String> body = new HashMap<>();
-        body.put("message", "Success");
+        body.put("id", id.toString());
         return new ResponseEntity<>(body, HttpStatus.CREATED);
     }
 

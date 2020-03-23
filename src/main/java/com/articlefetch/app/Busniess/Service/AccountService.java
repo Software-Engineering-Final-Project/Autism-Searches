@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface AccountService {
 
-    public void createAccount(AccountCreate accountCreate) throws DuplicateEntryException;
+    public Integer createAccount(AccountCreate accountCreate) throws DuplicateEntryException;
     public Account getAccount(Integer account_id) throws AccountNotFoundException, IOException;
     public List<Account> getAllAccounts();
     public void deactivateAccount(Integer id) throws AccountNotFoundException;

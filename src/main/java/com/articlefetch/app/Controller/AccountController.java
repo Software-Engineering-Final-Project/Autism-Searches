@@ -37,8 +37,9 @@ public class AccountController {
 
     @PutMapping("/create")
     public ResponseEntity<Map<String, String>> createAccount(@RequestBody AccountCreate accountCreate) {
-        accountService.createAccount(accountCreate);
-        return SuccessResponseEntity.createdResponseEntity();
+        Integer id = accountService.createAccount(accountCreate);
+        System.out.println(accountCreate);
+        return SuccessResponseEntity.createdResponseEntity(id);
     }
 
     @PutMapping("/reactivate")

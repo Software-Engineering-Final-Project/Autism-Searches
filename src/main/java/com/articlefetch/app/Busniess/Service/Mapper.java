@@ -47,7 +47,8 @@ public final class Mapper {
 
     private static byte[] getImageAsByteArray(String path) throws IOException {
         try {
-            String fullPath = "Images" + path;
+            String fullPath = "/Images" + path;
+            System.out.println(fullPath);
             InputStream inputStream = Mapper.class
                     .getResourceAsStream(fullPath);
             return inputStream.readAllBytes();

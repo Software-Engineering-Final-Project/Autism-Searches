@@ -40,9 +40,6 @@ class AccountCreateServiceTest {
          AccountCreate newAccountCreate = new AccountCreate("jschappel", "password", "Joshua",
                  "Schappel", "j@shu.edu",  "Images/default_user.png", true);
 
-         AccountEntity newAccountEntry = new AccountEntity()
-                 .create(null, "Joshua", "Schappel", "jschappel", "password",
-                         "j@shu.edu", null,true);
 
          accountService.createAccount(newAccountCreate);
 
