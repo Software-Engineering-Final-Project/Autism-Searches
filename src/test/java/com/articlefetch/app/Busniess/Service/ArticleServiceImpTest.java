@@ -35,12 +35,9 @@ public class ArticleServiceImpTest {
     }
 
     @Test
-    void createArticlet() {
+    void createArticle() {
         Article newArticleCreate = new Article(1, "AutizABC", "Joshua",
-                "Schappel.com", null, null);
-
-        ArticleEntity newArticleEntry = new ArticleEntity()
-                .create(1, "AutizABC", "Joshua", "Schappel.com", null, null);
+                "Schappel.com", 2, 2);
 
         articleService.createArticle(newArticleCreate);
 
