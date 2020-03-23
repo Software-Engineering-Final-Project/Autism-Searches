@@ -16,8 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -91,21 +91,18 @@ public class ArticleControllerTest {
                 .andExpect(jsonPath("$.message", is("Article id: 100 is not a valid id")));
     }
 
-
-    /*
-
     @Test
     void createArticle() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
-                "Schappel.com", null, null);
+                "Schappel.com", 111, 111);
 
-        doNothing().when(service).createArticle(a1);
+        when(service.createArticle(any())).thenReturn(1);
 
         mvc.perform(put("/article/create")
                 .content(asJsonString(a1))
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$['message']", is("Success")));
+                .andExpect(jsonPath("$['id']", is("1")));
     }
 
     @Test
@@ -127,8 +124,6 @@ public class ArticleControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-
-*/
 
     // Helper function that converts a Jackson Object to a json string
     private static String asJsonString(Object obj) {

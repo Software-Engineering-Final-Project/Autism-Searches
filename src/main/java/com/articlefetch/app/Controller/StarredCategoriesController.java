@@ -24,7 +24,7 @@ public class StarredCategoriesController {
     @Autowired
     StarredCategoriesService starredCategoriesService;
 
-    @GetMapping("/getAllAStarredCategories")
+    @GetMapping("/getAllStarredCategories")
     public ResponseEntity<List<StarredCategories>> getAllAStarredCategories() {
         return new ResponseEntity<>(starredCategoriesService.getAllStarredCategories(), HttpStatus.OK);
     }

@@ -1,7 +1,9 @@
 package com.articlefetch.app.Controller;
 
+import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Busniess.Service.StarredCategoriesService;
 import com.articlefetch.app.Controller.JacksonModels.StarredCategories;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,8 @@ import java.util.Arrays;
 import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -34,25 +36,80 @@ public class StarredCategoriesControllerTest {
 
     @Test
     void getAllStarredCategories() throws Exception {
-        StarredCategories c1 = new StarredCategories(1, "Research", null,
-                 null);
+        StarredCategories c1 = new StarredCategories(1, "Research", 11,
+                 11);
 
         List<StarredCategories> starredCategoriesList = Arrays.asList(c1);
 
         given(service.getAllStarredCategories()).willReturn(starredCategoriesList);
 
-        mvc.perform(get("/starredCategories/AllStarredCategories")
+        mvc.perform(get("/starredCategories/getAllStarredCategories")
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].id", is(1)))
-                .andExpect(jsonPath("$[0].article_name", is("Research")))
-                .andExpect(jsonPath("$[0].fk_account_id", IsNull.nullValue()))
-                .andExpect(jsonPath("$[0].fk_categories_id", IsNull.nullValue()));
+                .andExpect(jsonPath("$[0].Starred_categories_name", is("Research")))
+                .andExpect(jsonPath("$[0].fk_account_id", is(11)))
+                .andExpect(jsonPath("$[0].fk_categories_id", is(11)));
     }
 
+    @Test
+    void getStarredCategories() throws Exception {
+        StarredCategories c1 = new StarredCategories(1, "Research", 10,
+                10);
 
+        given(service.getStarredCategories(1)).willReturn(c1);
 
+        mvc.perform(get("/starredCategories/getStarredCategories?id=1")
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$['id']", is(1)))
+                .andExpect(jsonPath("$['Starred_categories_name']", is("Research")))
+                .andExpect(jsonPath("$['fk_account_id']", is(10)))
+                .andExpect(jsonPath("$['fk_categories_id']", is(10)));
+    }
+
+    @Test
+    void createStarredCategories() throws Exception {
+        StarredCategories a1 = new StarredCategories(1, "Research", 10,
+                10);
+
+        when(service.createStarredCategories(any())).thenReturn(1);
+
+        mvc.perform(put("/starredCategories/create")
+                .content(asJsonString(a1))
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$['id']", is("1")));
+    }
+
+    @Test
+    void createStarredCategories_with_out_params() throws Exception {
+        mvc.perform(put("/starredCategories/create")
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void create_duplicate_starredCategories() throws Exception {
+        StarredCategories a1 = new StarredCategories(1, "Research", 45,
+                34);
+
+        doThrow(DuplicateEntryException.class).when(service).createStarredCategories(a1);
+
+        mvc.perform(put("/starredCategories/create")
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    // Helper function that converts a Jackson Object to a json string
+    private static String asJsonString(Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 
 
 
