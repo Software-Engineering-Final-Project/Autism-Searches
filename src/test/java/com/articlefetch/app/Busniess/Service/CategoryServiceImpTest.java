@@ -35,10 +35,10 @@ public class CategoryServiceImpTest {
 
     @Test
     void createCategory() {
-        Category newCategoryCreate = new Category(null, "Research", "Bla Bla Bla");
+        Category newCategoryCreate = new Category(1, "Research", "Bla Bla Bla");
 
         CategoryEntity newCategoryEntry = new CategoryEntity()
-                .create(null, "Research", "Bla Bla Bla");
+                .create(1, "Research", "Bla Bla Bla");
 
         categoryService.createCategory(newCategoryCreate);
 

@@ -33,7 +33,7 @@ public class CategoryControllerTest {
 
     @Test
     void getAllCategories() throws Exception {
-        Category a1 = new Category(null, "Childhood Autism", "Bla Bla Bla");
+        Category a1 = new Category(1, "Childhood Autism", "Bla Bla Bla");
 
         List<Category> categoriesList = Arrays.asList(a1);
 
@@ -43,7 +43,7 @@ public class CategoryControllerTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].id", IsNull.nullValue()))
+                .andExpect(jsonPath("$[0].id", is(1)))
                 .andExpect(jsonPath("$[0].name", is("Childhood Autism")))
                 .andExpect(jsonPath("$[0].description", is("Bla Bla Bla")));
 
