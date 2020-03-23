@@ -38,8 +38,13 @@ class AccountCreateServiceTest {
      @Test
      void createAccount() {
          AccountCreate newAccountCreate = new AccountCreate("jschappel", "password", "Joshua",
-                 "Schappel", "j@shu.edu",  "Images/default_user.png", true);
+                 "Schappel", "j@shu.edu",  "/Images/default_user.png", true);
 
+         AccountEntity accountE = new AccountEntity()
+                 .create(1, "Josh", "Schappel", "jschappel", "password",
+                         "test@shu.edu", "/Images/default_user.png", true);
+
+         when(repository.save(any(AccountEntity.class))).thenReturn(accountE);
 
          accountService.createAccount(newAccountCreate);
 
