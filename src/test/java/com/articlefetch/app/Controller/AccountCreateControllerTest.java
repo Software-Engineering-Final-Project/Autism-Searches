@@ -40,7 +40,7 @@ class AccountCreateControllerTest {
     @Test
     void getAllAccounts() throws Exception {
         Account a1 = new Account("jschappel", "password", "Joshua",
-                "Schappel", "j@shu.edu", null, null, true);
+                "Schappel", "j@shu.edu", 1,  null, "Images/default_user.png", true);
 
         List<Account> accountCreateList = Arrays.asList(a1);
 
@@ -55,14 +55,14 @@ class AccountCreateControllerTest {
                 .andExpect(jsonPath("$[0].first_name", is("Joshua")))
                 .andExpect(jsonPath("$[0].last_name", is("Schappel")))
                 .andExpect(jsonPath("$[0].email", is("j@shu.edu")))
-                .andExpect(jsonPath("$[0].id", IsNull.nullValue()))
+                .andExpect(jsonPath("$[0].id", is(1)))
                 .andExpect(jsonPath("$[0].status", is(true)));
     }
 
     @Test
     void getAccount() throws Exception {
         Account a1 = new Account("jschappel", "password", "Joshua",
-                "Schappel", "j@shu.edu", 1, null, true);
+                "Schappel", "j@shu.edu", 1,  null, "Images/default_user.png", true);
 
         given(service.getAccount(1)).willReturn(a1);
 
@@ -98,7 +98,7 @@ class AccountCreateControllerTest {
     @Test
     void createAccount() throws Exception {
         AccountCreate a1 = new AccountCreate("jschappel", "password", "Joshua",
-                "Schappel", "j@shu.edu", 1, null, true);
+                "Schappel", "j@shu.edu", null, true);
 
         doNothing().when(service).createAccount(a1);
 
@@ -119,7 +119,7 @@ class AccountCreateControllerTest {
     @Test
     void create_duplicate_account() throws Exception {
         AccountCreate a1 = new AccountCreate("jschappel", "password", "Joshua",
-                "Schappel", "j@shu.edu", 1, null, true);
+                "Schappel", "j@shu.edu", null, true);
 
         doThrow(DuplicateEntryException.class).when(service).createAccount(a1);
 
@@ -130,8 +130,6 @@ class AccountCreateControllerTest {
 
     @Test
     void reactivateAccount() throws Exception {
-        AccountCreate a1 = new AccountCreate("jschappel", "password", "Joshua",
-                "Schappel", "j@shu.edu", 1, null, true);
 
         doNothing().when(service).reactivateAccount(1);
 
@@ -143,8 +141,6 @@ class AccountCreateControllerTest {
 
     @Test
     void reactivateAccount_with_invalid_id() throws Exception {
-        AccountCreate a1 = new AccountCreate("jschappel", "password", "Joshua",
-                "Schappel", "j@shu.edu", 100, null, true);
 
         doThrow(new AccountNotFoundException(100)).when(service).reactivateAccount(100);
 
@@ -163,8 +159,6 @@ class AccountCreateControllerTest {
 
     @Test
     void deactivateAccount() throws Exception {
-        AccountCreate a1 = new AccountCreate("jschappel", "password", "Joshua",
-                "Schappel", "j@shu.edu", 1, null, true);
 
         doNothing().when(service).deactivateAccount(1);
 
@@ -176,8 +170,6 @@ class AccountCreateControllerTest {
 
     @Test
     void deactivateAccount_with_invalid_id() throws Exception {
-        AccountCreate a1 = new AccountCreate("jschappel", "password", "Joshua",
-                "Schappel", "j@shu.edu", 100, null, true);
 
         doThrow(new AccountNotFoundException(100)).when(service).deactivateAccount(100);
 

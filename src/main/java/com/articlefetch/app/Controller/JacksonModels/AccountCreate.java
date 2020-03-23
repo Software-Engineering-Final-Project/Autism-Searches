@@ -1,5 +1,8 @@
 package com.articlefetch.app.Controller.JacksonModels;
 
+/** AccountCreate is mapped to a Jackson Object and is reserved only for creating an account. The main difference
+ *   between an Account and a AccountCreate object is that the AccountCreate object does not have an id of a image.
+ */
 public class AccountCreate {
 
     private Integer id;
@@ -11,14 +14,14 @@ public class AccountCreate {
     private String path;
     private boolean status;
 
-    public AccountCreate(String username, String password, String first_name, String last_name, String email, Integer id,
+    public AccountCreate(String username, String password, String first_name, String last_name, String email,
                          String path, boolean status) {
         this.email = email;
         this.first_name = first_name;
         this.last_name = last_name;
         this.password = password;
         this.username = username;
-        this.id = id;
+        this.id = null;
         this.path = path;
         this.status = status;
     }

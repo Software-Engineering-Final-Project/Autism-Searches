@@ -23,7 +23,7 @@ public final class Mapper {
     public static Account from (AccountEntity account) throws IOException {
          return new Account(account.getUsername(), account.getPassword(), account.getFirst_name(),
                  account.getLast_name(), account.getEmail(), account.getAccount_id(),
-                 getImageAsByteArray(account.getPath()), account.getStatus());
+                 getImageAsByteArray(account.getPath()), account.getPath(), account.getStatus());
     }
 
     public static ArticleEntity from (Article article) {

@@ -38,7 +38,7 @@ class AccountCreateServiceTest {
      @Test
      void createAccount() {
          AccountCreate newAccountCreate = new AccountCreate("jschappel", "password", "Joshua",
-                 "Schappel", "j@shu.edu", null, "Images/default_user.png", true);
+                 "Schappel", "j@shu.edu",  "Images/default_user.png", true);
 
          AccountEntity newAccountEntry = new AccountEntity()
                  .create(null, "Joshua", "Schappel", "jschappel", "password",
@@ -56,7 +56,7 @@ class AccountCreateServiceTest {
      @Test
      void createAccount_when_new_account_is_a_duplicate() {
          AccountCreate newAccountCreate = new AccountCreate("jschappel", "password", "Joshua",
-                 "Schappel", "j@shu.edu", null, null, true);
+                 "Schappel", "j@shu.edu", "Images/default_user.png", true);
 
          doThrow(new DuplicateEntryException())
                  .when(repository)
@@ -154,8 +154,8 @@ class AccountCreateServiceTest {
 
     @Test
     void update_account() throws IOException {
-        AccountCreate updateAccount = new AccountCreate("jschappel", "password", "Joshua",
-                "Schappel", "j@shu.edu", 12, null, true);
+        Account updateAccount = new Account("jschappel", "password", "Joshua",
+                "Schappel", "j@shu.edu", 1, null, "Images/default_user.png",  true);
 
         AccountEntity newAccountEntry = new AccountEntity()
                 .create(12, "Joshua", "Schappel", "jschappel", "password",
@@ -177,8 +177,8 @@ class AccountCreateServiceTest {
 
     @Test
     void updateAccount_that_does_not_exist() {
-        AccountCreate newAccountCreate = new AccountCreate("jschappel", "password", "Joshua",
-                "Schappel", "j@shu.edu", 143, null, true);
+        Account newAccountCreate = new Account("jschappel", "password", "Joshua",
+                "Schappel", "j@shu.edu", 1,  null, "Images/default_user.png", true);
 
         when(repository.findById(143)).thenThrow(AccountNotFoundException.class);
 

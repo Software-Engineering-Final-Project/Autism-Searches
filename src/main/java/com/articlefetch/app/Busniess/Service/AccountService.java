@@ -16,6 +16,6 @@ public interface AccountService {
     public List<Account> getAllAccounts();
     public void deactivateAccount(Integer id) throws AccountNotFoundException;
     public void reactivateAccount(Integer id) throws AccountNotFoundException;
-    public Account updateAccount(Integer id, AccountCreate accountCreate) throws AccountNotFoundException, IOException;
+    public Account updateAccount(Integer id, Account accountCreate) throws AccountNotFoundException, IOException;
 
 }

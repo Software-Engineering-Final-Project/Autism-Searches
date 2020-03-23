@@ -36,7 +36,7 @@ class LoginServiceImplTest {
     @Test
     void validateAccount() throws IOException {
         Account returnedAccount = new Account("jschappel", "password", "Joshua",
-                "Schappel", "j@shu.edu", null, null, true);
+                "Schappel", "j@shu.edu", 1, null, "/default_user.png", true);
 
         AccountEntity accountEntry = new AccountEntity()
                 .create(null, "Joshua", "Schappel", "jschappel", "password",

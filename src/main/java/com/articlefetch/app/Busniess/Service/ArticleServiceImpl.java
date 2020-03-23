@@ -54,6 +54,7 @@ public class ArticleServiceImpl implements ArticleService{
         return stream.collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public Article updateArticle(Integer id, Article article) throws ArticleNotFoundException, IOException {
         ArticleEntity entity = articleRepository.findById(id).orElseThrow( () -> new ArticleNotFoundException(id));

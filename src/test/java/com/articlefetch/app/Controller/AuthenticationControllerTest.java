@@ -34,7 +34,7 @@ class AuthenticationControllerTest {
     void login() throws Exception {
         Authentication validation = new Authentication("jschappel", "password");
         Account returnedAccountCreate = new Account("jschappel", "password", "Joshua",
-                "Schappel", "j@shu.edu", 12, null, true);
+                "Schappel", "j@shu.edu", 12, null, "/default_user.png", true);
 
         when(service.validateAccount(validation.getUsername(), validation.getPassword())).thenReturn(returnedAccountCreate);
 

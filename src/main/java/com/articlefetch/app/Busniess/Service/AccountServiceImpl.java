@@ -73,8 +73,9 @@ public class AccountServiceImpl implements AccountService {
                 () -> new AccountNotFoundException(id));
     }
 
+    @Transactional
     @Override
-    public Account updateAccount(Integer id, AccountCreate accountCreate) throws AccountNotFoundException, IOException {
+    public Account updateAccount(Integer id, Account accountCreate) throws AccountNotFoundException, IOException {
         AccountEntity entity = accountRepository.findById(id).orElseThrow( () -> new AccountNotFoundException(id));
         entity.setUsername(accountCreate.getUsername());
         entity.setPassword(accountCreate.getPassword());

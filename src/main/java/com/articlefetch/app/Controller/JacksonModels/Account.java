@@ -8,11 +8,12 @@ public class Account {
     private String first_name;
     private String last_name;
     private String email;
+    private String path;
     private byte[] image;
     private boolean status;
 
     public Account(String username, String password, String first_name, String last_name, String email, Integer id,
-                         byte[] image, boolean status) {
+                         byte[] image, String path, boolean status) {
         this.email = email;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -20,6 +21,7 @@ public class Account {
         this.username = username;
         this.id = id;
         this.image = image;
+        this.path = path;
         this.status = status;
     }
 
@@ -90,4 +92,11 @@ public class Account {
         this.status = status;
     }
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 }
