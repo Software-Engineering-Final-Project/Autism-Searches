@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +38,7 @@ public class AccountController {
     }
 
     @PutMapping("/create")
-    public ResponseEntity<Map<String, String>> createAccount(@RequestBody AccountCreate accountCreate) {
+    public ResponseEntity<Map<String, String>> createAccount(@RequestBody AccountCreate accountCreate) throws InvalidKeySpecException, NoSuchAlgorithmException {
         Integer id = accountService.createAccount(accountCreate);
         return SuccessResponseEntity.createdResponseEntity(id);
     }

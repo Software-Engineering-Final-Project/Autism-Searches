@@ -1,5 +1,6 @@
 package com.articlefetch.app.Busniess.Service;
 
+import com.articlefetch.app.Busniess.Hashing.SHAhashing;
 import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
 import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,7 +29,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    public Integer createAccount(AccountCreate account) throws DuplicateEntryException {
+    public Integer createAccount(AccountCreate account) throws DuplicateEntryException, NoSuchAlgorithmException, InvalidKeySpecException {
         // Check if an article exists
         if(!accountRepository.findExistingConflicts(account.getUsername(), account.getPassword()).isEmpty()) {
             throw new DuplicateEntryException("Username or email address is already in use");
@@ -37,6 +40,8 @@ public class AccountServiceImpl implements AccountService {
         }
         // Hibernate updates the objects pk after a save
         //hass password
+        String HashedPassword = SHAhashing.generateHashPassword(account.getPassword());
+        account.setPassword(HashedPassword);
         AccountEntity entity = accountRepository.save(Mapper.from(account));
 
         return entity.getAccount_id();
