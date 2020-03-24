@@ -76,20 +76,17 @@ ENGINE = InnoDB;
 -- Table `article_db`.`starred_categories`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `article_db`.`starred_categories` (
-  `id_starred_categories` INT NOT NULL AUTO_INCREMENT,
-  `category_name` VARCHAR(45) NOT NULL,
-  `fk_account_id` INT NOT NULL,
+  `fk_accounts_id` INT NOT NULL,
   `fk_categories_id` INT NOT NULL,
-  PRIMARY KEY (`id_starred_categories`, `fk_categories_id`),
-  UNIQUE INDEX `id_starred_categories_UNIQUE` (`id_starred_categories` ASC) VISIBLE,
-  UNIQUE INDEX `category_name_UNIQUE` (`category_name` ASC) VISIBLE,
-  INDEX `fk_starred_categories_categories1_idx` (`fk_categories_id` ASC) VISIBLE,
-  CONSTRAINT `fk_accountid`
-    FOREIGN KEY (`fk_account_id`)
+  PRIMARY KEY (`fk_accounts_id`, `fk_categories_id`),
+  INDEX `fk_accounts_has_categories_categories1_idx` (`fk_categories_id` ASC) VISIBLE,
+  INDEX `fk_accounts_has_categories_accounts1_idx` (`fk_accounts_id` ASC) VISIBLE,
+  CONSTRAINT `fk_accounts_has_categories_accounts1`
+    FOREIGN KEY (`fk_accounts_id`)
     REFERENCES `article_db`.`accounts` (`id_account`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_starred_categories_categories1`
+  CONSTRAINT `fk_accounts_has_categories_categories1`
     FOREIGN KEY (`fk_categories_id`)
     REFERENCES `article_db`.`categories` (`id_categories`)
     ON DELETE NO ACTION
