@@ -4,8 +4,6 @@ import com.articlefetch.app.Controller.JacksonModels.*;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
 import com.articlefetch.app.DataAccess.ModelDomain.ArticleEntity;
 import com.articlefetch.app.DataAccess.ModelDomain.CategoryEntity;
-import com.articlefetch.app.DataAccess.ModelDomain.StarredCategoriesEntity;
-import org.apache.catalina.filters.ExpiresFilter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +27,7 @@ public final class Mapper {
                 article.getArticle_site(), article.getFk_account_id(), article.getFk_categories_id());
     }
 
-    public static Article from (ArticleEntity article) throws IOException {
+    public static Article from (ArticleEntity article)  {
         return new Article(article.getStaredArticles_id(), article.getArticleName(), article.getArticleAuthors(),
                 article.getArticleSite(), article.getFK_account_id(), article.getFK_categories_id());
     }
@@ -38,21 +36,11 @@ public final class Mapper {
         return new CategoryEntity().create(category.getId(), category.getName(), category.getDescription());
     }
 
-    public static Category from (CategoryEntity category) throws IOException {
+    public static Category from (CategoryEntity category) {
         return new Category(category.getId(), category.getCategoryName(), category.getDescription());
     }
 
-    public static StarredCategoriesEntity from (StarredCategories category) {
-        return new StarredCategoriesEntity().create(category.getId(), category.getStarred_categories_name(),
-                category.getFk_account_id(), category.getFk_categories_id());
-    }
-
-    public static StarredCategories from (StarredCategoriesEntity category) throws IOException {
-        return new StarredCategories(category.getStarred_categories_id(), category.getCategories_name(),
-                category.getFK_account_id(), category.getStarred_categories_id());
-    }
-
-    private static byte[] getImageAsByteArray(String path) throws IOException {
+    private static byte[] getImageAsByteArray(String path) {
         try {
             String fullPath = "/Images" + path;
             InputStream inputStream = Mapper.class

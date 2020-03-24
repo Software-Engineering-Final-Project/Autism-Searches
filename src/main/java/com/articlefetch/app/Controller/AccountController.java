@@ -3,6 +3,7 @@ package com.articlefetch.app.Controller;
 import com.articlefetch.app.Busniess.Service.AccountService;
 import com.articlefetch.app.Controller.JacksonModels.Account;
 import com.articlefetch.app.Controller.JacksonModels.AccountCreate;
+import com.articlefetch.app.Controller.JacksonModels.Category;
 import com.articlefetch.app.Controller.ResponseEntities.SuccessResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,19 @@ public class AccountController {
     @GetMapping("/getAccount")
     public ResponseEntity<Account> getAccount(@RequestParam(value = "id", required = true) Integer id) throws IOException {
         return new ResponseEntity<>(accountService.getAccount(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/getCategories")
+    public ResponseEntity<List<Category>> getCategories(@RequestParam(value = "id", required = true) Integer id) {
+        return new ResponseEntity<>(accountService.getStarredCategories(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/addCategories")
+    public ResponseEntity<List<Category>> addCategories(
+            @RequestBody List<Category> categoryList,
+            @RequestParam(value = "id", required = true) Integer id
+    ) {
+        return new ResponseEntity<>(accountService.addStarredCategories(categoryList, id), HttpStatus.OK);
     }
 
     @PutMapping("/create")

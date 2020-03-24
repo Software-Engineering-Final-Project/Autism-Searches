@@ -1,6 +1,8 @@
 package com.articlefetch.app.DataAccess.ModelDomain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class creates a entry model for Hibernate so it can mapped to the account table in mysql
@@ -26,6 +28,15 @@ public class AccountEntity {
     private Integer status;
 
     private String path;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "accounts_categories",
+            joinColumns = { @JoinColumn(name ="id_account") },
+            inverseJoinColumns = { @JoinColumn(name = "id_categories")}
+    )
+    private Set<CategoryEntity> categories = new HashSet<>();
+
 
     @Override
     public String toString() {
@@ -116,5 +127,13 @@ public class AccountEntity {
 
     public void setId_account(Integer id_account) {
         this.id_account = id_account;
+    }
+
+    public Set<CategoryEntity> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<CategoryEntity> categories) {
+        this.categories = categories;
     }
 }

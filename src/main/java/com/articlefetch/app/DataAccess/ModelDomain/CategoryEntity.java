@@ -2,6 +2,8 @@ package com.articlefetch.app.DataAccess.ModelDomain;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "categories")
@@ -14,6 +16,11 @@ public class CategoryEntity {
     private String category_name;
 
     private String category_description;
+
+    @ManyToMany(mappedBy = "categories")
+    private Set<AccountEntity> accounts = new HashSet<>();
+
+
 
     @Override
     public String toString() {
@@ -44,4 +51,12 @@ public class CategoryEntity {
     public String getDescription(){ return category_description;}
 
     public void setDescription(String desc){ category_description = desc;}
+
+    public Set<AccountEntity> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Set<AccountEntity> accounts) {
+        this.accounts = accounts;
+    }
 }

@@ -44,13 +44,7 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public List<Category> getAllCategories(){
         List<CategoryEntity> list = (List<CategoryEntity>) categoryRepository.findAll();
-        Stream<Category> stream = list.stream().map( (category) -> {
-            try {
-                return Mapper.from(category);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        Stream<Category> stream = list.stream().map(Mapper::from);
         return stream.collect(Collectors.toList());
     }
 

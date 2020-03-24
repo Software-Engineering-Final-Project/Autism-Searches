@@ -73,21 +73,21 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `article_db`.`starred_categories`
+-- Table `article_db`.`accounts_categories`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `article_db`.`starred_categories` (
-  `fk_accounts_id` INT NOT NULL,
-  `fk_categories_id` INT NOT NULL,
-  PRIMARY KEY (`fk_accounts_id`, `fk_categories_id`),
-  INDEX `fk_accounts_has_categories_categories1_idx` (`fk_categories_id` ASC) VISIBLE,
-  INDEX `fk_accounts_has_categories_accounts1_idx` (`fk_accounts_id` ASC) VISIBLE,
+CREATE TABLE IF NOT EXISTS `article_db`.`accounts_categories` (
+  `id_account` INT NOT NULL,
+  `id_categories` INT NOT NULL,
+  PRIMARY KEY (`id_account`, `id_categories`),
+  INDEX `fk_accounts_has_categories_categories1_idx` (`id_categories` ASC) VISIBLE,
+  INDEX `fk_accounts_has_categories_accounts1_idx` (`id_account` ASC) VISIBLE,
   CONSTRAINT `fk_accounts_has_categories_accounts1`
-    FOREIGN KEY (`fk_accounts_id`)
+    FOREIGN KEY (`id_account`)
     REFERENCES `article_db`.`accounts` (`id_account`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_accounts_has_categories_categories1`
-    FOREIGN KEY (`fk_categories_id`)
+    FOREIGN KEY (`id_categories`)
     REFERENCES `article_db`.`categories` (`id_categories`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

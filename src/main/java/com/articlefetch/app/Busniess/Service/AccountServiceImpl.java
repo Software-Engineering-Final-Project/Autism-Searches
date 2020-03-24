@@ -4,14 +4,17 @@ import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
 import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
 import com.articlefetch.app.Controller.JacksonModels.AccountCreate;
+import com.articlefetch.app.Controller.JacksonModels.Category;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
+import com.articlefetch.app.DataAccess.ModelDomain.CategoryEntity;
 import com.articlefetch.app.DataAccess.Repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.*;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -36,7 +39,7 @@ public class AccountServiceImpl implements AccountService {
             account.setPath("/default_user.png");
         }
         // Hibernate updates the objects pk after a save
-        //hass password
+        // hash password
         AccountEntity entity = accountRepository.save(Mapper.from(account));
 
         return entity.getAccount_id();
@@ -61,6 +64,42 @@ public class AccountServiceImpl implements AccountService {
            }
        });
        return stream.collect(Collectors.toList());
+    }
+
+    @Transactional
+    @Override
+    public List<Category> getStarredCategories(Integer id) throws AccountNotFoundException {
+        AccountEntity entity = accountRepository.findById(id).orElseThrow(
+                () -> new AccountNotFoundException(id));
+
+        return entity.getCategories().stream()
+                .map( (categoryEntity -> Mapper.from(categoryEntity)))
+                .collect(Collectors.toList());
+
+    }
+
+    @Transactional
+    @Override
+    public List<Category> addStarredCategories(List<Category> categories, Integer account_id) throws AccountNotFoundException {
+        AccountEntity entity = accountRepository.findById(account_id).orElseThrow(
+                () -> new AccountNotFoundException(account_id));
+
+       entity.setCategories(
+               categories.stream()
+                       .map( (category -> Mapper.from(category)))
+                       .collect(Collectors.toSet())
+       );
+
+       accountRepository.save(entity);
+       return entity.getCategories().stream()
+               .map( (categoryEntity -> Mapper.from(categoryEntity)))
+               .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Category> removeStarredCategories(List<Category> categories, Integer account_id) throws AccountNotFoundException {
+        //TODO: IMPLEMENTATION
+        return new ArrayList<>();
     }
 
     @Transactional

@@ -46,13 +46,7 @@ public class ArticleServiceImpl implements ArticleService{
     @Override
     public List<Article> getAllArticles() {
         List<ArticleEntity> list = (List<ArticleEntity>) articleRepository.findAll();
-        Stream<Article> stream = list.stream().map( (article) -> {
-            try {
-                return Mapper.from(article);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        Stream<Article> stream = list.stream().map( (article) -> Mapper.from(article));
         return stream.collect(Collectors.toList());
     }
 
