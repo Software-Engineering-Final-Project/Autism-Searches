@@ -35,9 +35,8 @@ public class StarredCategoriesController {
     }
 
     @PutMapping("/create")
-    public ResponseEntity<Map<String, String>> createArticle(@RequestBody StarredCategories categoriesCreate) {
-        Integer id = starredCategoriesService.createStarredCategories(categoriesCreate);
-        System.out.println(categoriesCreate);
-        return SuccessResponseEntity.createdResponseEntity(id);
+    public ResponseEntity<Map<String, String>> createArticle(@RequestBody List<StarredCategories> categoriesCreate) {
+        Integer affected_rows = starredCategoriesService.createStarredCategories(categoriesCreate);
+        return SuccessResponseEntity.createdMultipleResponseEntity(affected_rows);
     }
 }

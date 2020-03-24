@@ -37,8 +37,14 @@ public class StarredCategoriesImpTest {
     void createStarredCategories() {
         StarredCategories newSCategories = new StarredCategories(1, "Research", 23,
                 76);
+        StarredCategories newSCategories2 = new StarredCategories(1, "Science", 23,
+                76);
 
-        starredCategoriesService.createStarredCategories(newSCategories);
+        List<StarredCategories> list = new ArrayList<>();
+        list.add(newSCategories);
+        list.add(newSCategories2);
+
+        starredCategoriesService.createStarredCategories(list);
 
         verify(
                 repository,

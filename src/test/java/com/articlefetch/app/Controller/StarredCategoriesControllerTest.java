@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
@@ -71,16 +72,21 @@ public class StarredCategoriesControllerTest {
 
     @Test
     void createStarredCategories() throws Exception {
-        StarredCategories a1 = new StarredCategories(1, "Research", 10,
+        StarredCategories c1 = new StarredCategories(1, "Research", 10,
                 10);
+        StarredCategories c2 = new StarredCategories(1, "Science", 10,
+                10);
+        List<StarredCategories> list = new ArrayList<>();
+        list.add(c1);
+        list.add(c2);
 
-        when(service.createStarredCategories(any())).thenReturn(1);
+        when(service.createStarredCategories(any())).thenReturn(2);
 
         mvc.perform(put("/starredCategories/create")
-                .content(asJsonString(a1))
+                .content(asJsonString(list))
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$['id']", is("1")));
+                .andExpect(jsonPath("$['rows']", is("2")));
     }
 
     @Test
@@ -92,10 +98,15 @@ public class StarredCategoriesControllerTest {
 
     @Test
     void create_duplicate_starredCategories() throws Exception {
-        StarredCategories a1 = new StarredCategories(1, "Research", 45,
-                34);
+        StarredCategories c1 = new StarredCategories(1, "Research", 10,
+                10);
+        StarredCategories c2 = new StarredCategories(1, "Science", 10,
+                10);
+        List<StarredCategories> list = new ArrayList<>();
+        list.add(c1);
+        list.add(c2);
 
-        doThrow(DuplicateEntryException.class).when(service).createStarredCategories(a1);
+        doThrow(DuplicateEntryException.class).when(service).createStarredCategories(list);
 
         mvc.perform(put("/starredCategories/create")
                 .contentType(APPLICATION_JSON))

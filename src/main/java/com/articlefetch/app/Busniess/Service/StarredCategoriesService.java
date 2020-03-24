@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface StarredCategoriesService {
 
-    public Integer createStarredCategories(StarredCategories category) throws DuplicateEntryException;
+    public Integer createStarredCategories(List<StarredCategories> categories) throws DuplicateEntryException;
     public List<StarredCategories> getAllStarredCategories();
     public StarredCategories getStarredCategories(Integer id) throws StarredCategoriesNotFoundExeption, IOException;
     public StarredCategories updateStarredCategories(Integer id, StarredCategories Scategory) throws StarredCategoriesNotFoundExeption, IOException;

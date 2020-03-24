@@ -37,7 +37,6 @@ public class ArticleController {
     @PutMapping("/create")
     public ResponseEntity<Map<String, String>> createArticle(@RequestBody Article articleCreate) {
         Integer id = articleService.createArticle(articleCreate);
-        System.out.println(articleCreate);
         return SuccessResponseEntity.createdResponseEntity(id);
     }
 

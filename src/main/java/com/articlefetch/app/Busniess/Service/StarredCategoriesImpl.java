@@ -24,16 +24,21 @@ public class StarredCategoriesImpl implements StarredCategoriesService{
 
     @Transactional
     @Override
-    public Integer createStarredCategories(StarredCategories category) throws DuplicateEntryException {
-        // Check if an article exists
-        if(!starredCategoriesRepository.findExistingConflicts(category.getStarred_categories_name()).isEmpty()){
-            throw new DuplicateEntryException("Category is already in use");
-        }
-        // Hibernate updates the objects pk after a save
+    public Integer createStarredCategories(List<StarredCategories> categories) throws DuplicateEntryException {
+        categories.forEach( (category) -> {
+            try {
+                if(!starredCategoriesRepository.findExistingConflicts(category.getStarred_categories_name()).isEmpty()){
+                    throw new DuplicateEntryException("Category is already in use");
+                }
+                starredCategoriesRepository.save(Mapper.from(category));
+            } catch(DuplicateEntryException e) {
+;                throw e;
+            } catch (Exception e){
+                throw e;
+            }
+        });
 
-        StarredCategoriesEntity entity = starredCategoriesRepository.save(Mapper.from(category));
-
-        return entity.getStarred_categories_id();
+        return categories.size();
     }
 
     @Override
