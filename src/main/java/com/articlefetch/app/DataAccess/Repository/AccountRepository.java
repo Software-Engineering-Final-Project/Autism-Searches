@@ -18,7 +18,7 @@ import java.util.Optional;
 public interface AccountRepository extends CrudRepository<AccountEntity, Integer> {
 
     @Query("SELECT s FROM AccountEntity s WHERE username = ?1 OR email = ?2")
-    List<AccountEntity> findExistingConflicts(String username, String password);
+    List<AccountEntity> findExistingConflicts(String username, String email);
 
     @Query("SELECT s FROM AccountEntity s WHERE username = ?1")
     Optional<AccountEntity> findAccountByUserName(String username);
