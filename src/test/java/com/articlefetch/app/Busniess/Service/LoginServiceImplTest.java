@@ -14,6 +14,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +36,7 @@ class LoginServiceImplTest {
     }
 
     @Test
-    void validateAccount() throws IOException {
+    void validateAccount() throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
         Account returnedAccount = new Account("jschappel", "password", "Joshua",
                 "Schappel", "j@shu.edu", 1, null, "/default_user.png", true);
 

@@ -15,6 +15,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +37,7 @@ class AccountCreateServiceTest {
     }
 
      @Test
-     void createAccount() {
+     void createAccount() throws InvalidKeySpecException, NoSuchAlgorithmException {
          AccountCreate newAccountCreate = new AccountCreate("jschappel", "password", "Joshua",
                  "Schappel", "j@shu.edu",  "/Images/default_user.png", true);
 
