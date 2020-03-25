@@ -8,12 +8,14 @@ import com.articlefetch.app.Controller.JacksonModels.AccountCreate;
 import com.articlefetch.app.Controller.JacksonModels.Category;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 
 public interface AccountService {
 
-    public Integer createAccount(AccountCreate accountCreate) throws DuplicateEntryException;
-
+    public Integer createAccount(AccountCreate accountCreate) throws DuplicateEntryException, NoSuchAlgorithmException, InvalidKeySpecException;
     public Account getAccount(Integer account_id) throws AccountNotFoundException, IOException;
 
     public List<Account> getAllAccounts();

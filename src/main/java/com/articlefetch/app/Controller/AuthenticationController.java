@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 /**
  * API Routes related to validation
@@ -26,7 +28,7 @@ public class AuthenticationController {
     LoginService loginService;
 
     @PostMapping("/login")
-    public ResponseEntity<Account> login(@RequestBody Authentication validation) throws IOException {
+    public ResponseEntity<Account> login(@RequestBody Authentication validation) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
         Account accountCreate = loginService.validateAccount(validation.getUsername(), validation.getPassword());
         return new ResponseEntity<Account>(accountCreate, HttpStatus.OK);
     }
