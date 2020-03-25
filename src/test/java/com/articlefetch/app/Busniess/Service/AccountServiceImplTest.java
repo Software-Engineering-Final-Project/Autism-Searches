@@ -73,7 +73,7 @@ class AccountCreateServiceTest {
     void getAccount() throws IOException {
         AccountEntity accountE = new AccountEntity()
                 .create(1, "Josh", "Schappel", "jschappel", "password",
-                        "test@shu.edu", "/Images/pitt_penguin.png", true);
+                        "test@shu.edu", "/Images/default_user.png", true);
         when(repository.findById(1)).thenReturn(java.util.Optional.of(accountE));
 
         // test
@@ -106,7 +106,7 @@ class AccountCreateServiceTest {
                 "jschappel", "password", "test@shu.edu", "/Images/default_user.png", true);
 
         AccountEntity account2 = new AccountEntity().create(2, "Sach", "M", "sachm",
-                "password2", "sachm@shu.edu", "/Images/pitt_penguin.png", true);
+                "password2", "sachm@shu.edu", "/Images/default_user.png", true);
 
         List<AccountEntity> dataBaseList = new ArrayList<>();
         dataBaseList.add(account1);

@@ -7,12 +7,10 @@ import com.articlefetch.app.Controller.JacksonModels.Category;
 import com.articlefetch.app.Controller.ResponseEntities.SuccessResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
@@ -60,7 +58,8 @@ public class AccountController {
     }
 
     @PutMapping("/create")
-    public ResponseEntity<Map<String, String>> createAccount(@RequestBody AccountCreate accountCreate) throws InvalidKeySpecException, NoSuchAlgorithmException {
+    public ResponseEntity<Map<String, String>> createAccount(@RequestBody AccountCreate accountCreate)
+            throws InvalidKeySpecException, NoSuchAlgorithmException {
         Integer id = accountService.createAccount(accountCreate);
         return SuccessResponseEntity.createdResponseEntity(id);
     }
@@ -75,16 +74,5 @@ public class AccountController {
     public  ResponseEntity<Map<String, String>> deactivateAccount(@RequestParam(value = "id", required = true) Integer id) {
         accountService.deactivateAccount(id);
         return SuccessResponseEntity.updatedResponseEntity();
-    }
-
-    @GetMapping(
-            value = "/testimage",
-            produces = MediaType.IMAGE_PNG_VALUE
-    )
-    public byte[] getImage() throws IOException {
-        InputStream inputStream = getClass()
-                .getResourceAsStream("/Images/pitt_penguin.png");
-
-        return inputStream.readAllBytes();
     }
 }
