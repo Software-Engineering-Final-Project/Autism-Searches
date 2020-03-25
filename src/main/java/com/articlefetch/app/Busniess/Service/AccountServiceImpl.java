@@ -49,7 +49,7 @@ public class AccountServiceImpl implements AccountService {
             account.setPath("/default_user.png");
         }
         // Hibernate updates the objects pk after a save
-        //hass password
+        // Hashing password
         String HashedPassword = SHAhashing.generateHashPassword(account.getPassword());
         account.setPassword(HashedPassword);
         AccountEntity entity = accountRepository.save(Mapper.from(account));
