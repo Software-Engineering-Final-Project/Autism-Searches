@@ -2,6 +2,7 @@ package com.articlefetch.app.DataAccess.ModelDomain;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -29,7 +30,7 @@ public class AccountEntity {
 
     private String path;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.MERGE })
     @JoinTable(
             name = "accounts_categories",
             joinColumns = { @JoinColumn(name ="id_account") },
@@ -63,6 +64,18 @@ public class AccountEntity {
         this.path = path;
         this.status = status ? 1 : 0;
         return this;
+    }
+
+    // Checks if a category is already in the many to many relationship
+    public boolean isPresent(CategoryEntity entity) {
+        return this.categories.stream().anyMatch( (item) -> item.getId().equals(entity.getId()));
+    }
+
+    // Checks if a category is already in the many to many relationship
+    public Optional<CategoryEntity> getCategory(CategoryEntity entity) {
+       return this.categories.stream()
+                .filter( (item) -> item.getId().equals(entity.getId()))
+                .findFirst();
     }
 
     public Integer getAccount_id(){

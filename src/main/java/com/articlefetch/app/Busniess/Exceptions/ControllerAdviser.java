@@ -1,6 +1,5 @@
 package com.articlefetch.app.Busniess.Exceptions;
 
-import com.articlefetch.app.Controller.JacksonModels.StarredCategories;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +45,15 @@ public class ControllerAdviser extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(StarredCategoriesNotFoundExeption.class)
     public ResponseEntity<Object> handleStarredCategoriesNotFoundException(StarredCategoriesNotFoundExeption ex, WebRequest req) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidDataInsertException.class)
+    public ResponseEntity<Object> handleInvalidDataInsertException(InvalidDataInsertException ex, WebRequest req) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", ex.getMessage());

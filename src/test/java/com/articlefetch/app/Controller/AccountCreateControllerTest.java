@@ -5,6 +5,7 @@ import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Busniess.Service.AccountService;
 import com.articlefetch.app.Controller.JacksonModels.Account;
 import com.articlefetch.app.Controller.JacksonModels.AccountCreate;
+import com.articlefetch.app.Controller.JacksonModels.Category;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.Test;
@@ -19,11 +20,11 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -182,6 +183,112 @@ class AccountCreateControllerTest {
     void deactivateAccount_with_no_params() throws Exception {
         mvc.perform(put("/account/deactivate")
                 .contentType(APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void getCategories() throws Exception {
+        List<Category> list = new ArrayList<>();
+        list.add(new Category(1, "Education", "Stuff"));
+        list.add(new Category(2, "Research", "More stuff"));
+
+        given(service.getStarredCategories(1)).willReturn(list);
+
+        mvc.perform(get("/account/getCategories?id=1")
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[0].name", is("Education")))
+                .andExpect(jsonPath("$[0].description", is("Stuff")))
+                .andExpect(jsonPath("$[1].id", is(2)))
+                .andExpect(jsonPath("$[1].name", is("Research")))
+                .andExpect(jsonPath("$[1].description", is("More stuff")));
+    }
+
+    @Test
+    void getCategories_with_invalid_account() throws Exception {
+        given(service.getStarredCategories(20)).willThrow(new AccountNotFoundException(20));
+
+        mvc.perform(get("/account/getCategories?id=20")
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void  getCategories_with_no_params() throws Exception {
+        mvc.perform(get("/account/getCategories")
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void addCategories() throws Exception {
+        List<Category> list = new ArrayList<>();
+        list.add(new Category(1, "Education", "Stuff"));
+        list.add(new Category(2, "Research", "More stuff"));
+
+        given(service.addStarredCategories(anyList(), anyInt())).willReturn(list);
+
+        mvc.perform(post("/account/addCategories?id=1")
+                .contentType(APPLICATION_JSON)
+                .content(asJsonString(list)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[0].name", is("Education")))
+                .andExpect(jsonPath("$[0].description", is("Stuff")))
+                .andExpect(jsonPath("$[1].id", is(2)))
+                .andExpect(jsonPath("$[1].name", is("Research")))
+                .andExpect(jsonPath("$[1].description", is("More stuff")));
+
+    }
+
+    @Test
+    void addCategories_with_invalid_account() throws Exception {
+        List<Category> list = new ArrayList<>();
+        list.add(new Category(1, "Education", "Stuff"));
+        list.add(new Category(2, "Research", "More stuff"));
+
+        given(service.addStarredCategories(anyList(), anyInt())).willThrow(new AccountNotFoundException(20));
+
+        mvc.perform(post("/account/addCategories?id=20")
+                .contentType(APPLICATION_JSON)
+                .content(asJsonString(list)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void removeCategories() throws Exception {
+        List<Category> list = new ArrayList<>();
+        list.add(new Category(1, "Education", "Stuff"));
+
+        List<Category> list2 = new ArrayList<>();
+        list2.add(new Category(2, "Research", "More stuff"));
+
+        given(service.removeStarredCategories(anyList(), anyInt())).willReturn(list2);
+
+        mvc.perform(post("/account/removeCategories?id=1")
+                .contentType(APPLICATION_JSON)
+                .content(asJsonString(list)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].id", is(2)))
+                .andExpect(jsonPath("$[0].name", is("Research")))
+                .andExpect(jsonPath("$[0].description", is("More stuff")));
+    }
+
+    @Test
+    void removeCategories_with_invalid_account() throws Exception {
+        List<Category> list = new ArrayList<>();
+        list.add(new Category(1, "Education", "Stuff"));
+        list.add(new Category(2, "Research", "More stuff"));
+
+        given(service.removeStarredCategories(anyList(), anyInt())).willThrow(new AccountNotFoundException(20));
+
+        mvc.perform(post("/account/removeCategories?id=20")
+                .contentType(APPLICATION_JSON)
+                .content(asJsonString(list)))
                 .andExpect(status().isBadRequest());
     }
 

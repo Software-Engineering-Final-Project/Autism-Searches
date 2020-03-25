@@ -49,6 +49,14 @@ public class AccountController {
         return new ResponseEntity<>(accountService.addStarredCategories(categoryList, id), HttpStatus.OK);
     }
 
+    @PostMapping("/removeCategories")
+    public ResponseEntity<List<Category>> removeCategories(
+            @RequestBody List<Category> categoryList,
+            @RequestParam(value = "id", required = true) Integer id
+    ) {
+        return new ResponseEntity<>(accountService.removeStarredCategories(categoryList, id), HttpStatus.OK);
+    }
+
     @PutMapping("/create")
     public ResponseEntity<Map<String, String>> createAccount(@RequestBody AccountCreate accountCreate) {
         Integer id = accountService.createAccount(accountCreate);

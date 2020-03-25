@@ -5,6 +5,7 @@ import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
 import com.articlefetch.app.Controller.JacksonModels.AccountCreate;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
+import com.articlefetch.app.DataAccess.ModelDomain.CategoryEntity;
 import com.articlefetch.app.DataAccess.Repository.AccountRepository;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
@@ -14,9 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

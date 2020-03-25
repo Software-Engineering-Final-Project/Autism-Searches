@@ -13,6 +13,7 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_categories;
 
+    @Column(unique = true)
     private String category_name;
 
     private String category_description;

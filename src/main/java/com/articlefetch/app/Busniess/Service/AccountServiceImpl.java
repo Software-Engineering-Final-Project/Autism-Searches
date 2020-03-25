@@ -1,19 +1,26 @@
 package com.articlefetch.app.Busniess.Service;
 
 import com.articlefetch.app.Busniess.Exceptions.AccountNotFoundException;
+import com.articlefetch.app.Busniess.Exceptions.CategoryNotFoundException;
 import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
+import com.articlefetch.app.Busniess.Exceptions.InvalidDataInsertException;
 import com.articlefetch.app.Controller.JacksonModels.Account;
 import com.articlefetch.app.Controller.JacksonModels.AccountCreate;
 import com.articlefetch.app.Controller.JacksonModels.Category;
 import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
 import com.articlefetch.app.DataAccess.ModelDomain.CategoryEntity;
 import com.articlefetch.app.DataAccess.Repository.AccountRepository;
+import com.articlefetch.app.DataAccess.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,7 +32,6 @@ import java.util.stream.Stream;
 public class AccountServiceImpl implements AccountService {
 
     @Autowired AccountRepository accountRepository;
-
 
     @Transactional
     @Override
@@ -80,27 +86,45 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    public List<Category> addStarredCategories(List<Category> categories, Integer account_id) throws AccountNotFoundException {
+    public List<Category> addStarredCategories(List<Category> categories, Integer account_id)
+            throws AccountNotFoundException, InvalidDataInsertException {
         AccountEntity entity = accountRepository.findById(account_id).orElseThrow(
                 () -> new AccountNotFoundException(account_id));
 
-       entity.setCategories(
-               categories.stream()
-                       .map( (category -> Mapper.from(category)))
-                       .collect(Collectors.toSet())
-       );
+        categories.forEach( (category) -> {
+            CategoryEntity categoryEntity = Mapper.from(category);
+            if(!entity.isPresent(categoryEntity)) {
+                entity.getCategories().add(categoryEntity);
+            }
+        });
 
-       accountRepository.save(entity);
+        accountRepository.save(entity);
+
        return entity.getCategories().stream()
                .map( (categoryEntity -> Mapper.from(categoryEntity)))
                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Category> removeStarredCategories(List<Category> categories, Integer account_id) throws AccountNotFoundException {
-        //TODO: IMPLEMENTATION
-        return new ArrayList<>();
+    public List<Category> removeStarredCategories(List<Category> categories, Integer account_id)
+            throws AccountNotFoundException {
+        AccountEntity entity = accountRepository.findById(account_id).orElseThrow(
+                () -> new AccountNotFoundException(account_id));
+
+        categories.forEach( (category) -> {
+            CategoryEntity categoryEntity = Mapper.from(category);
+            Optional<CategoryEntity> stackCategory = entity.getCategory(categoryEntity);
+            // If the category is present in the stack then remove it
+            stackCategory.ifPresent(value -> entity.getCategories().remove(value));
+        });
+
+        accountRepository.save(entity);
+
+        return  entity.getCategories().stream()
+                .map( (categoryEntity -> Mapper.from(categoryEntity)))
+                .collect(Collectors.toList());
     }
+
 
     @Transactional
     @Override
