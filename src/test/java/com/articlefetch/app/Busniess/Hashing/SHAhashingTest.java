@@ -11,19 +11,28 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SHAhashingTest {
 
-
     @Test
-    void generateHashPassword() throws InvalidKeySpecException, NoSuchAlgorithmException {
+    void checkPassword() throws InvalidKeySpecException, NoSuchAlgorithmException{
 
-        String Password = "password";
-        String newPasswordHash = SHAhashing.generateHashPassword(Password);
+        String Password1 = "password";
+        String Password2 = "passwordddd";
+        String newPasswordHash = SHAhashing.generateHashPassword(Password1);
 
-        assertEquals(SHAhashing.generateHashPassword(Password), "1000:50bcca48b8f8f5d43cb3d8dfa52e32f9:5596527bb4" +
-                "2f5f8dc3882febd389202084c104686ce12dcec9d2cfea95d0efe633876a13a2a39b818e8acee09378074e4deca19e5599eae13bc5c3159e117c7e\n");
-    }
+        boolean correct = SHAhashing.checkPassword(Password1, newPasswordHash);
+        boolean wrong = SHAhashing.checkPassword(Password2, newPasswordHash);
 
-    @Test
-    void checkPassword() {
+        assertEquals(correct, true);
+        assertEquals(wrong, false);
+
+
+
+
+
+
+
+
+
+
     }
 
     @Test
