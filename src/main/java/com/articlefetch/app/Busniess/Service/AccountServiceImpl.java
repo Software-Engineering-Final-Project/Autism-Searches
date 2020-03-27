@@ -151,7 +151,6 @@ public class AccountServiceImpl implements AccountService {
     public Account updateAccount(Integer id, Account accountCreate) throws AccountNotFoundException, IOException {
         AccountEntity entity = accountRepository.findById(id).orElseThrow( () -> new AccountNotFoundException(id));
         entity.setUsername(accountCreate.getUsername());
-        entity.setPassword(accountCreate.getPassword());
         entity.setEmail(accountCreate.getEmail());
         entity.setStatus(entity.getStatus()); // We don' allow status updates here
         entity.setPath(accountCreate.getPath());
