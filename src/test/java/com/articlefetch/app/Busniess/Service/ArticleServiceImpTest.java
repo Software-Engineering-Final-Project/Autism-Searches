@@ -41,7 +41,7 @@ public class ArticleServiceImpTest {
 
         ArticleEntity articleE = new ArticleEntity()
                 .create(1, "AutizABC", "Schappel", "jschappel.com",
-                        null,null);
+                        2,2);
 
         when(repository.save(any(ArticleEntity.class))).thenReturn(articleE);
 

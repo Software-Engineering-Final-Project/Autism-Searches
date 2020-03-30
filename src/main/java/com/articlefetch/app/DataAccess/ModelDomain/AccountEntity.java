@@ -33,8 +33,8 @@ public class AccountEntity {
     @ManyToMany(cascade = { CascadeType.MERGE })
     @JoinTable(
             name = "accounts_categories",
-            joinColumns = { @JoinColumn(name ="id_account") },
-            inverseJoinColumns = { @JoinColumn(name = "id_categories")}
+            joinColumns = { @JoinColumn(name ="id_categories") },
+            inverseJoinColumns = { @JoinColumn(name = "id_account")}
     )
     private Set<CategoryEntity> categories = new HashSet<>();
 

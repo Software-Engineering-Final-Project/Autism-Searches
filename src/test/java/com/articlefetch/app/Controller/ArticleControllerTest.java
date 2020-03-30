@@ -38,7 +38,7 @@ public class ArticleControllerTest {
     @Test
     void getAllArticles() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
-                "Schappel.com", null, null);
+                "Schappel.com", 1, 1);
 
         List<Article> articleList = Arrays.asList(a1);
 
@@ -52,14 +52,14 @@ public class ArticleControllerTest {
                 .andExpect(jsonPath("$[0].article_name", is("AutismXYZ")))
                 .andExpect(jsonPath("$[0].authors", is("Joshua")))
                 .andExpect(jsonPath("$[0].article_site", is("Schappel.com")))
-                .andExpect(jsonPath("$[0].fk_account_id", IsNull.nullValue()))
-                .andExpect(jsonPath("$[0].fk_categories_id", IsNull.nullValue()));
+                .andExpect(jsonPath("$[0].fk_account_id", is(1)))
+                .andExpect(jsonPath("$[0].fk_categories_id", is(1)));
     }
 
     @Test
     void getArticle() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
-                "Schappel.com", null, null);
+                "Schappel.com", 1, 1);
 
         given(service.getArticle(1)).willReturn(a1);
 
@@ -70,8 +70,8 @@ public class ArticleControllerTest {
                 .andExpect(jsonPath("$['article_name']", is("AutismXYZ")))
                 .andExpect(jsonPath("$['authors']", is("Joshua")))
                 .andExpect(jsonPath("$['article_site']", is("Schappel.com")))
-                .andExpect(jsonPath("$['fk_account_id']", IsNull.nullValue()))
-                .andExpect(jsonPath("$['fk_categories_id']", IsNull.nullValue()));
+                .andExpect(jsonPath("$['fk_account_id']", is(1)))
+                .andExpect(jsonPath("$['fk_categories_id']", is(1)));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class ArticleControllerTest {
     @Test
     void create_duplicate_article() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
-                "Schappel.com", null, null);
+                "Schappel.com", 23, 21);
 
         doThrow(DuplicateEntryException.class).when(service).createArticle(a1);
 
