@@ -39,7 +39,7 @@ class AccountCreateControllerTest {
 
     @Test
     void getAllAccounts() throws Exception {
-        Account a1 = new Account("jschappel", "password", "Joshua",
+        Account a1 = new Account("jschappel",  "Joshua",
                 "Schappel", "j@shu.edu", 1,  null, "Images/default_user.png", true);
 
         List<Account> accountCreateList = Arrays.asList(a1);
@@ -51,7 +51,6 @@ class AccountCreateControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].username", is("jschappel")))
-                .andExpect(jsonPath("$[0].password", is("password")))
                 .andExpect(jsonPath("$[0].first_name", is("Joshua")))
                 .andExpect(jsonPath("$[0].last_name", is("Schappel")))
                 .andExpect(jsonPath("$[0].email", is("j@shu.edu")))
@@ -61,7 +60,7 @@ class AccountCreateControllerTest {
 
     @Test
     void getAccount() throws Exception {
-        Account a1 = new Account("jschappel", "password", "Joshua",
+        Account a1 = new Account("jschappel",  "Joshua",
                 "Schappel", "j@shu.edu", 1,  null, "Images/default_user.png", true);
 
         given(service.getAccount(1)).willReturn(a1);
@@ -70,7 +69,6 @@ class AccountCreateControllerTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$['username']", is("jschappel")))
-                .andExpect(jsonPath("$['password']", is("password")))
                 .andExpect(jsonPath("$['first_name']", is("Joshua")))
                 .andExpect(jsonPath("$['last_name']", is("Schappel")))
                 .andExpect(jsonPath("$['email']", is("j@shu.edu")))

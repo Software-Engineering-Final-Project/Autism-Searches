@@ -4,7 +4,6 @@ public class Account {
 
     private Integer id;
     private String username;
-    private String password;
     private String first_name;
     private String last_name;
     private String email;
@@ -12,12 +11,11 @@ public class Account {
     private byte[] image;
     private boolean status;
 
-    public Account(String username, String password, String first_name, String last_name, String email, Integer id,
+    public Account(String username, String first_name, String last_name, String email, Integer id,
                          byte[] image, String path, boolean status) {
         this.email = email;
         this.first_name = first_name;
         this.last_name = last_name;
-        this.password = password;
         this.username = username;
         this.id = id;
         this.image = image;
@@ -42,14 +40,6 @@ public class Account {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirst_name() {

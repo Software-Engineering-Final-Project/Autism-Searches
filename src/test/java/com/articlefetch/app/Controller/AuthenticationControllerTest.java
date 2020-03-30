@@ -33,7 +33,7 @@ class AuthenticationControllerTest {
     @Test
     void login() throws Exception {
         Authentication validation = new Authentication("jschappel", "password");
-        Account returnedAccountCreate = new Account("jschappel", "password", "Joshua",
+        Account returnedAccountCreate = new Account("jschappel",  "Joshua",
                 "Schappel", "j@shu.edu", 12, null, "/default_user.png", true);
 
         when(service.validateAccount(validation.getUsername(), validation.getPassword())).thenReturn(returnedAccountCreate);
@@ -43,7 +43,6 @@ class AuthenticationControllerTest {
                 .content(asJsonString(validation)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$['username']", is("jschappel")))
-                .andExpect(jsonPath("$['password']", is("password")))
                 .andExpect(jsonPath("$['first_name']", is("Joshua")))
                 .andExpect(jsonPath("$['last_name']", is("Schappel")))
                 .andExpect(jsonPath("$['email']", is("j@shu.edu")))

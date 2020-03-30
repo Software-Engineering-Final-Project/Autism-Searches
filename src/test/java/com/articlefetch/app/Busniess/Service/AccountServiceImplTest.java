@@ -52,8 +52,7 @@ class AccountCreateServiceTest {
          verify(
                  repository,
                  times(1)
-         ).findExistingConflicts(newAccountCreate.getUsername(), newAccountCreate.getPassword());
-
+         ).findExistingConflicts(anyString(), anyString());
      }
 
      @Test
@@ -81,7 +80,6 @@ class AccountCreateServiceTest {
         assertEquals(accountE.getFirst_name(), account.getFirst_name());
         assertEquals(accountE.getLast_name(), account.getLast_name());
         assertEquals(accountE.getUsername(), account.getUsername());
-        assertEquals(accountE.getPassword(), account.getPassword());
         assertEquals(accountE.getEmail(), account.getEmail());
         assertTrue(account.getStatus());
     }
@@ -157,7 +155,7 @@ class AccountCreateServiceTest {
 
     @Test
     void update_account() throws IOException {
-        Account updateAccount = new Account("jschappel", "password", "Joshua",
+        Account updateAccount = new Account("jschappel",  "Joshua",
                 "Schappel", "j@shu.edu", 1, null, "Images/default_user.png",  true);
 
         AccountEntity newAccountEntry = new AccountEntity()
@@ -172,7 +170,6 @@ class AccountCreateServiceTest {
         assertEquals(updatedAccountCreate.getFirst_name(), account.getFirst_name());
         assertEquals(updatedAccountCreate.getLast_name(), account.getLast_name());
         assertEquals(updatedAccountCreate.getUsername(), account.getUsername());
-        assertEquals(updatedAccountCreate.getPassword(), account.getPassword());
         assertEquals(updatedAccountCreate.getEmail(), account.getEmail());
         assertTrue(account.getStatus());
 
@@ -180,7 +177,7 @@ class AccountCreateServiceTest {
 
     @Test
     void updateAccount_that_does_not_exist() {
-        Account newAccountCreate = new Account("jschappel", "password", "Joshua",
+        Account newAccountCreate = new Account("jschappel", "Joshua",
                 "Schappel", "j@shu.edu", 1,  null, "Images/default_user.png", true);
 
         when(repository.findById(143)).thenThrow(AccountNotFoundException.class);
