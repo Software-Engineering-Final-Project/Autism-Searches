@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -17,5 +18,8 @@ import java.util.List;
 public interface CategoryRepository extends CrudRepository<CategoryEntity, Integer> {
 
     @Query("SELECT s FROM CategoryEntity s WHERE category_name = ?1")
-    List<CategoryEntity> findExistingConflicts(String article_name);
+    List<CategoryEntity> findExistingConflicts(String category_name);
+
+    @Query("SELECT s FROM CategoryEntity s WHERE category_name = ?1")
+    Optional<CategoryEntity> findCategoryByname(String category_name);
 }
