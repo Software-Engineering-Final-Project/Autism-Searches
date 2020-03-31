@@ -50,28 +50,6 @@ public class CategoryServiceImpl implements CategoryService{
         return stream.collect(Collectors.toList());
     }
 
-    @Transactional
-    @Override
-    public List<Account> getAccounts(Integer id) throws CategoryNotFoundException {
-        CategoryEntity entity = categoryRepository.findById(id).orElseThrow(
-                () -> new CategoryNotFoundException(id));
-
-        return entity.getAccounts().stream()
-                .map( (accountEntity -> Mapper.from(accountEntity)))
-                .collect(Collectors.toList());
-
-    }
-
-    @Override
-    public List<Account> addAccounts(List<Account> accounts, Integer category_id) throws CategoryNotFoundException, InvalidDataInsertException {
-        return null;
-    }
-
-    @Override
-    public List<Account> removeAccounts(List<Account> accounts, Integer category_id) throws CategoryNotFoundException {
-        return null;
-    }
-
 
     @Override
     public Category updateCategory(Integer id, Category category) throws CategoryNotFoundException, IOException {

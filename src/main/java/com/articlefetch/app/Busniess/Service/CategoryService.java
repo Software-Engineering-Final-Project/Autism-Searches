@@ -15,12 +15,4 @@ public interface CategoryService {
     public Category updateCategory(Integer id, Category category) throws CategoryNotFoundException, IOException;
     public void createCategory(Category category) throws DuplicateEntryException;
 
-    public List<Account> getAccounts(Integer id) throws CategoryNotFoundException;
-
-    public List<Account> addAccounts(List<Account> accounts,  Integer category_id)
-            throws CategoryNotFoundException, InvalidDataInsertException;
-
-    public List<Account> removeAccounts(List<Account> accounts,  Integer category_id)
-            throws CategoryNotFoundException;
-
 }

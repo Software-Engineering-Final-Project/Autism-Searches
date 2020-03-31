@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 public class ArticleRepositoryTest {
 
     @Mock
-    AccountRepository articleDAO;
+    ArticleRepository articleDAO;
 
     @BeforeClass
     public void setup() {
@@ -37,15 +37,15 @@ public class ArticleRepositoryTest {
 //        assertEquals(articleE, articleDAO.findById(1).get());
 //    }
 //
-    @Test
-    void findById_when_id_is_not_present() {
-        when(articleDAO.findById(2)).thenThrow(ArticleNotFoundException.class);
-        assertThrows(ArticleNotFoundException.class, () -> {
-            articleDAO.findById(2);
-        });
-    }
-
-
+//    @Test
+//    void findById_when_id_is_not_present() {
+//        when(articleDAO.findById(2)).thenThrow(ArticleNotFoundException.class);
+//        assertThrows(ArticleNotFoundException.class, () -> {
+//            articleDAO.findById(2);
+//        });
+//    }
+//
+//
 
 
 }

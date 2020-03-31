@@ -41,6 +41,12 @@ public class AccountController {
         return new ResponseEntity<>(accountService.getStarredCategories(id), HttpStatus.OK);
     }
 
+    @PostMapping("/updateAccount")
+    public ResponseEntity<Account> updateAccount(@RequestBody Account account,
+                                                 @RequestParam(value = "id", required = true) Integer id) throws IOException {
+        return new ResponseEntity<>(accountService.updateAccount(id, account), HttpStatus.OK);
+    }
+
     @PostMapping("/addCategories")
     public ResponseEntity<List<Category>> addCategories(
             @RequestBody List<Category> categoryList,
