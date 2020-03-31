@@ -1,3 +1,5 @@
+![Status](https://github.com/Software-Engineering-Final-Project/articleFetch/workflows/Java%20CI%20with%20Maven/badge.svg)
+
 ### Overview
 The project is built using a Layer Architecture Approach and is split into the following layers:
 - Controller Layer
@@ -16,13 +18,12 @@ This layer houses the ORM for project. It is split into 2 folders: Model Domain 
 
 
 ### Stack Specifications:
-- Javascript (frontend)
+- Javascript (frontend) [The backend can found here](https://github.com/Software-Engineering-Final-Project/articleRecommender)
     - React Framework
 - Java (backend)
     - Spring MVC
 - MySQL
 
-![Status](https://github.com/Software-Engineering-Final-Project/articleFetch/workflows/Java%20CI%20with%20Maven/badge.svg)
 
 ### TODO LIST
 - [x] Test Controller Layer
