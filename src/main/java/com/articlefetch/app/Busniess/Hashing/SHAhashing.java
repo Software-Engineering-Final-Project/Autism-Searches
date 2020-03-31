@@ -10,7 +10,7 @@ import java.security.spec.InvalidKeySpecException;
 
 public class SHAhashing {
 
-    //Add salt
+    //Add salt :      -> byte[] arraay
     public static byte[] newSalt() throws NoSuchAlgorithmException {
         SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
         byte[] salt = new byte[16];
@@ -18,7 +18,7 @@ public class SHAhashing {
         return salt;
     }
 
-    //Hashing
+    //Hashing  : String -> String
     public static String generateHashPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
         int iterations = 1000;
         char[] chars = password.toCharArray();
@@ -30,7 +30,7 @@ public class SHAhashing {
         return iterations + ":" + toHex(salt) + ":" + toHex(hash);
     }
 
-    //Validation function
+    //Validation function : String String -> Boolean
     public static boolean checkPassword(String givenPassword, String storedPassword) throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         String[] parts = storedPassword.split(":");
@@ -50,7 +50,7 @@ public class SHAhashing {
         return diff == 0;
     }
 
-    //ToHex function
+    //ToHex function  : byte[] -> String
     public static String toHex(byte[] array) throws NoSuchAlgorithmException {
         BigInteger bi = new BigInteger(1, array);
         String hex = bi.toString(16);
@@ -62,7 +62,7 @@ public class SHAhashing {
         }
     }
 
-    //FromHex function
+    //FromHex function String -> byte[]
     public static byte[] fromHex(String hex) throws NoSuchAlgorithmException
     {
         byte[] bytes = new byte[hex.length() / 2];
