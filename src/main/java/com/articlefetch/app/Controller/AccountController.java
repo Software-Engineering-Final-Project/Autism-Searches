@@ -10,9 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,8 +53,13 @@ public class AccountController {
     @PostMapping("/addCategories")
     public ResponseEntity<List<Category>> addCategories(
             @RequestBody List<Category> categoryList,
-            @RequestParam(value = "id", required = true) Integer id
-    ) {
+            @RequestParam(value = "id", required = true) Integer id,
+            HttpServletRequest httpServletRequest)
+    {
+        List greetings = (List) httpServletRequest.getSession().getAttribute("GREETING_MESSAGES");
+        if(greetings == null) {
+            System.out.println("NO AVAILABLE HEADER");
+        }
         return new ResponseEntity<>(accountService.addStarredCategories(categoryList, id), HttpStatus.OK);
     }
 
