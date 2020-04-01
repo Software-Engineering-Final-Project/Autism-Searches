@@ -32,4 +32,5 @@ This layer houses the ORM for project. It is split into 2 folders: Model Domain 
 - [ ] Add Machine Learning Algorithm
 - [ ] Add JWT for authentication
 - [ ] Add API fetches
+- [ ] Benchmark implimenting API fetches using completablefuture's and threads
 - [ ] Better READme
