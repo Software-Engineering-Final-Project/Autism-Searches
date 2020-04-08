@@ -28,9 +28,9 @@ This layer houses the ORM for project. It is split into 2 folders: Model Domain 
 ### TODO LIST
 - [x] Test Controller Layer
 - [x] Test Service Layer
-- [ ] Test repository Layer
+- [X] Test repository Layer
 - [ ] Add Machine Learning Algorithm
 - [ ] Add JWT for authentication
 - [ ] Add API fetches
-- [ ] Benchmark implimenting API fetches using completablefuture's and threads
+- [X] Benchmark implimenting API fetches using completablefuture's and threads
 - [ ] Better READme
