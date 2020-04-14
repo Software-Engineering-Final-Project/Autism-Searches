@@ -12,6 +12,7 @@ import com.articlefetch.app.DataAccess.ModelDomain.AccountEntity;
 import com.articlefetch.app.DataAccess.ModelDomain.CategoryEntity;
 import com.articlefetch.app.DataAccess.Repository.AccountRepository;
 import com.articlefetch.app.DataAccess.Repository.CategoryRepository;
+import com.sun.xml.bind.v2.runtime.output.SAXOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -104,6 +105,7 @@ public class AccountServiceImpl implements AccountService {
             }
         });
 
+        //TODO: Update error message
         accountRepository.save(entity);
 
        return entity.getCategories().stream()

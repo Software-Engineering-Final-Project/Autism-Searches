@@ -53,13 +53,8 @@ public class AccountController {
     @PostMapping("/addCategories")
     public ResponseEntity<List<Category>> addCategories(
             @RequestBody List<Category> categoryList,
-            @RequestParam(value = "id", required = true) Integer id,
-            HttpServletRequest httpServletRequest)
+            @RequestParam(value = "id", required = true) Integer id)
     {
-        List greetings = (List) httpServletRequest.getSession().getAttribute("GREETING_MESSAGES");
-        if(greetings == null) {
-            System.out.println("NO AVAILABLE HEADER");
-        }
         return new ResponseEntity<>(accountService.addStarredCategories(categoryList, id), HttpStatus.OK);
     }
 

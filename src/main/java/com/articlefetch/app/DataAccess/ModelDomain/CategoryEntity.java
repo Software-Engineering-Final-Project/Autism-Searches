@@ -21,12 +21,7 @@ public class CategoryEntity {
 
     private String category_description;
 
-    @ManyToMany(cascade = { CascadeType.MERGE })
-    @JoinTable(
-            name = "accounts_categories",
-            joinColumns = { @JoinColumn(name ="id_account") },
-            inverseJoinColumns = { @JoinColumn(name = "id_categories")}
-    )
+    @ManyToMany(cascade = { CascadeType.MERGE }, mappedBy = "categories")
     private Set<AccountEntity> accounts = new HashSet<>();
 
 
