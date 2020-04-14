@@ -1,8 +1,0 @@
-auth0:
-  audience: https://localhost:8080/
-spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://dev-7v0l060j.auth0.com/
