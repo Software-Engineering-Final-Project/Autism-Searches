@@ -30,8 +30,7 @@ public class ArticleRepositoryTest {
     @Test
     void findByID() {
         ArticleEntity articleE = new ArticleEntity()
-                .create(1, "AutismABC", "Schappel", "jschappel.com", 1,
-                        3);
+                .create(1, "Bla Bla Bla", "Schappel", 1);
 
         when(articleDAO.findById(1)).thenReturn(java.util.Optional.ofNullable(articleE));
         assertEquals(articleE, articleDAO.findById(1).get());
