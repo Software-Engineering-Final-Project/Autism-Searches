@@ -1,17 +1,19 @@
 use article_db;
 
 insert into categories (category_name, category_description) values
-	("Education", "Schools for individuals with ASD"),
-    ("Theropy", "Theropists and leading theropy techinques"),
-    ("Medical", "Latest medical advancments"),
-	("Academic", "Academic related articles"),
-    ("Research", "Research articles"),
-    ("Professions", "Job listings for caretakers"),
-    ("Symptoms", "Articles covering ASD symptoms"),
-    ("Treatments", "Articles covering ASD treatments"),
-    ("News Articles", "News Atricles that realte to ASD"),
-    ("Technology", "The latest technological advancements in ASD"),
-	("Supprot Groups", "Support groups for individuals with ASD"),
-    ("Charities", "Information pertaining to ASD charities");
+	("CNN", "CNN News "),
+    ("Other", "News from smaller compainies"),
+    ("IEEE", "Computer Science related articles"),
+	("Forbes", "Forbes News"),
+    ("NIH.org", "Nation Institute of Health"),
+    ("Google News", "News from Googles API"),
+    ("The New Yorker", "The New Yorker's news"),
+    ("WebMD", "Medical related articles"),
+    ("ABC News", "ABC News"),
+    ("USA Today", "USA Toda"),
+	("Physchology Today", "Physchology realated articles"),
+    ("TED.com", "TED talks"),
+    ("Science Mag", "Sciene related news"),
+    ("Scientific America", "Sciene related news");
     
     SELECT * FROM categories;
