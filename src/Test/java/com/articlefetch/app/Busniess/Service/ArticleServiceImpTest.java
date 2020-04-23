@@ -37,11 +37,11 @@ public class ArticleServiceImpTest {
     @Test
     void createArticle() {
         Article newArticleCreate = new Article(1, "AutizABC", "Joshua",
-                "Schappel.com", 2, 2);
+                "Schappel.com", 2);
 
         ArticleEntity articleE = new ArticleEntity()
                 .create(1, "AutizABC", "Schappel", "jschappel.com",
-                        2,2);
+                        2);
 
         when(repository.save(any(ArticleEntity.class))).thenReturn(articleE);
 
@@ -50,17 +50,17 @@ public class ArticleServiceImpTest {
         verify(
                 repository,
                 times(1)
-        ).findExistingConflicts(newArticleCreate.getArticle_name(), newArticleCreate.getArticle_site());
+        ).findExistingConflicts(newArticleCreate.getArticle_title(), newArticleCreate.getAuthors());
     }
 
     @Test
     void createArticle_when_new_article_is_a_duplicate() {
         Article newArticleCreate = new Article(1, "AutizABC", "Joshua",
-                "Schappel.com", 12, 21);
+                "Schappel.com", 12);
 
         doThrow(new DuplicateEntryException())
                 .when(repository)
-                .findExistingConflicts(newArticleCreate.getArticle_name(), newArticleCreate.getArticle_site());
+                .findExistingConflicts(newArticleCreate.getArticle_title(), newArticleCreate.getAuthors());
 
         assertThrows(DuplicateEntryException.class, () -> articleService.createArticle(newArticleCreate));
 
@@ -69,16 +69,14 @@ public class ArticleServiceImpTest {
     @Test
     void getArticle() throws IOException {
         ArticleEntity articleE = new ArticleEntity()
-                .create(1, "AutizABC", "Schappel", "jschappel.com", 32,
-                        2);
+                .create(1, "AutizABC", "Schappel", "jschappel.com", 32);
         when(repository.findById(1)).thenReturn(java.util.Optional.of(articleE));
 
         // test
         Article article = articleService.getArticle(1);
-        assertEquals(articleE.getArticleName(), article.getArticle_name());
+        assertEquals(articleE.getArticleTitle(), article.getArticle_title());
         assertEquals(articleE.getArticleAuthors(), article.getAuthors());
-        assertEquals(articleE.getArticleSite(), article.getArticle_site());
-        assertEquals(articleE.getFK_account_id(), article.getFk_account_id());
+        assertEquals(articleE.getArticleDesc(), article.getArticle_desc());
         assertEquals(articleE.getFK_categories_id(), article.getFk_categories_id());
     }
 
@@ -99,10 +97,10 @@ public class ArticleServiceImpTest {
     @Test
     void getAllArticles() {
         ArticleEntity article1 = new ArticleEntity().create(1, "NewStuff", "Schapp",
-                "jschappel.com", 2, 3);
+                "jschappel.com", 2);
 
         ArticleEntity article2 = new ArticleEntity().create(2, "NewerSuff", "Jon", "bareli.com",
-                2, 3);
+                2);
 
         List<ArticleEntity> dataBaseList = new ArrayList<>();
         dataBaseList.add(article1);
@@ -119,11 +117,11 @@ public class ArticleServiceImpTest {
     @Test
     void update_article() throws IOException {
         Article updateArticle = new Article(12, "AutizABC", "Joshua",
-                "Schappel.com", 4, 5);
+                "Schappel.com", 4);
 
         ArticleEntity newArticleEntry = new ArticleEntity()
                 .create(12, "AutizABC", "Joshua", "Schappel.com",
-                        4, 5);
+                        4);
 
 
         when(repository.findById(12)).thenReturn(Optional.of(newArticleEntry));
@@ -131,10 +129,9 @@ public class ArticleServiceImpTest {
 
         Article article = articleService.getArticle(12);
         assertEquals(updatedArticleCreate.getId(), article.getId());
-        assertEquals(updatedArticleCreate.getArticle_name(), article.getArticle_name());
-        assertEquals(updatedArticleCreate.getArticle_site(), article.getArticle_site());
+        assertEquals(updatedArticleCreate.getArticle_title(), article.getArticle_title());
+        assertEquals(updatedArticleCreate.getArticle_desc(), article.getArticle_desc());
         assertEquals(updatedArticleCreate.getAuthors(), article.getAuthors());
-        assertEquals(updatedArticleCreate.getFk_account_id(), article.getFk_account_id());
         assertEquals(updatedArticleCreate.getFk_categories_id(), article.getFk_categories_id());
 
     }
@@ -142,7 +139,7 @@ public class ArticleServiceImpTest {
     @Test
     void updateArticle_that_does_not_exist() {
         Article newArticleCreate = new Article(133, "AutizABC", "Joshua",
-                "Schappel.com", 2, 2);
+                "Schappel.com", 2);
 
         when(repository.findById(133)).thenThrow(ArticleNotFoundException.class);
 

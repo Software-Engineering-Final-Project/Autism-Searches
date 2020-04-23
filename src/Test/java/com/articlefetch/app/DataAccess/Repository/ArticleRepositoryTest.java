@@ -30,7 +30,8 @@ public class ArticleRepositoryTest {
     @Test
     void findByID() {
         ArticleEntity articleE = new ArticleEntity()
-                .create(1, "Bla Bla Bla", "Schappel", 1);
+                .create(1, "Bla Bla Bla", "Schappel",
+                        "True Things", 1);
 
         when(articleDAO.findById(1)).thenReturn(java.util.Optional.ofNullable(articleE));
         assertEquals(articleE, articleDAO.findById(1).get());
@@ -47,11 +48,13 @@ public class ArticleRepositoryTest {
     @Test
     void findAll() {
         ArticleEntity articleE1 = new ArticleEntity()
-                .create(1, "Josh", "Schappel", "jschappel.com", 21,
-                        5);
+                .create(1, "Bla Bla Bla", "Schappel",
+                        "True Things", 1);
+
         ArticleEntity articleE2 = new ArticleEntity()
-                .create(2, "Jon", "Bar Eli", "Jbareli.com", 32,
-                        4);
+                .create(2, "Bla Bla Blaaaa", "Schappelll",
+                        "True Thingsss", 2);
+
         List<ArticleEntity> articleList = new ArrayList<>();
         articleList.add(articleE1);
         articleList.add(articleE2);
@@ -81,8 +84,9 @@ public class ArticleRepositoryTest {
     @Test
     void find_existing_conflicts_with_conflict() {
         ArticleEntity articleE1 = new ArticleEntity()
-                .create(1, "Josh", "Schappel", "jschappel.com", 1,
-                        2);
+                .create(1, "Bla Bla Bla", "Schappel",
+                        "True Things", 1);
+
         List<ArticleEntity> accountList = new ArrayList<>();
         accountList.add(articleE1);
 
@@ -95,19 +99,18 @@ public class ArticleRepositoryTest {
     @Test
     void find_article_by_name() {
         ArticleEntity articleE1 = new ArticleEntity()
-                .create(1, "Josh", "Schappel", "jschappel.com", 1,
-                        2);
+                .create(1, "Bla Bla Bla", "Schappel",
+                        "Josh", 1);
+
 
         when(articleDAO.findArticleByname("Josh")).thenReturn(Optional.of(articleE1));
 
         ArticleEntity e = articleDAO.findArticleByname("Josh").get();
-        assertEquals(e.getArticleName(), articleE1.getArticleName());
-        assertEquals(e.getArticleSite(), articleE1.getArticleSite());
+        assertEquals(e.getArticleTitle(), articleE1.getArticleTitle());
+        assertEquals(e.getArticleDesc(), articleE1.getArticleDesc());
         assertEquals(e.getArticleAuthors(), articleE1.getArticleAuthors());
         assertEquals(e.getStaredArticles_id(), articleE1.getStaredArticles_id());
         assertEquals(e.getFK_categories_id(), articleE1.getFK_categories_id());
-        assertEquals(e.getFK_account_id(), articleE1.getFK_account_id());
-
     }
 
     @Test

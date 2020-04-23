@@ -16,9 +16,9 @@ import java.util.Optional;
 @Repository
 public interface ArticleRepository extends CrudRepository<ArticleEntity, Integer> {
 
-    @Query("SELECT s FROM ArticleEntity s WHERE article_name = ?1 OR article_site = ?2")
+    @Query("SELECT s FROM ArticleEntity s WHERE article_title = ?1 OR article_authors = ?2")
     List<ArticleEntity> findExistingConflicts(String article_title, String article_authors);
 
-    @Query("SELECT s FROM ArticleEntity s WHERE article_name = ?1")
+    @Query("SELECT s FROM ArticleEntity s WHERE article_title = ?1")
     Optional<ArticleEntity> findArticleByname(String article_title);
 }

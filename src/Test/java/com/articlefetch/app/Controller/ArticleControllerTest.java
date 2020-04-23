@@ -38,7 +38,7 @@ public class ArticleControllerTest {
     @Test
     void getAllArticles() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
-                "Schappel.com", 1, 1);
+                "Schappel.com", 1);
 
         List<Article> articleList = Arrays.asList(a1);
 
@@ -49,17 +49,16 @@ public class ArticleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].id", is(1)))
-                .andExpect(jsonPath("$[0].article_name", is("AutismXYZ")))
+                .andExpect(jsonPath("$[0].article_title", is("AutismXYZ")))
                 .andExpect(jsonPath("$[0].authors", is("Joshua")))
-                .andExpect(jsonPath("$[0].article_site", is("Schappel.com")))
-                .andExpect(jsonPath("$[0].fk_account_id", is(1)))
+                .andExpect(jsonPath("$[0].article_desc", is("Schappel.com")))
                 .andExpect(jsonPath("$[0].fk_categories_id", is(1)));
     }
 
     @Test
     void getArticle() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
-                "Schappel.com", 1, 1);
+                "Schappel.com", 1);
 
         given(service.getArticle(1)).willReturn(a1);
 
@@ -67,10 +66,9 @@ public class ArticleControllerTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$['id']", is(1)))
-                .andExpect(jsonPath("$['article_name']", is("AutismXYZ")))
+                .andExpect(jsonPath("$['article_title']", is("AutismXYZ")))
                 .andExpect(jsonPath("$['authors']", is("Joshua")))
-                .andExpect(jsonPath("$['article_site']", is("Schappel.com")))
-                .andExpect(jsonPath("$['fk_account_id']", is(1)))
+                .andExpect(jsonPath("$['article_desc']", is("Schappel.com")))
                 .andExpect(jsonPath("$['fk_categories_id']", is(1)));
     }
 
@@ -94,7 +92,7 @@ public class ArticleControllerTest {
     @Test
     void createArticle() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
-                "Schappel.com", 111, 111);
+                "Schappel.com", 111);
 
         when(service.createArticle(any())).thenReturn(1);
 
@@ -115,7 +113,7 @@ public class ArticleControllerTest {
     @Test
     void create_duplicate_article() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
-                "Schappel.com", 23, 21);
+                "Schappel.com", 23);
 
         doThrow(DuplicateEntryException.class).when(service).createArticle(a1);
 

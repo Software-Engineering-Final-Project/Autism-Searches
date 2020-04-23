@@ -57,11 +57,11 @@ public class ArticleEntity {
          this.stared_articles_id = stared_articles_id;
     }
 
-    public String getArticleName(){
+    public String getArticleDesc(){
         return this.description;
     }
 
-    public void setArticleName(String description) {
+    public void setArticleDesc(String description) {
         this.description = description;
     }
 

@@ -27,7 +27,7 @@ public class ArticleServiceImpl implements ArticleService{
     @Override
     public Integer createArticle(Article article) throws DuplicateEntryException {
         // Check if an account exists
-        if(!articleRepository.findExistingConflicts(article.article_name, article.article_site).isEmpty()) {
+        if(!articleRepository.findExistingConflicts(article.article_title, article.authors).isEmpty()) {
             throw new DuplicateEntryException();
         }
         ArticleEntity entity = articleRepository.save(Mapper.from(article));
@@ -55,8 +55,8 @@ public class ArticleServiceImpl implements ArticleService{
     public Article updateArticle(Integer id, Article article) throws ArticleNotFoundException, IOException {
         ArticleEntity entity = articleRepository.findById(id).orElseThrow( () -> new ArticleNotFoundException(id));
         entity.setArticleAuthors(article.getAuthors());
-        entity.setArticleName(article.getArticle_name());
-        entity.setArticleSite(article.getArticle_site());
+        entity.setArticleTitle(article.getArticle_title());
+        entity.setArticleDesc(article.getArticle_desc());
 
         articleRepository.save(entity);
         return Mapper.from(entity);

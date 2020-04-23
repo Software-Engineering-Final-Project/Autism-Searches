@@ -23,13 +23,13 @@ public final class Mapper {
     }
 
     public static ArticleEntity from (Article article) {
-        return new ArticleEntity().create(article.getId(), article.getArticle_name(), article.getAuthors(),
-                article.getArticle_site(), article.getFk_account_id(), article.getFk_categories_id());
+        return new ArticleEntity().create(article.getId(), article.getArticle_title(), article.getAuthors(),
+                article.getArticle_desc(), article.getFk_categories_id());
     }
 
     public static Article from (ArticleEntity article)  {
-        return new Article(article.getStaredArticles_id(), article.getArticleName(), article.getArticleAuthors(),
-                article.getArticleSite(), article.getFK_account_id(), article.getFK_categories_id());
+        return new Article(article.getStaredArticles_id(), article.getArticleTitle(),  article.getArticleAuthors(),
+                article.getArticleDesc(), article.getFK_categories_id());
     }
 
     public static CategoryEntity from (Category category) {
