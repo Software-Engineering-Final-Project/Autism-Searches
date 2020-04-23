@@ -23,19 +23,18 @@ public class ArticleEntity {
     public String toString() {
         return "ArticleEntity{" +
                 "stared_articles_id=" + stared_articles_id +
-                ", article_name='" + description + '\'' +
+                ", description='" + description + '\'' +
                 ", article_authors='" + article_authors + '\'' +
                 ", fk_categories_id='" + fk_categories_id + '\'' +
                 '}';
     }
 
-    public ArticleEntity create(Integer id, String description, String authors, Integer Fk_categories_id) {
-
+    public ArticleEntity create(Integer id, String description,
+                                String authors, Integer Fk_categories_id) {
         this.stared_articles_id = id;
         this.description = description;
         this.article_authors = authors;
         this.fk_categories_id = Fk_categories_id;
-
         return this;
     }
 
@@ -62,7 +61,7 @@ public class ArticleEntity {
     public void setArticleAuthors(String article_authors){
         this.article_authors = article_authors;
     }
-    
+
     public Integer getFK_categories_id() { return this.fk_categories_id; }
 
 }
