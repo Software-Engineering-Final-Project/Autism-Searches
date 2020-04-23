@@ -1,10 +1,12 @@
 package com.articlefetch.app.DataAccess.ModelDomain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
-@Table(name = "starred_articles")
+@Table(name = "article")
 public class ArticleEntity {
 
     @Id
@@ -14,6 +16,11 @@ public class ArticleEntity {
     private String article_authors;
 
     private String description;
+
+
+    @ManyToMany(cascade = { CascadeType.MERGE }, mappedBy = "articles")
+    private Set<AccountEntity> accounts = new HashSet<>();
+
 
     @ManyToOne(targetEntity = CategoryEntity.class)
     @JoinColumn(name="id_categories")

@@ -38,6 +38,14 @@ public class AccountEntity {
     )
     private Set<CategoryEntity> categories = new HashSet<>();
 
+    @ManyToMany(cascade = { CascadeType.MERGE })
+    @JoinTable(
+            name = "accounts_categories",
+            joinColumns = { @JoinColumn(name ="account_id") },
+            inverseJoinColumns = { @JoinColumn(name = "article_id")}
+    )
+    private Set<CategoryEntity> articles = new HashSet<>();
+
 
     @Override
     public String toString() {
