@@ -13,6 +13,8 @@ public class ArticleEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer stared_articles_id;
 
+    private String article_title;
+
     private String article_authors;
 
     private String description;
@@ -32,15 +34,17 @@ public class ArticleEntity {
                 "stared_articles_id=" + stared_articles_id +
                 ", description='" + description + '\'' +
                 ", article_authors='" + article_authors + '\'' +
+                ", article_title='" + article_title + '\'' +
                 ", fk_categories_id='" + fk_categories_id + '\'' +
                 '}';
     }
 
     public ArticleEntity create(Integer id, String description,
-                                String authors, Integer Fk_categories_id) {
+                                String authors, String article_title, Integer Fk_categories_id) {
         this.stared_articles_id = id;
         this.description = description;
         this.article_authors = authors;
+        this.article_title = article_title;
         this.fk_categories_id = Fk_categories_id;
         return this;
     }
@@ -59,6 +63,14 @@ public class ArticleEntity {
 
     public void setArticleName(String description) {
         this.description = description;
+    }
+
+    public String getArticleTitle(){
+        return this.article_title;
+    }
+
+    public void setArticleTitle(String title) {
+        this.article_title = title;
     }
 
     public String getArticleAuthors() {
