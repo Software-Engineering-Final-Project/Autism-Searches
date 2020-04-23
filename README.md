@@ -22,7 +22,7 @@ This layer houses the ORM for project. It is split into 2 folders: Model Domain 
     - React Framework
 - Java (backend)
     - Spring MVC
--Python (backend)
+- Python (backend)
     - Machine Learning
 - MySQL
 
