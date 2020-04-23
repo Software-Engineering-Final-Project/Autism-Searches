@@ -271,7 +271,7 @@ class AccountCreateControllerTest {
                 .content(asJsonString(list)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].id", is(3)))
+                .andExpect(jsonPath("$[0].id", is(2)))
                 .andExpect(jsonPath("$[0].name", is("Research")))
                 .andExpect(jsonPath("$[0].description", is("More stuff")));
     }
