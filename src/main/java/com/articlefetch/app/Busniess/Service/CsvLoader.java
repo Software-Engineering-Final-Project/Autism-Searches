@@ -28,9 +28,9 @@ public class CsvLoader {
                     System.out.println(eles[0]);
 
                     ArrayList<Integer> a = new ArrayList<>();
-                    a.add(Integer.parseInt(eles[1]));
-                    a.add(Integer.parseInt(eles[2]));
-                    a.add(Integer.parseInt(eles[3]));
+                    a.add(Integer.parseInt(eles[1].trim()));
+                    a.add(Integer.parseInt(eles[2].trim()));
+                    a.add(Integer.parseInt(eles[3].trim()));
 
                     map.put(Integer.parseInt(eles[0]), a);
                 }
