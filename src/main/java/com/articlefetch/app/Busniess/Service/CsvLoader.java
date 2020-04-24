@@ -16,22 +16,25 @@ public class CsvLoader {
         String cvsSplitBy = ",";
         HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-
+            int index = 0;
             while ((line = br.readLine()) != null) {
 
-                // use comma as separator
-                String[] eles = line.split(cvsSplitBy);
+                if(index != 0) {
+                    // use comma as separator
+                    String[] eles = line.split(cvsSplitBy);
 
-                System.out.println(line);
+                    System.out.println(line);
 
-                System.out.println(eles[0]);
+                    System.out.println(eles[0]);
 
-                ArrayList<Integer> a = new ArrayList<>();
-                a.add(Integer.parseInt(eles[1]));
-                a.add(Integer.parseInt(eles[2]));
-                a.add(Integer.parseInt(eles[3]));
+                    ArrayList<Integer> a = new ArrayList<>();
+                    a.add(Integer.parseInt(eles[1]));
+                    a.add(Integer.parseInt(eles[2]));
+                    a.add(Integer.parseInt(eles[3]));
 
-                map.put(Integer.parseInt(eles[0]), a);
+                    map.put(Integer.parseInt(eles[0]), a);
+                }
+                index++;
             }
 
         } catch (IOException e) {
