@@ -110,7 +110,7 @@ public class ArticleRepositoryTest {
         assertEquals(e.getArticleDesc(), articleE1.getArticleDesc());
         assertEquals(e.getArticleAuthors(), articleE1.getArticleAuthors());
         assertEquals(e.getStaredArticles_id(), articleE1.getStaredArticles_id());
-        assertEquals(e.getFK_categories_id(), articleE1.getFK_categories_id());
+        assertEquals(e.getfk_category_id(), articleE1.getfk_category_id());
     }
 
     @Test

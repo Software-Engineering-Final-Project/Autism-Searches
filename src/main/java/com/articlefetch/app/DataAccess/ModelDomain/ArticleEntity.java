@@ -11,76 +11,76 @@ public class ArticleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer stared_articles_id;
+    private Integer id_article;
 
-    private String article_title;
+    private String title;
 
-    private String article_authors;
+    private String author;
 
-    private String description;
+    private String descrip;
 
 
     @ManyToMany(cascade = { CascadeType.MERGE }, mappedBy = "articles")
     private Set<AccountEntity> accounts = new HashSet<>();
 
 
-    @ManyToOne(targetEntity = CategoryEntity.class)
-    @JoinColumn(name="id_categories")
-    private Integer fk_categories_id;
+//    @ManyToOne(targetEntity = CategoryEntity.class)
+//    @JoinColumn(name="id_categories")
+    private Integer fk_category_id;
 
     @Override
     public String toString() {
         return "ArticleEntity{" +
-                "stared_articles_id=" + stared_articles_id +
-                ", description='" + description + '\'' +
-                ", article_authors='" + article_authors + '\'' +
-                ", article_title='" + article_title + '\'' +
-                ", fk_categories_id='" + fk_categories_id + '\'' +
+                "id_article=" + id_article +
+                ", descrip='" + descrip + '\'' +
+                ", author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                ", fk_category_id='" + fk_category_id + '\'' +
                 '}';
     }
 
-    public ArticleEntity create(Integer id, String description,
-                                String authors, String article_title, Integer Fk_categories_id) {
-        this.stared_articles_id = id;
-        this.description = description;
-        this.article_authors = authors;
-        this.article_title = article_title;
-        this.fk_categories_id = Fk_categories_id;
+    public ArticleEntity create(Integer id, String descrip,
+                                String authors, String title, Integer fk_category_id) {
+        this.id_article = id;
+        this.descrip = descrip;
+        this.author = authors;
+        this.title = title;
+        this.fk_category_id = fk_category_id;
         return this;
     }
 
     public Integer getStaredArticles_id(){
-        return this.stared_articles_id;
+        return this.id_article;
     }
 
-    public void setStaredArticles_id(Integer stared_articles_id){
-         this.stared_articles_id = stared_articles_id;
+    public void setStaredArticles_id(Integer id_article){
+         this.id_article = id_article;
     }
 
     public String getArticleDesc(){
-        return this.description;
+        return this.descrip;
     }
 
-    public void setArticleDesc(String description) {
-        this.description = description;
+    public void setArticleDesc(String descrip) {
+        this.descrip = descrip;
     }
 
     public String getArticleTitle(){
-        return this.article_title;
+        return this.title;
     }
 
     public void setArticleTitle(String title) {
-        this.article_title = title;
+        this.title = title;
     }
 
     public String getArticleAuthors() {
-        return this.article_authors;
+        return this.author;
     }
 
-    public void setArticleAuthors(String article_authors){
-        this.article_authors = article_authors;
+    public void setArticleAuthors(String author){
+        this.author = author;
     }
 
-    public Integer getFK_categories_id() { return this.fk_categories_id; }
+    public Integer getfk_category_id() { return this.fk_category_id; }
 
 }

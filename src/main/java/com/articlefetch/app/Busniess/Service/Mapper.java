@@ -29,8 +29,9 @@ public final class Mapper {
 
     public static Article from (ArticleEntity article)  {
         return new Article(article.getStaredArticles_id(), article.getArticleTitle(),  article.getArticleAuthors(),
-                article.getArticleDesc(), article.getFK_categories_id());
+                article.getArticleDesc(), article.getfk_category_id());
     }
+
 
     public static CategoryEntity from (Category category) {
         return new CategoryEntity().create(category.getId(), category.getName(), category.getDescription());

@@ -77,7 +77,7 @@ public class ArticleServiceImpTest {
         assertEquals(articleE.getArticleTitle(), article.getArticle_title());
         assertEquals(articleE.getArticleAuthors(), article.getAuthors());
         assertEquals(articleE.getArticleDesc(), article.getArticle_desc());
-        assertEquals(articleE.getFK_categories_id(), article.getFk_categories_id());
+        assertEquals(articleE.getfk_category_id(), article.getFk_categories_id());
     }
 
     @Test

@@ -23,10 +23,6 @@ public class CsvLoader {
                     // use comma as separator
                     String[] eles = line.split(cvsSplitBy);
 
-                    System.out.println(line);
-
-                    System.out.println(eles[0]);
-
                     ArrayList<Integer> a = new ArrayList<>();
                     a.add(Integer.parseInt(eles[1].trim()));
                     a.add(Integer.parseInt(eles[2].trim()));
