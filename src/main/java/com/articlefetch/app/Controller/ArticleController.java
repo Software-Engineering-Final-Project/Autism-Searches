@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,13 +25,18 @@ public class ArticleController {
 
     @Autowired ArticleService articleService;
 
+    @GetMapping("/searchArticle")
+    public ResponseEntity<ArrayList<Article>> searchArticle(@RequestParam(value = "id", required = true) Integer id) throws IOException {
+        return new ResponseEntity<>(articleService.searcharticle(id), HttpStatus.OK);
+    }
+
     @GetMapping("/allArticles")
     public ResponseEntity<List<Article>> getAllAccounts() {
         return new ResponseEntity<>(articleService.getAllArticles(), HttpStatus.OK);
     }
 
     @GetMapping("/getArticle")
-    public ResponseEntity<Article> getAccount( @RequestParam(value = "id", required = true) Integer id) throws IOException {
+    public ResponseEntity<Article> getArticle( @RequestParam(value = "id", required = true) Integer id) throws IOException {
         return new ResponseEntity<>(articleService.getArticle(id), HttpStatus.OK);
     }
 

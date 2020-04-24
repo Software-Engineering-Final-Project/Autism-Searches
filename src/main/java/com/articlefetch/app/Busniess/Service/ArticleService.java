@@ -5,9 +5,11 @@ import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
 import com.articlefetch.app.Controller.JacksonModels.Article;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface ArticleService {
+    public ArrayList<Article> searcharticle(Integer id) throws ArticleNotFoundException, IOException;;
     public List<Article> getAllArticles();
     public Article getArticle(Integer id)  throws ArticleNotFoundException, IOException;
     public Article updateArticle(Integer id, Article account) throws ArticleNotFoundException, IOException;

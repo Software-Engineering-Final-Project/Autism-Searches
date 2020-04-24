@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,6 +25,23 @@ import java.util.stream.Stream;
 public class ArticleServiceImpl implements ArticleService{
 
     @Autowired ArticleRepository articleRepository;
+
+
+    public ArrayList<Article> searcharticle(Integer id) throws ArticleNotFoundException, IOException{
+        HashMap<Integer, ArrayList<Integer>> recomendMap = CsvLoader.csvToMap();
+        ArrayList<Integer> ids = recomendMap.get(id);
+        System.out.println(Arrays.toString(ids.toArray()));
+        ArrayList<Article> arrayList = new ArrayList<Article>();
+
+        for (Integer i : ids){
+            ArticleEntity entity = articleRepository.findById(i)
+                    .orElseThrow(() -> new ArticleNotFoundException(i));
+            arrayList.add(Mapper.from(entity));
+        }
+
+        return arrayList;
+    }
+
 
     @Transactional
     @Override
