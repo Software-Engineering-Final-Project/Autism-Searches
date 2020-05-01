@@ -1,45 +1,40 @@
 package com.articlefetch.app.Busniess.Service;
 
 import com.articlefetch.app.Controller.JacksonModels.Image;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
 public class ImageServiceImpl implements ImageService {
+    final String PARENT_FOLDER = "Images";
+    Set<String> imageSet = new HashSet<>(Arrays.asList("c++.png", "c.png", "clojure.png", "csharp.png", "default_user.png",
+            "elixir.png"));
+
 
     @Override
     public List<Image> getAllImages() throws IOException {
-        Stream<File> fs =   getAllPNGFiles("Images");
-        return convertToImages(fs);
+        return convertToImages();
     }
 
-    private static List<Image> convertToImages (Stream<File> fs) throws IOException {
+    private List<Image> convertToImages () throws IOException {
 
-       return fs.map((f) -> {
-                    try {
-                        String relativePath = "/Images/" + f.getName();
-                        return new Image("/" + f.getName(), getImageAsByteArray(relativePath));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .collect(Collectors.toList());
-    }
-
-    private static Stream<File> getAllPNGFiles(String folder) {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        URL url = loader.getResource(folder);
-        File[] files = new File(url.getPath()).listFiles();
-        return Arrays.stream(files)
-                .filter((f) -> f.getName().contains(".png"));
+        Iterator<String> it = this.imageSet.iterator();
+        ArrayList<Image> img_list = new ArrayList<>();
+        for(String path: imageSet) {
+            String relativePath = "/"+ PARENT_FOLDER + "/" + path;
+            img_list.add(new Image("/" + path,  getImageAsByteArray(relativePath)));
+        }
+        
+        return img_list;
     }
 
 
