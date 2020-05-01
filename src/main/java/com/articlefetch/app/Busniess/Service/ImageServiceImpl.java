@@ -33,7 +33,7 @@ public class ImageServiceImpl implements ImageService {
             String relativePath = "/"+ PARENT_FOLDER + "/" + path;
             img_list.add(new Image("/" + path,  getImageAsByteArray(relativePath)));
         }
-        
+
         return img_list;
     }
 

@@ -26,12 +26,14 @@ public class ArticleServiceImpl implements ArticleService{
 
     @Autowired ArticleRepository articleRepository;
 
+    private HashMap<Integer, ArrayList<Integer>> recommendMap = CsvLoader.csvToMap();
+
 
     public ArrayList<Article> searcharticle(Integer id) throws ArticleNotFoundException, IOException{
-        HashMap<Integer, ArrayList<Integer>> recomendMap = CsvLoader.csvToMap();
-        ArrayList<Integer> ids = recomendMap.get(id);
-        System.out.println(Arrays.toString(ids.toArray()));
+
+        ArrayList<Integer> ids = recommendMap.get(id);
         ArrayList<Article> arrayList = new ArrayList<Article>();
+        System.out.println("The id is: " + id);
 
         for (Integer i : ids){
             ArticleEntity entity = articleRepository.findById(i)
