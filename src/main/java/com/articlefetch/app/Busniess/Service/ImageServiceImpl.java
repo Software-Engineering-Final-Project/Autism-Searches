@@ -17,7 +17,9 @@ import java.util.stream.Stream;
 public class ImageServiceImpl implements ImageService {
     final String PARENT_FOLDER = "Images";
     Set<String> imageSet = new HashSet<>(Arrays.asList("c++.png", "c.png", "clojure.png", "csharp.png", "default_user.png",
-            "elixir.png"));
+            "elixir.png", "erlang.png", "github.png", "go.png", "haskell.png", "html.png", "java_logo.png", "java_mascot.png," ,
+                    "javascript_logo.png", "kotlin.png", "php.png", "python.png", "racket.png", "react_logo.png", "ruby.png",
+            "rust.png", "scala.png", "swift.png"));
 
 
     @Override
