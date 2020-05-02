@@ -2,8 +2,9 @@
 
 ### Overview
 - [Product Vision](https://github.com/Software-Engineering-Final-Project/articleFetch#product-vision)
-- [Project Stack](https://github.com/Software-Engineering-Final-Project/articleFetch#project-stack)
+- [Project Stack](https://github.com/Software-Engineering-Final-Project/articleFetch#product-stack)
 - [Project Architecture](https://github.com/Software-Engineering-Final-Project/articleFetch#project-architecture)
+- [Machine Learning](https://github.com/Software-Engineering-Final-Project/articleFetch#machine-learning)
 - [UI Screenshots](https://github.com/Software-Engineering-Final-Project/articleFetch#ui-screenshots)
 - [Future Additions](https://github.com/Software-Engineering-Final-Project/articleFetch#future-additions)
 - [Final Remarks](https://github.com/Software-Engineering-Final-Project/articleFetch#final-remarks)
@@ -22,6 +23,7 @@ We proposed creating an online application where individuals can search for news
 - Mockito
 - My SQL Connector
 - JUnit
+- Python (Scikit-learn, Pandas, NumPy)
 
 
 #### Project Architecture
@@ -47,6 +49,12 @@ This folder holds our Database Create Script, as well as our Table Population Sc
 
 ##### Tests
 We used Test-Driven Development to ensure that all our classes worked properly. We used Mockito, which is a Mocking framework, to inject mocks into each of our classes. This allowed us to be able to swap layers in and out for each other and not have to worry about the tests failing.
+
+#### Machine Learning
+Machine Learning on this project is a content-based recommendation system written in Python. Python was chosen because of the vast library support, and the wealth of information supporting them. A list of articles pulled from an API fetcher (written in Java) is stored in the database. A python script is then run on that data, and the recommendations for each article are returned to the backend.
+Currently, the articles are scored using TFIDF vector space model, and articles are recommended based on cosine similarity. Future additions to the project will include a combination of a Collaborative filtering algorithm based on user preferences along with the content-based recommendation. 
+
+Note: Machine Learning was accomplished through the help of [this tutorial](https://heartbeat.fritz.ai/recommender-systems-with-python-part-i-content-based-filtering-5df4940bd831)
 
 #### Future Additions
 - Search Functionality
