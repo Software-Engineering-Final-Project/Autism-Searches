@@ -1,4 +1,9 @@
 ![Status](https://github.com/Software-Engineering-Final-Project/articleFetch/workflows/Java%20CI%20with%20Maven/badge.svg)
+# Autism Searches Back End
+To view the other parts of the project click on the links below.
+- [Front End](https://github.com/Software-Engineering-Final-Project/articleRecommender)
+- [Machine Learning](https://github.com/Software-Engineering-Final-Project/BackEndML)
+<br />
 
 ## Overview
 - [Product Vision](https://github.com/Software-Engineering-Final-Project/articleFetch#product-vision)
