@@ -79,6 +79,7 @@ Click Here for [UI Images](https://github.com/Software-Engineering-Final-Project
 <br />
 
 ### Final Remarks
+In general, we learned a lot about object mocking, authentication, RESTful API, machine learning, layered architecture, and test-driven development. One spot we struggled in was using a java-based machine learning (ML) library. Since none of us come from an ML background, python offered the most user-friendly ML frameworks, therefore we decided to use Python in the Back End. After having built a back end server in Node.js using Express, java helped build a more robust and scalable back end server while the development process was slower due to java's type system.
 <br />
 
 ### Contributors (in no particular order):
