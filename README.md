@@ -2,7 +2,7 @@
 
 ### Overview
 - [Product Vision](https://github.com/Software-Engineering-Final-Project/articleFetch#product-vision)
-- [Project Stack](https://github.com/Software-Engineering-Final-Project/articleFetch#product-stack)
+- [Project Stack](https://github.com/Software-Engineering-Final-Project/articleFetch#project-stack)
 - [Project Architecture](https://github.com/Software-Engineering-Final-Project/articleFetch#project-architecture)
 - [UI Screenshots](https://github.com/Software-Engineering-Final-Project/articleFetch#ui-screenshots)
 - [Future Additions](https://github.com/Software-Engineering-Final-Project/articleFetch#future-additions)
