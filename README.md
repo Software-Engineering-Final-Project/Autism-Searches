@@ -45,6 +45,8 @@ This layer houses the ORM for our project. It is split into 2 folders: Model Dom
 We used Test-Driven Development to ensure that all our classes worked properly. We used Mockito, which is a Mocking framework, to inject mocks into each of our classes. This allowed us to be able to swap layers in and out for each other and not have to worry about the tests failing.
 
 #### Future Additions
+- Search Functionality
+- Larger Data Set
 
 #### Final Remarks
 
