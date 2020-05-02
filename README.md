@@ -20,12 +20,12 @@ We proposed creating an online application where individuals can search for news
 <br />
 
 ### Project Stack
-##### Frontend
+##### Front End
 - Javascript (REACT)
 - Bootstrap
 - Fontawesome
 
-##### Backend
+##### Back End
 - Java (Spring MVC)
 - Mockito
 - My SQL Connector
