@@ -82,7 +82,7 @@ Click Here for [UI Images](https://github.com/Software-Engineering-Final-Project
 
 ### Contributors (in no particular order):
 - [Joshua Schappel](https://github.com/jschappel)
-- Sachin Mahashabde
-- Jonanthan Simone Bar-Eli
-- Jeremy Suero
-- Melkishar Delly
+- [Sachin Mahashabde](https://github.com/sachinmahashabde)
+- [Jonanthan Simone Bar-Eli](https://github.com/jonbareli)
+- [Jeremy Suero](https://github.com/iamyobany)
+- [Melkishar Delly](https://github.com/melkdelly)
