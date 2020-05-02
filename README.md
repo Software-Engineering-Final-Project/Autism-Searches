@@ -5,7 +5,7 @@
 - [Project Stack](https://github.com/Software-Engineering-Final-Project/articleFetch#product-stack)
 - [Project Architecture](https://github.com/Software-Engineering-Final-Project/articleFetch#project-architecture)
 - [Machine Learning](https://github.com/Software-Engineering-Final-Project/articleFetch#machine-learning)
-- [UI Screenshots](https://github.com/Software-Engineering-Final-Project/articleFetch#ui-screenshots)
+- [UI Screenshots](https://github.com/Software-Engineering-Final-Project/articleFetch/blob/master/Images/README.md)
 - [Future Additions](https://github.com/Software-Engineering-Final-Project/articleFetch#future-additions)
 - [Final Remarks](https://github.com/Software-Engineering-Final-Project/articleFetch#final-remarks)
 
