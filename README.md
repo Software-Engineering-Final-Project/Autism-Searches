@@ -53,6 +53,7 @@ This layer houses the ORM for our project. It is split into 2 folders: Model Dom
 
 ##### Database Schemas
 This folder holds our Database Create Script, as well as our Table Population Scripts. We used My SQL Workbench to create the database.
+Link to the tables can be found [here.](https://github.com/Software-Engineering-Final-Project/articleFetch/tree/master/src/DatabaseSchemas)
 
 ##### Tests
 We used Test-Driven Development to ensure that all our classes worked properly. We used Mockito, which is a Mocking framework, to inject mocks into each of our classes. This allowed us to be able to swap layers in and out for each other and not have to worry about the tests failing.
