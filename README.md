@@ -7,7 +7,7 @@ To view the other parts of the project click on the links below.
 
 ## Overview
 - [Product Vision](https://github.com/Software-Engineering-Final-Project/articleFetch#product-vision)
-- [Project Stack](https://github.com/Software-Engineering-Final-Project/articleFetch#product-stack)
+- [Project Stack](https://github.com/Software-Engineering-Final-Project/articleFetch#project-stack)
 - [Project Architecture](https://github.com/Software-Engineering-Final-Project/articleFetch#project-architecture)
 - [Machine Learning](https://github.com/Software-Engineering-Final-Project/articleFetch#machine-learning)
 - [UI Screenshots](https://github.com/Software-Engineering-Final-Project/articleFetch/blob/master/Images/README.md)
