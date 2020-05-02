@@ -54,7 +54,10 @@ We used Test-Driven Development to ensure that all our classes worked properly. 
 Machine Learning on this project is a content-based recommendation system written in Python. Python was chosen because of the vast library support, and the wealth of information supporting them. A list of articles pulled from an API fetcher (written in Java) is stored in the database. A python script is then run on that data, and the recommendations for each article are returned to the backend.
 Currently, the articles are scored using TFIDF vector space model, and articles are recommended based on cosine similarity. Future additions to the project will include a combination of a Collaborative filtering algorithm based on user preferences along with the content-based recommendation. 
 
-Note: Machine Learning was accomplished through the help of [this tutorial](https://heartbeat.fritz.ai/recommender-systems-with-python-part-i-content-based-filtering-5df4940bd831)
+Note: Machine Learning was accomplished through the help of [this tutorial.](https://heartbeat.fritz.ai/recommender-systems-with-python-part-i-content-based-filtering-5df4940bd831)
+
+#### UI Screenshots
+![alt text](/Images/AccountCreation.png)
 
 #### Future Additions
 - Search Functionality
