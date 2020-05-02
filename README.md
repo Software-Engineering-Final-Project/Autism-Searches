@@ -57,7 +57,7 @@ Currently, the articles are scored using TFIDF vector space model, and articles 
 Note: Machine Learning was accomplished through the help of [this tutorial.](https://heartbeat.fritz.ai/recommender-systems-with-python-part-i-content-based-filtering-5df4940bd831)
 
 #### UI Screenshots
-![alt text](/Images/AccountCreation.png)
+Click Here for [UI Images](https://github.com/Software-Engineering-Final-Project/articleFetch/blob/master/Images/README.md)
 
 #### Future Additions
 - Search Functionality
