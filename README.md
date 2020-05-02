@@ -81,7 +81,7 @@ Click Here for [UI Images](https://github.com/Software-Engineering-Final-Project
 <br />
 
 ### Contributors (in no particular order):
-- Joshua Schappel
+- [Joshua Schappel](https://github.com/jschappel)
 - Sachin Mahashabde
 - Jonanthan Simone Bar-Eli
 - Jeremy Suero
