@@ -1,6 +1,6 @@
 ![Status](https://github.com/Software-Engineering-Final-Project/articleFetch/workflows/Java%20CI%20with%20Maven/badge.svg)
 
-### Overview
+## Overview
 - [Product Vision](https://github.com/Software-Engineering-Final-Project/articleFetch#product-vision)
 - [Project Stack](https://github.com/Software-Engineering-Final-Project/articleFetch#product-stack)
 - [Project Architecture](https://github.com/Software-Engineering-Final-Project/articleFetch#project-architecture)
@@ -9,10 +9,10 @@
 - [Future Additions](https://github.com/Software-Engineering-Final-Project/articleFetch#future-additions)
 - [Final Remarks](https://github.com/Software-Engineering-Final-Project/articleFetch#final-remarks)
 
-#### Product Vision
+### Product Vision
 We proposed creating an online application where individuals can search for news and scholarly articles that pertain to common autistic behaviors, handling of autistic individuals, and research relating to autism. What makes this application stand out from current applications in the field is that our application will make suggestions about articles that pertain to the topics and articles that the user has already searched.
 
-#### Project Stack
+### Project Stack
 ##### Frontend
 - Javascript (REACT)
 - Bootstrap
@@ -26,7 +26,7 @@ We proposed creating an online application where individuals can search for news
 - Python (Scikit-learn, Pandas, NumPy)
 
 
-#### Project Architecture
+### Project Architecture
 The project is built using a Layered Architecture & Test Driven Development. It is split into the following layers:
 - Main
     - Controller Layer
@@ -50,19 +50,19 @@ This folder holds our Database Create Script, as well as our Table Population Sc
 ##### Tests
 We used Test-Driven Development to ensure that all our classes worked properly. We used Mockito, which is a Mocking framework, to inject mocks into each of our classes. This allowed us to be able to swap layers in and out for each other and not have to worry about the tests failing.
 
-#### Machine Learning
+### Machine Learning
 Machine Learning on this project is a content-based recommendation system written in Python. Python was chosen because of the vast library support, and the wealth of information supporting them. A list of articles pulled from an API fetcher (written in Java) is stored in the database. A python script is then run on that data, and the recommendations for each article are returned to the backend.
 Currently, the articles are scored using TFIDF vector space model, and articles are recommended based on cosine similarity. Future additions to the project will include a combination of a Collaborative filtering algorithm based on user preferences along with the content-based recommendation. 
 
 Note: Machine Learning was accomplished through the help of [this tutorial.](https://heartbeat.fritz.ai/recommender-systems-with-python-part-i-content-based-filtering-5df4940bd831)
 
-#### UI Screenshots
+### UI Screenshots
 Click Here for [UI Images](https://github.com/Software-Engineering-Final-Project/articleFetch/blob/master/Images/README.md)
 
-#### Future Additions
+### Future Additions
 - Search Functionality
 - Larger Data Set
 - Recommend Articles Based on Starred Articles
 
-#### Final Remarks
+### Final Remarks
 
