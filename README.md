@@ -5,6 +5,8 @@ To view the other parts of the project click on the links below.
 - [Machine Learning](https://github.com/Software-Engineering-Final-Project/BackEndML)
 <br />
 
+#### This project was presented at 2020 [Petershiem Academic Exposition](https://www.shu.edu/petersheim/schedule-of-events-2019.cfm)
+
 ## Overview
 - [Product Vision](https://github.com/Software-Engineering-Final-Project/articleFetch#product-vision)
 - [Project Stack](https://github.com/Software-Engineering-Final-Project/articleFetch#project-stack)
