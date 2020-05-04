@@ -19,6 +19,7 @@ public class ArticleEntity {
 
     private String descrip;
 
+    private String url;
 
     @ManyToMany(cascade = { CascadeType.MERGE }, mappedBy = "articles")
     private Set<AccountEntity> accounts = new HashSet<>();
@@ -40,11 +41,12 @@ public class ArticleEntity {
     }
 
     public ArticleEntity create(Integer id, String descrip,
-                                String authors, String title, Integer fk_category_id) {
+                                String authors, String title, Integer fk_category_id, String url) {
         this.id_article = id;
         this.descrip = descrip;
         this.author = authors;
         this.title = title;
+        this.url = url;
         this.fk_category_id = fk_category_id;
         return this;
     }
@@ -83,4 +85,11 @@ public class ArticleEntity {
 
     public Integer getfk_category_id() { return this.fk_category_id; }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

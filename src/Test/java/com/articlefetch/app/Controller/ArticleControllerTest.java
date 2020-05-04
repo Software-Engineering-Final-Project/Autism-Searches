@@ -38,7 +38,7 @@ public class ArticleControllerTest {
     @Test
     void getAllArticles() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
-                "Schappel.com", 1);
+                "Schappel.com", 1, "");
 
         List<Article> articleList = Arrays.asList(a1);
 
@@ -58,7 +58,7 @@ public class ArticleControllerTest {
     @Test
     void getArticle() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
-                "Schappel.com", 1);
+                "Schappel.com", 1, "");
 
         given(service.getArticle(1)).willReturn(a1);
 
@@ -92,7 +92,7 @@ public class ArticleControllerTest {
     @Test
     void createArticle() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
-                "Schappel.com", 111);
+                "Schappel.com", 111, "");
 
         when(service.createArticle(any())).thenReturn(1);
 
@@ -113,7 +113,7 @@ public class ArticleControllerTest {
     @Test
     void create_duplicate_article() throws Exception {
         Article a1 = new Article(1, "AutismXYZ", "Joshua",
-                "Schappel.com", 23);
+                "Schappel.com", 23, "");
 
         doThrow(DuplicateEntryException.class).when(service).createArticle(a1);
 

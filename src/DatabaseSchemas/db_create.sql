@@ -73,10 +73,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `article_db`.`article` (
   `id_article` INT NOT NULL,
-  `title` VARCHAR(80) NOT NULL,
-  `desc` VARCHAR(1500) NOT NULL,
-  `author` VARCHAR(45) NOT NULL,
+  `title` LONGTEXT NOT NULL,
+  `descrip` LONGTEXT NOT NULL,
+  `author` LONGTEXT NOT NULL,
   `fk_category_id` INT NOT NULL,
+  `url` LONGTEXT NULL,
   PRIMARY KEY (`id_article`),
   INDEX `fk_article_categories1_idx` (`fk_category_id` ASC) VISIBLE,
   CONSTRAINT `fk_article_categories1`

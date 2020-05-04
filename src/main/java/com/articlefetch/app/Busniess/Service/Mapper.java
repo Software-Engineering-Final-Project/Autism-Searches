@@ -24,12 +24,12 @@ public final class Mapper {
 
     public static ArticleEntity from (Article article) {
         return new ArticleEntity().create(article.getId(), article.getArticle_title(), article.getAuthors(),
-                article.getArticle_desc(), article.getFk_categories_id());
+                article.getArticle_desc(), article.getFk_categories_id(), article.url);
     }
 
     public static Article from (ArticleEntity article)  {
         return new Article(article.getStaredArticles_id(), article.getArticleTitle(),  article.getArticleAuthors(),
-                article.getArticleDesc(), article.getfk_category_id());
+                article.getArticleDesc(), article.getfk_category_id(), article.getUrl());
     }
 
 

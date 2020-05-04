@@ -31,7 +31,7 @@ public class ArticleRepositoryTest {
     void findByID() {
         ArticleEntity articleE = new ArticleEntity()
                 .create(1, "Bla Bla Bla", "Schappel",
-                        "True Things", 1);
+                        "True Things", 1, "");
 
         when(articleDAO.findById(1)).thenReturn(java.util.Optional.ofNullable(articleE));
         assertEquals(articleE, articleDAO.findById(1).get());
@@ -49,11 +49,11 @@ public class ArticleRepositoryTest {
     void findAll() {
         ArticleEntity articleE1 = new ArticleEntity()
                 .create(1, "Bla Bla Bla", "Schappel",
-                        "True Things", 1);
+                        "True Things", 1, "");
 
         ArticleEntity articleE2 = new ArticleEntity()
                 .create(2, "Bla Bla Blaaaa", "Schappelll",
-                        "True Thingsss", 2);
+                        "True Thingsss", 2, "");
 
         List<ArticleEntity> articleList = new ArrayList<>();
         articleList.add(articleE1);
@@ -85,7 +85,7 @@ public class ArticleRepositoryTest {
     void find_existing_conflicts_with_conflict() {
         ArticleEntity articleE1 = new ArticleEntity()
                 .create(1, "Bla Bla Bla", "Schappel",
-                        "True Things", 1);
+                        "True Things", 1, "");
 
         List<ArticleEntity> accountList = new ArrayList<>();
         accountList.add(articleE1);
@@ -100,7 +100,7 @@ public class ArticleRepositoryTest {
     void find_article_by_name() {
         ArticleEntity articleE1 = new ArticleEntity()
                 .create(1, "Bla Bla Bla", "Schappel",
-                        "Josh", 1);
+                        "Josh", 1, "");
 
 
         when(articleDAO.findArticleByname("Josh")).thenReturn(Optional.of(articleE1));

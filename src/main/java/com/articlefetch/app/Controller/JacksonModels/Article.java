@@ -6,10 +6,12 @@ public class Article {
     public String article_title;
     public String authors;
     public String article_desc;
+    public String url;
     public Integer Fk_categories_id;
 
-    public Article(Integer id, String article_title, String authors, String article_desc, Integer Fk_categories_id) {
+    public Article(Integer id, String article_title, String authors, String article_desc, Integer Fk_categories_id, String url) {
         this.id = id;
+        this.url = url;
         this.article_title = article_title;
         this.authors = authors;
         this.article_desc = article_desc;
