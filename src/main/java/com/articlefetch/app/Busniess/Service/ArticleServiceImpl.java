@@ -2,6 +2,7 @@ package com.articlefetch.app.Busniess.Service;
 
 import com.articlefetch.app.Busniess.Exceptions.ArticleNotFoundException;
 import com.articlefetch.app.Busniess.Exceptions.DuplicateEntryException;
+import com.articlefetch.app.Common.CsvLoader;
 import com.articlefetch.app.Controller.JacksonModels.Article;
 import com.articlefetch.app.DataAccess.ModelDomain.ArticleEntity;
 import com.articlefetch.app.DataAccess.Repository.ArticleRepository;
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,8 +33,6 @@ public class ArticleServiceImpl implements ArticleService{
 
         ArrayList<Integer> ids = recommendMap.get(id);
         ArrayList<Article> arrayList = new ArrayList<Article>();
-        System.out.println("The id is: " + id);
-
         for (Integer i : ids){
             ArticleEntity entity = articleRepository.findById(i)
                     .orElseThrow(() -> new ArticleNotFoundException(i));

@@ -1,4 +1,4 @@
-package com.articlefetch.app.Busniess.Service;
+package com.articlefetch.app.Common;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
